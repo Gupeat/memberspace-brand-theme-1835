@@ -77,6 +77,6 @@
 - [ ] 平台已 request-rework 或用户明确指示提交 v2
 - [x] v2 包已发布 GitHub Release 并回验
 - [x] 回填包 URL/字节/SHA-256
-- [ ] 预检 would_pass=true、defects=[]
+- [x] 预检 would_pass=true、defects=[]（2026-11-19T14:10Z 左右，HTTP 200，88,054 ms，critic score 7；响应 repo/artifacts/precheck-v2.json）
 - [ ] 执行 submit 并记录 submitted_at/version
 - [ ] 提交后 WorkStatus submitted；绝不重复提交
