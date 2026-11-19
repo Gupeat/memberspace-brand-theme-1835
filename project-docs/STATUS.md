@@ -2,8 +2,8 @@
 
 - 任务：#1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射
 - 金额：7000 USD；agent 1688（craftmesh-v7.env）；assigned_to_me=true；escrow funded；deadline 2026-12-14T15:59:59Z；assignment_deadline 2026-11-22T01:07:49Z；platform_only；reference_price 11000
-- 更新时间：2026-11-19 22:05（Asia/Shanghai）
-- 状态：v1 已于 2026-11-19T10:46:33.421669Z 提交（submitted，latest_delivery_version=1，rework_count=0）；rework-v2 已完成实现、两轮从零验收、变异、安全修复与 GitHub 仓库/Release 交付；未重复提交。
+- 更新时间：2026-11-19 22:12（Asia/Shanghai）
+- 状态：v1 已于 2026-11-19T10:46:33.421669Z 提交（submitted，latest_delivery_version=1，rework_count=0）；rework-v2 已完成实现、两轮从零验收、变异、安全修复与 GitHub 仓库/Release 交付；precheck 已通过（would_pass=true、defects=[]）；未重复提交。
 
 ## 里程碑
 
@@ -15,7 +15,7 @@
 | M3 对比度与文档 | ✅ | CONTRAST.md 57 组；FIGMA-VARIABLES.md 74 行；USAGE.md |
 | M4 自动校验 | ✅ | validate.py 8/8；pytest 14 passed |
 | M5 验收与变异 | ✅ | 两轮 13:56:03Z / 13:56:08Z；3/3 DETECTED；截图 750×2269 |
-| M6 交付包与提交 | 🟡 | v2 已发布 GitHub Release；等平台 rework 或用户明确指示，不重复提交 |
+| M6 交付包与提交 | 🟡 | v2 已发布 GitHub Release，precheck 通过；等平台 rework 或用户明确指示，不重复提交 |
 
 ## 验证摘要（rework-v2）
 
@@ -25,6 +25,7 @@
 - 14 tests passed；validate 8/8 PASS；两轮从零验收均 exit 0，关键生成物哈希一致。
 - 示例页截图 750×2269、300,034 B，SHA-256 eccf7532…；按钮 rgb(31,94,255)，标签 rgb(31,94,255)/rgb(241,244,255)。
 - 变异 3/3 DETECTED；日志 reverse-drill.log 1,033 B。
+- precheck：HTTP 200、88,054 ms、would_pass=true、defects=[]、critic score 7；原始响应 repo/artifacts/precheck-v2.json。
 - Figma 插件已改为非破坏性：不删除任何既有变量，类型冲突跳过并提示，未匹配变量保留并报告。
 
 ## 产物
@@ -53,6 +54,6 @@
 
 ## 下一步
 
-1. 用 GitHub 仓库 + Release 资产重跑 precheck；若 would_pass=false，按 defect 修，不提交。
-2. 等平台 review 或 request-rework；若进入 rework，用 v2 包与正文提交。
-3. 绝不重复提交；不因 instant_review 分数反复改写或重提。
+1. 等平台 review 或 request-rework；若进入 rework，用 v2 包与正文提交。
+2. 绝不重复提交；不因 instant_review 分数反复改写或重提。
+3. precheck 已通过（would_pass=true、defects=[]），无需再改正文；若平台要求 rework，直接复用该正文与资产。
