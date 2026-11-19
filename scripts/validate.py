@@ -277,7 +277,32 @@ def validate_figma() -> str:
     for path in PATHS:
         if path not in plugin:
             raise AssertionError(f"Figma plugin script missing variable: {path}")
-    return f"{len(variables)} Figma variables, names exactly equal tokens.json paths"
+    import_path = ROOT / "figma" / "figma-import.tokens.json"
+    import_text = read(import_path)
+    expected_import = json.dumps(build.render_figma_import(INDEX), ensure_ascii=False, indent=2) + "\n"
+    if import_text != expected_import:
+        raise AssertionError("figma-import.tokens.json is stale; run python scripts/build.py")
+    if read(ROOT / "figma" / "Light.tokens.json") != expected_import:
+        raise AssertionError("figma/Light.tokens.json must be identical to figma-import.tokens.json")
+    imported = json.loads(import_text)
+    imported_paths = {p for p, _, _ in build.walk(imported)}
+    if imported_paths != PATHS:
+        missing = sorted(PATHS - imported_paths)
+        extra = sorted(imported_paths - PATHS)
+        raise AssertionError(f"Figma DTCG import names not 1:1; missing={missing} extra={extra}")
+    expected_types = {"color": 0, "number": 0, "string": 0}
+    for _, typ in INDEX.values():
+        expected_types[build.figma_import_type(typ)] += 1
+    actual_types = {kind: 0 for kind in expected_types}
+    for _, _, typ in build.walk(imported):
+        actual_types[typ] = actual_types.get(typ, 0) + 1
+    if actual_types != expected_types:
+        raise AssertionError(f"Figma import type counts {actual_types} != {expected_types}")
+    if imported["color"]["text"]["primary"]["$value"] != "{color.neutral.900}":
+        raise AssertionError("Figma import aliases must be preserved as {path} references")
+    if "（rpx" in import_text:
+        raise AssertionError("Figma import description contains a truncated rpx suffix")
+    return f"{len(variables)} Figma variables + {len(imported_paths)} DTCG import variables, names exactly equal tokens.json paths"
 
 
 def validate_demo() -> str:

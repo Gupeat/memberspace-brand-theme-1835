@@ -1,9 +1,11 @@
 # Figma 变量对照表
 
-本机无 Figma 账号与 Token，无法直接创建/分享 Figma 文件。以下为可导入定义与 1:1 对照；
-figma/create-variables.js 可在 Figma Plugin API 中一次性创建同名变量集合。
+在线 Figma 文件（viewer 可看）：https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1
 
-Figma 变量名严格等于 tokens.json 的点分路径。尺寸按 2rpx = 1px 换算为 Figma 数值。
+该文件由 Figma Variables 导入 `figma/Light.tokens.json` 生成：collection `Theme`、mode `Light`、74 个变量；Figma 中显示为 / 分隔的嵌套分组，对应下表的点分路径。
+`figma/figma-import.tokens.json` 为同一 DTCG 数据的通用文件名副本；`figma/figma-variables.json` 与 `figma/create-variables.js` 是机器可读定义和桌面插件备选路径。
+
+变量名严格等于 tokens.json 的点分路径。尺寸按 2rpx = 1px 换算为 Figma 数值；别名保留为 `{path}` 引用。
 
 | # | token 路径 | Figma 变量名 | Figma 类型 | 值 | 说明 |
 | ---: | --- | --- | --- | --- | --- |

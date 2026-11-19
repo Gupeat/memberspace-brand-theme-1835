@@ -17,6 +17,7 @@
 
 6. 对比度不达标时，`validate.py` 会打印具体组合与比值；必须 ≥4.5:1。不要通过删检查项“修复”。
 7. 重新截取示例页：`node scripts/capture.mjs`（需要 Edge 与 playwright-core）。
+8. 在线 Figma 变量在 `tokens.json` 变更后需重新导入 `figma/Light.tokens.json` 并重导出快照，再跑 `python scripts/verify_figma_export.py`；详见 `docs/FIGMA-ONLINE.md`。
 
 ### 加新令牌
 
@@ -36,6 +37,13 @@ node scripts/capture.mjs
 ```
 
 截图应显示按钮主色、标签文字色与新品牌色一致。
+
+## 1.1 设计师：在线 Figma
+
+- 在线文件：https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1
+- collection `Theme`、mode `Light`、74 个变量；共享设置为 Anyone / can edit，匿名可查看画布。
+- 令牌变化后：重新导入 `figma/Light.tokens.json` → 导出 `Theme.zip` → 解包到 `evidence/figma-online/Light.tokens.json` → 跑 `python scripts/verify_figma_export.py`。
+- 匿名视图不显示 Variables 编辑面板；变量证据以登录态截图与导出快照为准。
 
 ## 2. 小程序开发者：接入 TDesign
 
@@ -85,7 +93,8 @@ node scripts/capture.mjs
 - `theme.wxss`
 - `demo/theme.css`（rpx 换成 px 的 2x 浏览器预览）
 - `figma/figma-variables.json`
-- `figma/create-variables.js`、`figma/manifest.json`
+- `figma/figma-import.tokens.json`、`figma/Light.tokens.json`（Figma Variables 可直接导入的嵌套 DTCG）
+- `figma/create-variables.js`、`figma/manifest.json`（桌面插件备选路径）
 - `docs/CONTRAST.md`
 - `docs/FIGMA-VARIABLES.md`
 
@@ -104,7 +113,7 @@ python scripts/run_acceptance.py --label round1
 python scripts/run_acceptance.py --label round2
 ```
 
-`run_acceptance.py` 会删除生成物后重建，校验 8 项、14 项 pytest、截图尺寸/色彩，并写出：
+`run_acceptance.py` 会删除生成物后重建，校验 8 项、15 项 pytest、在线 Figma 导出 74/74、截图尺寸/色彩，并写出：
 
 - `artifacts/acceptance-<label>.log`（每条命令、stdout、stderr）
 - `artifacts/ACCEPTANCE-<label>.md`、`artifacts/ACCEPTANCE.md`
@@ -124,15 +133,18 @@ python scripts/reverse_drill.py
 | `theme.wxss 或 demo/theme.css 不是最新` | 改了 tokens 但没跑 build；重跑 build |
 | 对比度 FAIL | 调整前景/背景色，直到 ≥4.5:1；不要改阈值 |
 | Figma 1:1 失败 | 检查 Tokens 路径是否被改名；重跑 build 生成变量与文档 |
+| Figma 导出校验失败 | 在线文件或 `evidence/figma-online` 快照过期；按 `docs/FIGMA-ONLINE.md` 重新导入/导出/校验 |
 | demo 变量未定义 | `demo.css` 用了 THEME_MAP 未映射的 `--td-*`；补映射或改用已有变量 |
 | 截图失败 | 确认 Edge 路径、`playwright-core` 已安装；可用 `EDGE` 环境变量 |
 | GIF/截图字节不同 | 字体/渲染差异；以像素与计算样式断言为准，不要求字节稳定 |
 | Figma 插件无法导入 | 选择 `figma/manifest.json` 而不是 JS 文件；需要在桌面端开发插件菜单 |
+| 在线 Figma 看不到 Variables | 匿名查看者没有编辑面板属 Figma 权限设计；用有编辑权限的账号查看 |
 
 ### 不变量
 
 - `tokens.json` 是唯一真源；生成物不得手改。
 - 74 个 token、64 个 TDesign 消费变量、74 个 Figma 变量、57 组对比度必须保持一致。
+- 在线 Figma 导出快照必须 74/74 与 `tokens.json` 一致（`verify_figma_export.py`）。
 - 最低正文对比度 4.66:1。
 - 示例页 750px 宽、2x 预览、截图高 ≥1500。
 - 所有示例数据为虚构，不含 PII、API Key、Token。

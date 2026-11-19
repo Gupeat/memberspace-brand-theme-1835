@@ -32,6 +32,8 @@ GENERATED_FILES = [
     ROOT / "demo" / "theme.css",
     ROOT / "figma" / "figma-variables.json",
     ROOT / "figma" / "create-variables.js",
+    ROOT / "figma" / "figma-import.tokens.json",
+    ROOT / "figma" / "Light.tokens.json",
     ROOT / "docs" / "CONTRAST.md",
     ROOT / "docs" / "FIGMA-VARIABLES.md",
     ARTIFACTS / "example-page.png",
@@ -81,9 +83,11 @@ def main() -> None:
     pytest_step = run("pytest", [sys.executable, "-m", "pytest", "-q", "tests"])
     steps.append(pytest_step)
     match = re.search(r"(\d+) passed", pytest_step["stdout"])
-    if not match or int(match.group(1)) < 14:
-        raise SystemExit("pytest did not report at least 14 passed")
+    if not match or int(match.group(1)) < 15:
+        raise SystemExit("pytest did not report at least 15 passed")
     tests_passed = int(match.group(1))
+
+    steps.append(run("verify-figma", [sys.executable, str(ROOT / "scripts" / "verify_figma_export.py")]))
 
     steps.append(run("capture", [NODE, str(ROOT / "scripts" / "capture.mjs")]))
 
@@ -106,8 +110,10 @@ def main() -> None:
         "artifacts/example-page.png": sha256(screenshot),
     }
     validation = json.loads((ARTIFACTS / "validation.json").read_text(encoding="utf-8"))
+    figma_verify = json.loads((ROOT / "evidence" / "figma-online" / "verify.json").read_text(encoding="utf-8"))
     summary = {
-        "ok": validation["ok"] and build_json["tokens"] == 74 and build_json["themeVariables"] == 64 and build_json["contrastPairs"] == 57,
+        "ok": validation["ok"] and build_json["tokens"] == 74 and build_json["themeVariables"] == 64 and build_json["figmaImportVariables"] == 74 and build_json["contrastPairs"] == 57 and figma_verify["ok"],
+        "figmaExport": {"ok": figma_verify["ok"], "checked": figma_verify["checked"], "collection": figma_verify["collection"], "mode": figma_verify["mode"]},
         "label": args.label,
         "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "build": build_json,
@@ -141,6 +147,7 @@ def main() -> None:
         f"- 单测：{tests_passed} passed",
         f"- 校验：{len(validation['checks'])}/8 PASS",
         f"- token / TDesign 变量 / 对比度组合：{build_json['tokens']} / {build_json['themeVariables']} / {build_json['contrastPairs']}（最小 {build_json['minContrast']}:1）",
+        f"- Figma 在线导出：{figma_verify['checked']}/74 名称 1:1，collection {figma_verify['collection']} / mode {figma_verify['mode']}",
         "",
         "| 步骤 | 命令 | exit | 秒 |",
         "| --- | --- | ---: | ---: |",
@@ -151,7 +158,7 @@ def main() -> None:
     for item in validation["checks"]:
         status = "PASS" if item["ok"] else "FAIL"
         md.append(f"- [{status}] {item['name']}：{item['detail']}")
-    md += ["", "## 结论", "", f"全部命令 exit 0；8/8 校验通过；{tests_passed} 项 pytest 通过；截图为 750px 宽。"]
+    md += ["", "## 结论", "", f"全部命令 exit 0；8/8 校验通过；{tests_passed} 项 pytest 通过；Figma 在线导出 {figma_verify['checked']}/74 校验通过；截图为 750px 宽。"]
     md_text = "\n".join(md) + "\n"
     md_text = redact(md_text)
     (ARTIFACTS / f"ACCEPTANCE-{args.label}.md").write_text(md_text, encoding="utf-8")

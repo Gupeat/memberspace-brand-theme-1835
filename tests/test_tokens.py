@@ -131,6 +131,19 @@ def test_figma_plugin_and_doc_cover_every_token():
         assert f"| {path} |" in doc
 
 
+def test_figma_import_file_is_nested_dtcg_and_matches_tokens():
+    text = read(ROOT / "figma" / "figma-import.tokens.json")
+    payload = json.loads(text)
+    assert payload == build.render_figma_import(INDEX)
+    import_paths = {p for p, _, _ in build.walk(payload)}
+    assert import_paths == PATHS
+    assert json.loads(read(ROOT / "figma" / "Light.tokens.json")) == payload
+    assert payload["color"]["text"]["primary"]["$value"] == "{color.neutral.900}"
+    assert "（rpx" not in text
+    assert "（24rpx = 12px）" in text
+    assert "（200ms）" in text
+
+
 def test_contrast_doc_matches_generated_pairs():
     doc = read(ROOT / "docs" / "CONTRAST.md")
     rows = [line for line in doc.splitlines() if line.startswith("| ") and ":1" in line]

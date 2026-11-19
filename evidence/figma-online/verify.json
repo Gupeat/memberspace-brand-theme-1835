@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "checked": 74,
+  "expected": 74,
+  "counts": {
+    "color": 38,
+    "number": 28,
+    "string": 8
+  },
+  "expected_counts": {
+    "color": 38,
+    "number": 28,
+    "string": 8
+  },
+  "import_fresh": true,
+  "light_identical": true,
+  "missing": [],
+  "extra": [],
+  "type_mismatches": [],
+  "value_mismatches": [],
+  "description_mismatches": [],
+  "figma_file_url": "https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1",
+  "collection": "Theme",
+  "mode": "Light",
+  "hashes": {
+    "tokens.json": "63972f37c08d0e6a28b88579a8e0880503ce0c43770b7fdf12f2e7f89fe3f6ef",
+    "figma/figma-import.tokens.json": "ebc70a2aa0ae018f8907137a3759e96055d35f6c9f40eb490d12438719523029",
+    "figma/Light.tokens.json": "ebc70a2aa0ae018f8907137a3759e96055d35f6c9f40eb490d12438719523029",
+    "evidence/figma-online/Light.tokens.json": "7ee627941bc69c1699b66a4cce0cf57efebda79175db873f20ffc60c61b56ed8",
+    "evidence/figma-online/Theme.zip": "f9bc2c8c35a798fca9d9fb7097868645870e1930f0d0f1f1a00e4673cb091ccc"
+  }
+}

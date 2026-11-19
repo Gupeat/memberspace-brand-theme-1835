@@ -1,0 +1,1146 @@
+{
+  "color": {
+    "brand": {
+      "primary": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.12156900018453598,
+            0.36862701177597046,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#1F5EFF"
+        },
+        "$description": "品牌主色",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:3",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "hover": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.09019599854946136,
+            0.282353013753891,
+            0.8392159938812256
+          ],
+          "alpha": 1,
+          "hex": "#1748D6"
+        },
+        "$description": "主色悬停",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:4",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "active": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.07058800011873245,
+            0.22352899610996246,
+            0.6901959776878357
+          ],
+          "alpha": 1,
+          "hex": "#1239B0"
+        },
+        "$description": "主色按下",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:5",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "light": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9450979828834534,
+            0.9568629860877991,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#F1F4FF"
+        },
+        "$description": "主色浅底",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:6",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "lightHover": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9294120073318481,
+            0.9450979828834534,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#EDF1FF"
+        },
+        "$description": "主色浅底悬停",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:7",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7098039984703064,
+            0.7803919911384583,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#B5C7FF"
+        },
+        "$description": "品牌色禁用态",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:8",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "accent": {
+      "primary": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.058823999017477036,
+            0.4627450108528137,
+            0.4313730001449585
+          ],
+          "alpha": 1,
+          "hex": "#0F766E"
+        },
+        "$description": "辅助色",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:9",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "light": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9019610285758972,
+            0.9568629860877991,
+            0.9450979828834534
+          ],
+          "alpha": 1,
+          "hex": "#E6F4F1"
+        },
+        "$description": "辅助色浅底",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:10",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "neutral": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9725490212440491,
+            0.9803919792175293,
+            0.9882349967956543
+          ],
+          "alpha": 1,
+          "hex": "#F8FAFC"
+        },
+        "$description": "中性 50",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:11",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9450979828834534,
+            0.9607840180397034,
+            0.9764710068702698
+          ],
+          "alpha": 1,
+          "hex": "#F1F5F9"
+        },
+        "$description": "中性 100",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:12",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8862749934196472,
+            0.9098039865493774,
+            0.9411759972572327
+          ],
+          "alpha": 1,
+          "hex": "#E2E8F0"
+        },
+        "$description": "中性 200",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:13",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7960780262947083,
+            0.8352940082550049,
+            0.8823530077934265
+          ],
+          "alpha": 1,
+          "hex": "#CBD5E1"
+        },
+        "$description": "中性 300",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:14",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5803920030593872,
+            0.6392160058021545,
+            0.7215690016746521
+          ],
+          "alpha": 1,
+          "hex": "#94A3B8"
+        },
+        "$description": "中性 400",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:15",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.34117600321769714,
+            0.4039219915866852,
+            0.48627498745918274
+          ],
+          "alpha": 1,
+          "hex": "#57677C"
+        },
+        "$description": "中性 500",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:16",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2784309983253479,
+            0.33333298563957214,
+            0.4117650091648102
+          ],
+          "alpha": 1,
+          "hex": "#475569"
+        },
+        "$description": "中性 600",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:17",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.20000000298023224,
+            0.2549020051956177,
+            0.33333298563957214
+          ],
+          "alpha": 1,
+          "hex": "#334155"
+        },
+        "$description": "中性 700",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:18",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.11764699965715408,
+            0.16078400611877441,
+            0.23137299716472626
+          ],
+          "alpha": 1,
+          "hex": "#1E293B"
+        },
+        "$description": "中性 800",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:19",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.058823999017477036,
+            0.09019599854946136,
+            0.1647060066461563
+          ],
+          "alpha": 1,
+          "hex": "#0F172A"
+        },
+        "$description": "中性 900",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:20",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "text": {
+      "primary": {
+        "$type": "color",
+        "$value": "{color.neutral.900}",
+        "$description": "主文字（引用 neutral.900）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:21",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "{color.neutral.700}",
+        "$description": "二级文字（引用 neutral.700）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:22",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "tertiary": {
+        "$type": "color",
+        "$value": "{color.neutral.600}",
+        "$description": "三级文字（引用 neutral.600）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:23",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.neutral.500}",
+        "$description": "弱化文字（引用 neutral.500，全浅底 >= 4.5:1）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:24",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "anti": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#FFFFFF"
+        },
+        "$description": "反白文字",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:25",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "bg": {
+      "page": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9725490212440491,
+            0.9803919792175293,
+            0.9882349967956543
+          ],
+          "alpha": 1,
+          "hex": "#F8FAFC"
+        },
+        "$description": "页面背景",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:26",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "surface": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#FFFFFF"
+        },
+        "$description": "卡片/容器背景",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:27",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "surfaceAlt": {
+        "$type": "color",
+        "$value": "{color.neutral.50}",
+        "$description": "次级容器背景（引用 neutral.50）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:28",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.058823999017477036,
+            0.09019599854946136,
+            0.1647060066461563
+          ],
+          "alpha": 1,
+          "hex": "#0F172A"
+        },
+        "$description": "反色背景",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:29",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "border": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.neutral.200}",
+        "$description": "默认边框（引用 neutral.200）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:30",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "{color.neutral.300}",
+        "$description": "强调边框（引用 neutral.300）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:31",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "semantic": {
+      "success": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.05490199849009514,
+            0.47843098640441895,
+            0.37254899740219116
+          ],
+          "alpha": 1,
+          "hex": "#0E7A5F"
+        },
+        "$description": "成功",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:32",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "successLight": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9058820009231567,
+            0.9686269760131836,
+            0.9411759972572327
+          ],
+          "alpha": 1,
+          "hex": "#E7F7F0"
+        },
+        "$description": "成功浅底",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:33",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.6039220094680786,
+            0.35686299204826355,
+            0
+          ],
+          "alpha": 1,
+          "hex": "#9A5B00"
+        },
+        "$description": "警告",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:34",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "warningLight": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.9568629860877991,
+            0.8980389833450317
+          ],
+          "alpha": 1,
+          "hex": "#FFF4E5"
+        },
+        "$description": "警告浅底",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:35",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7058820128440857,
+            0.137254998087883,
+            0.09411799907684326
+          ],
+          "alpha": 1,
+          "hex": "#B42318"
+        },
+        "$description": "错误",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:36",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "errorLight": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9960780143737793,
+            0.9137250185012817,
+            0.9137250185012817
+          ],
+          "alpha": 1,
+          "hex": "#FEE9E9"
+        },
+        "$description": "错误浅底",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:37",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "info": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.043136999011039734,
+            0.36078399419784546,
+            0.5411760210990906
+          ],
+          "alpha": 1,
+          "hex": "#0B5C8A"
+        },
+        "$description": "信息",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:38",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "infoLight": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9019610285758972,
+            0.9529410004615784,
+            0.9843140244483948
+          ],
+          "alpha": 1,
+          "hex": "#E6F3FB"
+        },
+        "$description": "信息浅底",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:39",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "focus": {
+      "ring": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.12156900018453598,
+            0.36862701177597046,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#1F5EFF"
+        },
+        "$description": "焦点环（实心，避免透明导致不可见）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:40",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "sans": {
+        "$type": "string",
+        "$value": "PingFang SC, Helvetica Neue, Microsoft YaHei, sans-serif",
+        "$description": "系统中文字体栈",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:41",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.type": "string"
+        }
+      }
+    },
+    "size": {
+      "24": {
+        "$type": "number",
+        "$value": 12,
+        "$description": "辅助说明（24rpx = 12px）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:42",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "28": {
+        "$type": "number",
+        "$value": 14,
+        "$description": "正文/基础（28rpx = 14px）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:43",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "32": {
+        "$type": "number",
+        "$value": 16,
+        "$description": "小标题（32rpx = 16px）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:44",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "36": {
+        "$type": "number",
+        "$value": 18,
+        "$description": "标题（36rpx = 18px）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:45",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "40": {
+        "$type": "number",
+        "$value": 20,
+        "$description": "大标题（40rpx = 20px）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:46",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "48": {
+        "$type": "number",
+        "$value": 24,
+        "$description": "页面主标题（48rpx = 24px）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:47",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "lineHeight": {
+      "24": {
+        "$type": "number",
+        "$value": 18,
+        "$description": "24 号字行高（36rpx = 18px）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:48",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "28": {
+        "$type": "number",
+        "$value": 20,
+        "$description": "28 号字行高（40rpx = 20px）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:49",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "32": {
+        "$type": "number",
+        "$value": 22,
+        "$description": "32 号字行高（44rpx = 22px）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:50",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "36": {
+        "$type": "number",
+        "$value": 24,
+        "$description": "36 号字行高（48rpx = 24px）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:51",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "40": {
+        "$type": "number",
+        "$value": 28,
+        "$description": "40 号字行高（56rpx = 28px）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:52",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "48": {
+        "$type": "number",
+        "$value": 32,
+        "$description": "48 号字行高（64rpx = 32px）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:53",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "weight": {
+      "regular": {
+        "$type": "number",
+        "$value": 400,
+        "$description": "常规（400）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:54",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "medium": {
+        "$type": "number",
+        "$value": 500,
+        "$description": "中等（500）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:55",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "semibold": {
+        "$type": "number",
+        "$value": 600,
+        "$description": "半粗（600）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:56",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    }
+  },
+  "radius": {
+    "8": {
+      "$type": "number",
+      "$value": 4,
+      "$description": "小圆角（8rpx = 4px）",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:30:57",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "16": {
+      "$type": "number",
+      "$value": 8,
+      "$description": "默认圆角（16rpx = 8px）",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:30:58",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "24": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "大圆角（24rpx = 12px）",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:30:59",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "full": {
+      "$type": "number",
+      "$value": 4999.5,
+      "$description": "全圆（9999rpx = 4999.5px）",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:30:60",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    }
+  },
+  "space": {
+    "16": {
+      "$type": "number",
+      "$value": 8,
+      "$description": "紧凑间距（16rpx = 8px）",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:30:61",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "24": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "默认间距（24rpx = 12px）",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:30:62",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "32": {
+      "$type": "number",
+      "$value": 16,
+      "$description": "块间距（32rpx = 16px）",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:30:63",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "48": {
+      "$type": "number",
+      "$value": 24,
+      "$description": "大块间距（48rpx = 24px）",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:30:64",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "64": {
+      "$type": "number",
+      "$value": 32,
+      "$description": "页面分区（64rpx = 32px）",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:30:65",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    }
+  },
+  "shadow": {
+    "sm": {
+      "$type": "string",
+      "$value": "0px 1px 4px 0px rgba(15,23,42,0.059)",
+      "$description": "轻阴影",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:30:66",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "md": {
+      "$type": "string",
+      "$value": "0px 4px 12px 0px rgba(15,23,42,0.102)",
+      "$description": "中阴影",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:30:67",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "lg": {
+      "$type": "string",
+      "$value": "0px 8px 24px 0px rgba(15,23,42,0.141)",
+      "$description": "重阴影",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:30:68",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    }
+  },
+  "motion": {
+    "duration": {
+      "fast": {
+        "$type": "number",
+        "$value": 120,
+        "$description": "快速反馈（120ms）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:69",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "base": {
+        "$type": "number",
+        "$value": 200,
+        "$description": "常规过渡（200ms）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:70",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "moderate": {
+        "$type": "number",
+        "$value": 240,
+        "$description": "中速过渡（240ms）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:71",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      },
+      "slow": {
+        "$type": "number",
+        "$value": 320,
+        "$description": "大范围过渡（320ms）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:72",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "easing": {
+      "standard": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.2, 0, 0, 1)",
+        "$description": "标准缓动",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:73",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.type": "string"
+        }
+      },
+      "emphasized": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.3, 0, 0, 1)",
+        "$description": "强调缓动",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:74",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.type": "string"
+        }
+      },
+      "decelerate": {
+        "$type": "string",
+        "$value": "cubic-bezier(0, 0, 0.15, 1)",
+        "$description": "减速缓动（进入）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:75",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.type": "string"
+        }
+      },
+      "accelerate": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.82, 0, 1, 0.9)",
+        "$description": "加速缓动（离开）",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:30:76",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.type": "string"
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Light"
+  }
+}

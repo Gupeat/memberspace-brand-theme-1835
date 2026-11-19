@@ -1,0 +1,691 @@
+{
+  "color": {
+    "brand": {
+      "primary": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.121569,
+            0.368627,
+            1.0
+          ],
+          "alpha": 1.0,
+          "hex": "#1F5EFF"
+        },
+        "$description": "品牌主色"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.090196,
+            0.282353,
+            0.839216
+          ],
+          "alpha": 1.0,
+          "hex": "#1748D6"
+        },
+        "$description": "主色悬停"
+      },
+      "active": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.070588,
+            0.223529,
+            0.690196
+          ],
+          "alpha": 1.0,
+          "hex": "#1239B0"
+        },
+        "$description": "主色按下"
+      },
+      "light": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.945098,
+            0.956863,
+            1.0
+          ],
+          "alpha": 1.0,
+          "hex": "#F1F4FF"
+        },
+        "$description": "主色浅底"
+      },
+      "lightHover": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.929412,
+            0.945098,
+            1.0
+          ],
+          "alpha": 1.0,
+          "hex": "#EDF1FF"
+        },
+        "$description": "主色浅底悬停"
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.709804,
+            0.780392,
+            1.0
+          ],
+          "alpha": 1.0,
+          "hex": "#B5C7FF"
+        },
+        "$description": "品牌色禁用态"
+      }
+    },
+    "accent": {
+      "primary": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.058824,
+            0.462745,
+            0.431373
+          ],
+          "alpha": 1.0,
+          "hex": "#0F766E"
+        },
+        "$description": "辅助色"
+      },
+      "light": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.901961,
+            0.956863,
+            0.945098
+          ],
+          "alpha": 1.0,
+          "hex": "#E6F4F1"
+        },
+        "$description": "辅助色浅底"
+      }
+    },
+    "neutral": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.972549,
+            0.980392,
+            0.988235
+          ],
+          "alpha": 1.0,
+          "hex": "#F8FAFC"
+        },
+        "$description": "中性 50"
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.945098,
+            0.960784,
+            0.976471
+          ],
+          "alpha": 1.0,
+          "hex": "#F1F5F9"
+        },
+        "$description": "中性 100"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.886275,
+            0.909804,
+            0.941176
+          ],
+          "alpha": 1.0,
+          "hex": "#E2E8F0"
+        },
+        "$description": "中性 200"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.796078,
+            0.835294,
+            0.882353
+          ],
+          "alpha": 1.0,
+          "hex": "#CBD5E1"
+        },
+        "$description": "中性 300"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.580392,
+            0.639216,
+            0.721569
+          ],
+          "alpha": 1.0,
+          "hex": "#94A3B8"
+        },
+        "$description": "中性 400"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.341176,
+            0.403922,
+            0.486275
+          ],
+          "alpha": 1.0,
+          "hex": "#57677C"
+        },
+        "$description": "中性 500"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.278431,
+            0.333333,
+            0.411765
+          ],
+          "alpha": 1.0,
+          "hex": "#475569"
+        },
+        "$description": "中性 600"
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2,
+            0.254902,
+            0.333333
+          ],
+          "alpha": 1.0,
+          "hex": "#334155"
+        },
+        "$description": "中性 700"
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.117647,
+            0.160784,
+            0.231373
+          ],
+          "alpha": 1.0,
+          "hex": "#1E293B"
+        },
+        "$description": "中性 800"
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.058824,
+            0.090196,
+            0.164706
+          ],
+          "alpha": 1.0,
+          "hex": "#0F172A"
+        },
+        "$description": "中性 900"
+      }
+    },
+    "text": {
+      "primary": {
+        "$type": "color",
+        "$value": "{color.neutral.900}",
+        "$description": "主文字（引用 neutral.900）"
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "{color.neutral.700}",
+        "$description": "二级文字（引用 neutral.700）"
+      },
+      "tertiary": {
+        "$type": "color",
+        "$value": "{color.neutral.600}",
+        "$description": "三级文字（引用 neutral.600）"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.neutral.500}",
+        "$description": "弱化文字（引用 neutral.500，全浅底 >= 4.5:1）"
+      },
+      "anti": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alpha": 1.0,
+          "hex": "#FFFFFF"
+        },
+        "$description": "反白文字"
+      }
+    },
+    "bg": {
+      "page": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.972549,
+            0.980392,
+            0.988235
+          ],
+          "alpha": 1.0,
+          "hex": "#F8FAFC"
+        },
+        "$description": "页面背景"
+      },
+      "surface": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alpha": 1.0,
+          "hex": "#FFFFFF"
+        },
+        "$description": "卡片/容器背景"
+      },
+      "surfaceAlt": {
+        "$type": "color",
+        "$value": "{color.neutral.50}",
+        "$description": "次级容器背景（引用 neutral.50）"
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.058824,
+            0.090196,
+            0.164706
+          ],
+          "alpha": 1.0,
+          "hex": "#0F172A"
+        },
+        "$description": "反色背景"
+      }
+    },
+    "border": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.neutral.200}",
+        "$description": "默认边框（引用 neutral.200）"
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "{color.neutral.300}",
+        "$description": "强调边框（引用 neutral.300）"
+      }
+    },
+    "semantic": {
+      "success": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.054902,
+            0.478431,
+            0.372549
+          ],
+          "alpha": 1.0,
+          "hex": "#0E7A5F"
+        },
+        "$description": "成功"
+      },
+      "successLight": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.905882,
+            0.968627,
+            0.941176
+          ],
+          "alpha": 1.0,
+          "hex": "#E7F7F0"
+        },
+        "$description": "成功浅底"
+      },
+      "warning": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.603922,
+            0.356863,
+            0.0
+          ],
+          "alpha": 1.0,
+          "hex": "#9A5B00"
+        },
+        "$description": "警告"
+      },
+      "warningLight": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1.0,
+            0.956863,
+            0.898039
+          ],
+          "alpha": 1.0,
+          "hex": "#FFF4E5"
+        },
+        "$description": "警告浅底"
+      },
+      "error": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.705882,
+            0.137255,
+            0.094118
+          ],
+          "alpha": 1.0,
+          "hex": "#B42318"
+        },
+        "$description": "错误"
+      },
+      "errorLight": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.996078,
+            0.913725,
+            0.913725
+          ],
+          "alpha": 1.0,
+          "hex": "#FEE9E9"
+        },
+        "$description": "错误浅底"
+      },
+      "info": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.043137,
+            0.360784,
+            0.541176
+          ],
+          "alpha": 1.0,
+          "hex": "#0B5C8A"
+        },
+        "$description": "信息"
+      },
+      "infoLight": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.901961,
+            0.952941,
+            0.984314
+          ],
+          "alpha": 1.0,
+          "hex": "#E6F3FB"
+        },
+        "$description": "信息浅底"
+      }
+    },
+    "focus": {
+      "ring": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.121569,
+            0.368627,
+            1.0
+          ],
+          "alpha": 1.0,
+          "hex": "#1F5EFF"
+        },
+        "$description": "焦点环（实心，避免透明导致不可见）"
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "sans": {
+        "$type": "string",
+        "$value": "PingFang SC, Helvetica Neue, Microsoft YaHei, sans-serif",
+        "$description": "系统中文字体栈"
+      }
+    },
+    "size": {
+      "24": {
+        "$type": "number",
+        "$value": 12.0,
+        "$description": "辅助说明（24rpx = 12px）"
+      },
+      "28": {
+        "$type": "number",
+        "$value": 14.0,
+        "$description": "正文/基础（28rpx = 14px）"
+      },
+      "32": {
+        "$type": "number",
+        "$value": 16.0,
+        "$description": "小标题（32rpx = 16px）"
+      },
+      "36": {
+        "$type": "number",
+        "$value": 18.0,
+        "$description": "标题（36rpx = 18px）"
+      },
+      "40": {
+        "$type": "number",
+        "$value": 20.0,
+        "$description": "大标题（40rpx = 20px）"
+      },
+      "48": {
+        "$type": "number",
+        "$value": 24.0,
+        "$description": "页面主标题（48rpx = 24px）"
+      }
+    },
+    "lineHeight": {
+      "24": {
+        "$type": "number",
+        "$value": 18.0,
+        "$description": "24 号字行高（36rpx = 18px）"
+      },
+      "28": {
+        "$type": "number",
+        "$value": 20.0,
+        "$description": "28 号字行高（40rpx = 20px）"
+      },
+      "32": {
+        "$type": "number",
+        "$value": 22.0,
+        "$description": "32 号字行高（44rpx = 22px）"
+      },
+      "36": {
+        "$type": "number",
+        "$value": 24.0,
+        "$description": "36 号字行高（48rpx = 24px）"
+      },
+      "40": {
+        "$type": "number",
+        "$value": 28.0,
+        "$description": "40 号字行高（56rpx = 28px）"
+      },
+      "48": {
+        "$type": "number",
+        "$value": 32.0,
+        "$description": "48 号字行高（64rpx = 32px）"
+      }
+    },
+    "weight": {
+      "regular": {
+        "$type": "number",
+        "$value": 400,
+        "$description": "常规（400）"
+      },
+      "medium": {
+        "$type": "number",
+        "$value": 500,
+        "$description": "中等（500）"
+      },
+      "semibold": {
+        "$type": "number",
+        "$value": 600,
+        "$description": "半粗（600）"
+      }
+    }
+  },
+  "radius": {
+    "8": {
+      "$type": "number",
+      "$value": 4.0,
+      "$description": "小圆角（8rpx = 4px）"
+    },
+    "16": {
+      "$type": "number",
+      "$value": 8.0,
+      "$description": "默认圆角（16rpx = 8px）"
+    },
+    "24": {
+      "$type": "number",
+      "$value": 12.0,
+      "$description": "大圆角（24rpx = 12px）"
+    },
+    "full": {
+      "$type": "number",
+      "$value": 4999.5,
+      "$description": "全圆（9999rpx = 4999.5px）"
+    }
+  },
+  "space": {
+    "16": {
+      "$type": "number",
+      "$value": 8.0,
+      "$description": "紧凑间距（16rpx = 8px）"
+    },
+    "24": {
+      "$type": "number",
+      "$value": 12.0,
+      "$description": "默认间距（24rpx = 12px）"
+    },
+    "32": {
+      "$type": "number",
+      "$value": 16.0,
+      "$description": "块间距（32rpx = 16px）"
+    },
+    "48": {
+      "$type": "number",
+      "$value": 24.0,
+      "$description": "大块间距（48rpx = 24px）"
+    },
+    "64": {
+      "$type": "number",
+      "$value": 32.0,
+      "$description": "页面分区（64rpx = 32px）"
+    }
+  },
+  "shadow": {
+    "sm": {
+      "$type": "string",
+      "$value": "0px 1px 4px 0px rgba(15,23,42,0.059)",
+      "$description": "轻阴影"
+    },
+    "md": {
+      "$type": "string",
+      "$value": "0px 4px 12px 0px rgba(15,23,42,0.102)",
+      "$description": "中阴影"
+    },
+    "lg": {
+      "$type": "string",
+      "$value": "0px 8px 24px 0px rgba(15,23,42,0.141)",
+      "$description": "重阴影"
+    }
+  },
+  "motion": {
+    "duration": {
+      "fast": {
+        "$type": "number",
+        "$value": 120,
+        "$description": "快速反馈（120ms）"
+      },
+      "base": {
+        "$type": "number",
+        "$value": 200,
+        "$description": "常规过渡（200ms）"
+      },
+      "moderate": {
+        "$type": "number",
+        "$value": 240,
+        "$description": "中速过渡（240ms）"
+      },
+      "slow": {
+        "$type": "number",
+        "$value": 320,
+        "$description": "大范围过渡（320ms）"
+      }
+    },
+    "easing": {
+      "standard": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.2, 0, 0, 1)",
+        "$description": "标准缓动"
+      },
+      "emphasized": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.3, 0, 0, 1)",
+        "$description": "强调缓动"
+      },
+      "decelerate": {
+        "$type": "string",
+        "$value": "cubic-bezier(0, 0, 0.15, 1)",
+        "$description": "减速缓动（进入）"
+      },
+      "accelerate": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.82, 0, 1, 0.9)",
+        "$description": "加速缓动（离开）"
+      }
+    }
+  }
+}

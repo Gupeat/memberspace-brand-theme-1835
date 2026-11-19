@@ -29,7 +29,7 @@
     {
       "name": "Figma variables 1:1",
       "ok": true,
-      "detail": "74 Figma variables, names exactly equal tokens.json paths"
+      "detail": "74 Figma variables + 74 DTCG import variables, names exactly equal tokens.json paths"
     },
     {
       "name": "demo references and variables",

@@ -1,15 +1,15 @@
 #1835 acceptance round1
-generatedAt=2026-11-19T13:56:03Z
+generatedAt=2026-11-19T15:27:10Z
 
-## build (exit 0, 0.12s)
+## build (exit 0, 0.13s)
 $ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\scripts\build.py
-{"tokens": 74, "themeVariables": 64, "figmaVariables": 74, "contrastPairs": 57, "minContrast": 4.66, "tokensHash": "63972f37c08d0e6a28b88579a8e0880503ce0c43770b7fdf12f2e7f89fe3f6ef"}
+{"tokens": 74, "themeVariables": 64, "figmaVariables": 74, "figmaImportVariables": 74, "contrastPairs": 57, "minContrast": 4.66, "tokensHash": "63972f37c08d0e6a28b88579a8e0880503ce0c43770b7fdf12f2e7f89fe3f6ef"}
 
-## figma-syntax (exit 0, 0.13s)
+## figma-syntax (exit 0, 0.14s)
 $ <home>/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node.exe --check <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\figma\create-variables.js
 
 
-## validate (exit 0, 0.13s)
+## validate (exit 0, 0.14s)
 $ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\scripts\validate.py
 ClawHunt #1835 token package validation
 
@@ -18,18 +18,23 @@ ClawHunt #1835 token package validation
 [PASS] alias resolution: 7 aliases resolve without cycles
 [PASS] WCAG contrast >= 4.5:1: 57 pairs, minimum 品牌主色文字 / 品牌浅底 4.66:1
 [PASS] theme.wxss and browser preview freshness: 64 TDesign-consumed variables; 10 documented preview extensions; browser preview is 2x rpx->px
-[PASS] Figma variables 1:1: 74 Figma variables, names exactly equal tokens.json paths
+[PASS] Figma variables 1:1: 74 Figma variables + 74 DTCG import variables, names exactly equal tokens.json paths
 [PASS] demo references and variables: 42 theme variables used by demo, all defined
 [PASS] contrast documentation: 57 documented pairs, no FAIL
 
 RESULT: PASS (8/8 checks)
 
-## pytest (exit 0, 1.05s)
+## pytest (exit 0, 1.03s)
 $ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe -m pytest -q tests
-..............                                                           [100%]
-14 passed in 0.27s
+...............                                                          [100%]
+15 passed in 0.26s
 
-## capture (exit 0, 3.81s)
+## verify-figma (exit 0, 0.12s)
+$ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\scripts\verify_figma_export.py
+{"ok": true, "checked": 74, "counts": {"color": 38, "number": 28, "string": 8}, "import_fresh": true, "light_identical": true, "missing": [], "extra": []}
+OK: 74/74 names 1:1, type counts, aliases, values and descriptions match; export snapshot is fresh.
+
+## capture (exit 0, 3.68s)
 $ <home>/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node.exe <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\scripts\capture.mjs
 {
   "ok": true,
