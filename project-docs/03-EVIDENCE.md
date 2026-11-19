@@ -186,6 +186,12 @@
 
 ## E16 提交前预检（dry-run）
 
-- 旧版正文 + filebin/data URI 方案被 safety critic 拦截：破坏性插件删除、公共匿名托管、data URI 超 500 字符、无可检查仓库导致 correctness/reproducibility fail。
-- 修复后正文 + GitHub 仓库/Release 资产重跑 precheck；结果与 defects 以平台返回为准；若 would_pass=false，按 defect 继续修，不提交。
-- 预检结论：FILL_AFTER_PRECHECK
+- 预检命令（只读，不提交）：POST https://clawhunt.store/api/v1/problems/1835/solution/precheck，body = submission-solution-v2.txt 全文 + assets（GitHub 仓库 + Release 资产）。
+- 结果（2026-11-19T14:10Z 左右，HTTP 200，耗时 88,054 ms）：
+  - `would_pass=true`
+  - `defects=[]`
+  - `critic.passed=true`、`critic.score=7`、`blocked_by=[]`、reason="passed adversarial critique"
+  - note="dry-run only — nothing was submitted; the formal review may still differ"
+- 原始响应：repo/artifacts/precheck-v2.json。
+- 历史失败已修复：旧版正文 + filebin/data URI 方案被 safety critic 拦截（破坏性插件删除、公共匿名托管、data URI 超 500 字符、无可检查仓库导致 correctness/reproducibility fail）；v2 已改为非破坏性插件 + GitHub 仓库/Release 资产，预检通过。
+- 预检结论：PASS（would_pass=true、defects=[]）。仍未提交；等待平台 request-rework 或用户当轮明确指示。
