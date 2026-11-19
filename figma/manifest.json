@@ -1,0 +1,8 @@
+{
+  "name": "1835 Brand Theme Variables",
+  "api": "1.0.0",
+  "main": "create-variables.js",
+  "editorType": [
+    "figma"
+  ]
+}

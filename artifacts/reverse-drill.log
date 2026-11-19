@@ -1,0 +1,20 @@
+#1835 reverse drill
+
+BASELINE build=0 validate=0
+
+A: contrast regression (neutral.500 #57677C -> #D5DAE2): DETECTED=yes
+contrast failures: 正文弱化 / 白底: 1.40; 正文弱化 / 页面底: 1.34; 正文弱化 / 次级容器底: 1.34; 正文弱化 / 中性 100: 1.28; 正文弱化 / 中性 200: 1.14; 正文弱化 / 品牌浅底: 1.28; 正文弱化 / 成功浅底: 1.27; 正文弱化 / 警告浅底: 1.29; 正文弱化 / 错误浅底: 1.21; 正文弱化 / 信息浅底: 1.24; 正文弱化 / 辅助浅底: 1.24
+
+B: removed TDesign brand mapping: DETECTED=yes
+[FAIL] demo references and variables: AssertionError: demo.css uses undefined theme variables: ['--td-brand-color']
+[PASS] contrast documentation: 57 documented pairs, no FAIL
+
+RESULT: FAIL (6/8 checks)
+
+C: stale/renamed Figma variable: DETECTED=yes
+[PASS] demo references and variables: 42 theme variables used by demo, all defined
+[PASS] contrast documentation: 57 documented pairs, no FAIL
+
+RESULT: FAIL (7/8 checks)
+
+RESULT: mutations=3 detected=3

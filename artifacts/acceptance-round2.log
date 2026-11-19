@@ -1,0 +1,47 @@
+#1835 acceptance round2
+generatedAt=2026-11-19T13:56:08Z
+
+## build (exit 0, 0.13s)
+$ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\scripts\build.py
+{"tokens": 74, "themeVariables": 64, "figmaVariables": 74, "contrastPairs": 57, "minContrast": 4.66, "tokensHash": "63972f37c08d0e6a28b88579a8e0880503ce0c43770b7fdf12f2e7f89fe3f6ef"}
+
+## figma-syntax (exit 0, 0.13s)
+$ <home>/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node.exe --check <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\figma\create-variables.js
+
+
+## validate (exit 0, 0.13s)
+$ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\scripts\validate.py
+ClawHunt #1835 token package validation
+
+[PASS] DTCG structure and value types: 74 tokens; types and values valid
+[PASS] required token categories and scales: 33 required tokens; 6 sizes; 10 neutrals; 4 semantics
+[PASS] alias resolution: 7 aliases resolve without cycles
+[PASS] WCAG contrast >= 4.5:1: 57 pairs, minimum 品牌主色文字 / 品牌浅底 4.66:1
+[PASS] theme.wxss and browser preview freshness: 64 TDesign-consumed variables; 10 documented preview extensions; browser preview is 2x rpx->px
+[PASS] Figma variables 1:1: 74 Figma variables, names exactly equal tokens.json paths
+[PASS] demo references and variables: 42 theme variables used by demo, all defined
+[PASS] contrast documentation: 57 documented pairs, no FAIL
+
+RESULT: PASS (8/8 checks)
+
+## pytest (exit 0, 0.97s)
+$ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe -m pytest -q tests
+..............                                                           [100%]
+14 passed in 0.23s
+
+## capture (exit 0, 2.78s)
+$ <home>/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node.exe <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\scripts\capture.mjs
+{
+  "ok": true,
+  "screenshot": "artifacts/example-page.png",
+  "bytes": 300034,
+  "height": 2269,
+  "button": "rgb(31, 94, 255)",
+  "tag": {
+    "background": "rgb(241, 244, 255)",
+    "color": "rgb(31, 94, 255)",
+    "font": "\"PingFang SC\", \"Helvetica Neue\", \"Microsoft YaHei\", sans-serif",
+    "radius": "9999px"
+  },
+  "appWidth": 750
+}

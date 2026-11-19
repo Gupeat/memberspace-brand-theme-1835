@@ -1,0 +1,119 @@
+# #1835 设计说明
+
+更新时间：2026-11-19 18:26（Asia/Shanghai）
+
+## 1. 方案选型
+
+| 方案 | 说明 | 结论 |
+| --- | --- | --- |
+| A 单一 token 源 + 生成器（采用） | tokens.json 为唯一事实源，脚本生成 theme.wxss、Figma JSON、插件、对比度表、对照表 | 采用：无漂移、可复现、可替换品牌 |
+| B 手写 tokens + 手写 wxss | 两份文件各自维护 | 弃：必然漂移，AC1/AC3 难同时满足 |
+| C 直接依赖 TDesign 默认主题 | 只覆盖少量变量 | 弃：中性 10 阶、阴影、动效、Figma 1:1 不完整 |
+| D 引入第三方 token 工具链 | 需要 npm 依赖与网络 | 弃：交付环境无稳定 npm，增加不可复现风险 |
+
+## 2. 色彩体系
+
+品牌主色 #1F5EFF（白字对比度 5.12:1），hover #1748D6，active #1239B0，light #F1F4FF，lightHover #EDF1FF，disabled #B5C7FF；辅助色 #0F766E + 浅底 #E6F4F1；焦点环为实心品牌色 #1F5EFF（避免透明叠加后不可见）。
+
+中性 10 阶：
+
+| step | 色值 | 用途 |
+| --- | --- | --- |
+| neutral.50 | #F8FAFC | 页面浅底 |
+| neutral.100 | #F1F5F9 | 分组底 |
+| neutral.200 | #E2E8F0 | 分隔/边框 |
+| neutral.300 | #CBD5E1 | 强边框/禁用边 |
+| neutral.400 | #94A3B8 | 占位/图标弱 |
+| neutral.500 | #57677C | 正文弱化（所有浅底组合 ≥4.5:1） |
+| neutral.600 | #475569 | 三级正文 |
+| neutral.700 | #334155 | 二级正文 |
+| neutral.800 | #1E293B | 标题 |
+| neutral.900 | #0F172A | 主文字/反白底 |
+
+语义色使用深色版保证白字或浅底文字对比度：成功 #0E7A5F + 浅底 #E7F7F0；警告 #9A5B00 + #FFF4E5；错误 #B42318 + #FEE9E9；信息 #0B5C8A + #E6F3FB。
+
+## 3. 字号与排版
+
+六档：24/28/32/36/40/48 rpx；行高分别 36/40/44/48/56/64 rpx。字重 400/500/600。字体栈 PingFang SC、Helvetica Neue、Microsoft YaHei、sans-serif；生成 CSS 时对 generic family 不加引号，避免浏览器把它当成字体名。
+
+## 4. 圆角、间距、阴影、动效
+
+- 圆角：8/16/24 rpx、9999rpx（全圆）。
+- 间距：16/24/32/48/64 rpx，4 的倍数，覆盖 8pt 栅格。
+- 阴影：sm 0 2rpx 8rpx rgba(15,23,42,0.06)；md 0 8rpx 24rpx rgba(15,23,42,0.10)；lg 0 16rpx 48rpx rgba(15,23,42,0.14)。
+- 动效：fast 120ms、base 200ms、moderate 240ms、slow 320ms；standard cubic-bezier(0.2,0,0,1)、emphasized cubic-bezier(0.3,0,0,1)、decelerate cubic-bezier(0,0,0.15,1)、accelerate cubic-bezier(0.82,0,1,0.9)。
+
+## 5. token 结构（W3C DTCG）
+
+顶层按类别分组：color、font、radius、space、shadow、motion。叶子为 { "$value": ..., "$type": ... }；dimension 使用 { "value": 24, "unit": "rpx" }；duration 使用 { "value": 200, "unit": "ms" }；color 使用 #RRGGBB；cubicBezier 使用四元数组；shadow 使用对象。alias 使用 {color.brand.primary} 形式的字符串，构建时解析；token 路径即 Figma 变量名。
+
+## 6. TDesign 映射
+
+theme.wxss 输出 page 级 64 个 TDesign 1.18.0 实际消费的 CSS 变量（已移除 4 个未被消费的预留映射：--td-line-height、--td-anim-duration-moderate、--td-anim-duration-slow、--td-anim-time-fn-ease-in），覆盖：
+
+- 品牌：--td-brand-color、--td-brand-color-active、--td-brand-color-disabled、--td-brand-color-focus、--td-brand-color-light、--td-brand-color-light-active、--td-text-color-brand、--td-text-color-link。
+- 语义：--td-success-color/-light、--td-warning-color/-light、--td-error-color/-light；`color.semantic.info` 保留在 tokens.json 供业务样式直接使用，TDesign 小程序官方变量集无独立 info 变量，不伪造映射。
+- 文字：--td-text-color-primary/secondary/placeholder/disabled/anti。
+- 背景：--td-bg-color-page/container/container-active/secondarycontainer/-active/component/-active/-disabled/secondarycomponent/-active/specialcomponent。
+- 边框：--td-component-stroke、--td-border-color、--td-border-level-1-color、--td-border-level-2-color、--td-component-border。
+- 字体：--td-font-family、--td-font-size-s/base/m/l/xl/xxl、--td-line-height-body-*/title-*/headline-large。独立 --td-line-height 未被 TDesign 1.18.0 消费，已移除。
+- 圆角：--td-radius-small/default/large/round。
+- 间距：--td-spacer、--td-spacer-1/2/3/4。
+- 阴影：--td-shadow-1/2/3。
+- 动效：--td-anim-duration-base、--td-anim-time-fn-easing/ease-out；moderate/slow/ease-in 未被 TDesign 1.18.0 消费，已从映射移除，token 仍保留。
+
+所有值来自 token；CSS 中不出现硬编码颜色/尺寸（生成器输出除外）。
+
+## 7. Figma 变量策略
+
+本机无 Figma 账号与 Personal Access Token，不能调用 Figma Variables REST API，也不能生成可分享链接。采用等价可交付：
+
+1. `figma/figma-variables.json`：集合/模式/变量结构；name 与 token 路径完全一致；颜色为 #RRGGBB，尺寸按 2rpx=1px 换算。
+2. `figma/create-variables.js` + `figma/manifest.json`：Figma 开发插件；在桌面端 Import plugin from manifest 后运行，按同名创建变量集合（COLOR/FLOAT/STRING），不需要网络。
+3. `docs/FIGMA-VARIABLES.md`：token 路径 ↔ Figma 变量名 ↔ 值/类型 的完整 74 行对照表。
+4. README/USAGE 说明导入步骤与限制；不伪造 Figma 链接。
+
+## 8. 对比度方法
+
+WCAG 2.1 相对亮度：sRGB 分量 <=0.04045 时 c/12.92，否则 ((c+0.055)/1.055)^2.4；L=0.2126R+0.7152G+0.0722B；对比度=(L1+0.05)/(L2+0.05)。只把正文文字组合纳入 AC2；装饰色、禁用色不计入正文，但在文档标注。
+
+## 9. 示例页与截图
+
+- 示例页：demo/index.html + demo/demo.css，使用 theme 变量；TDesign 组件外观（按钮、标签、cell、输入、提示、变量卡）；数据虚构。
+- 浏览器预览 2rpx=1px：750px 截图 = 375pt 设备 @2x。
+- 截图：Edge headless + playwright-core；750 宽，测量 scrollHeight 后按 750 宽裁剪；断言按钮背景 rgb(31,94,255)、标签文字同色、标签浅底 rgb(241,244,255)、PNG 宽 750 且高≥1500；输出 artifacts/example-page.png（750×2269）。
+
+## 10. 故障推演
+
+| 故障 | 检测 | 降级 |
+| --- | --- | --- |
+| tokens.json 语法错 | build.py 立即退出 | 不生成半成品 |
+| alias 指向不存在/有环 | validate.py 报路径 | 修复 token |
+| 对比度不足 | validate.py 失败 | 调深文字/调浅底 |
+| theme.wxss 漂移 | validate.py 新鲜度检查 | 重新生成 |
+| 截图失败 | capture 重试/报错 | 保留日志，人工检查 |
+| Edge 路径不同 | 环境变量 EDGE | 用 which/默认路径 |
+| 字体缺失 | CSS 字体栈回退 | 不影响 token |
+| rpx/px 换算错 | 表内同时列 rpx 与 px | 以 rpx 为准 |
+| 截图色差 | 计算样式断言 + 像素尺寸 | 记录实际 RGB |
+| Figma 名称不一致 | 集合比较 | 重新生成 JSON |
+
+## 11. 自审 8 问
+
+1. 覆盖 AC1–AC4？是：结构校验、对比度、截图、Figma 1:1。
+2. 单一事实源？是：tokens.json。
+3. 可替换品牌？是：改 color.brand.* 后重建。
+4. 可复现？是：无网络依赖，脚本 + Edge。
+5. 对比度可审计？是：脚本枚举 + 表格。
+6. Figma 限制说清？是：无账号，交付导入物不造假。
+7. 示例页是真实小程序？否，Web 预览，文档说明。
+8. 有冗余？生成物可重建，截图可重跑，校验可单跑。
+
+## 12. 实际验证结果
+
+- 14 项 pytest 通过（0.2s）。
+- validate.py 8/8 PASS，exit 0；57 组对比度，最低 4.66:1。
+- 两轮从零验收：round1 2026-11-19T10:20:25Z、round2 2026-11-19T10:20:40Z，均 exit 0；两轮截图哈希一致（eccf7532…b23a，300,034 B）；关键生成物哈希一致。
+- 变异演练 3/3 DETECTED：中性色改浅触发对比度失败、删除品牌映射触发 demo 未定义变量、改 Figma 名称触发 1:1 失败。
+- Figma 插件通过 `node --check`；manifest 可导入。
+- 交付包与证据见 03-EVIDENCE.md。

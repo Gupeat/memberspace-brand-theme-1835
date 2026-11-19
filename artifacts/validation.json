@@ -1,0 +1,50 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "name": "DTCG structure and value types",
+      "ok": true,
+      "detail": "74 tokens; types and values valid"
+    },
+    {
+      "name": "required token categories and scales",
+      "ok": true,
+      "detail": "33 required tokens; 6 sizes; 10 neutrals; 4 semantics"
+    },
+    {
+      "name": "alias resolution",
+      "ok": true,
+      "detail": "7 aliases resolve without cycles"
+    },
+    {
+      "name": "WCAG contrast >= 4.5:1",
+      "ok": true,
+      "detail": "57 pairs, minimum 品牌主色文字 / 品牌浅底 4.66:1"
+    },
+    {
+      "name": "theme.wxss and browser preview freshness",
+      "ok": true,
+      "detail": "64 TDesign-consumed variables; 10 documented preview extensions; browser preview is 2x rpx->px"
+    },
+    {
+      "name": "Figma variables 1:1",
+      "ok": true,
+      "detail": "74 Figma variables, names exactly equal tokens.json paths"
+    },
+    {
+      "name": "demo references and variables",
+      "ok": true,
+      "detail": "42 theme variables used by demo, all defined"
+    },
+    {
+      "name": "contrast documentation",
+      "ok": true,
+      "detail": "57 documented pairs, no FAIL"
+    }
+  ],
+  "failures": [],
+  "tokens": 74,
+  "themeVariables": 64,
+  "contrastPairs": 57,
+  "tokensHash": "63972f37c08d0e6a28b88579a8e0880503ce0c43770b7fdf12f2e7f89fe3f6ef"
+}

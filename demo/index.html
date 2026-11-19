@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=750, initial-scale=1" />
+<title>会员空间平台 · TDesign 主题示例（Web 预览）</title>
+<link rel="stylesheet" href="theme.css" />
+<link rel="stylesheet" href="demo.css" />
+</head>
+<body class="td-theme">
+<main class="app" data-testid="app">
+  <header class="hero">
+    <div class="hero-top">
+      <span class="hero-brand">会员空间平台</span>
+      <span class="hero-badge">Theme Preview</span>
+    </div>
+    <h1 class="hero-title">产业资源连接 · 小程序主题</h1>
+    <p class="hero-sub">TDesign 主题变量示例页（Web 预览，非微信开发者工具截图）</p>
+    <div class="swatch-row">
+      <span class="swatch swatch-brand">品牌主色 #1F5EFF</span>
+      <span class="swatch swatch-accent">辅助色 #0F766E</span>
+    </div>
+  </header>
+
+  <section class="card">
+    <div class="card-head"><h2>按钮 Button</h2><span class="muted">var(--td-brand-color)</span></div>
+    <div class="button-row">
+      <button class="t-button t-button--primary" data-accent="button">立即报名</button>
+      <button class="t-button t-button--light" data-accent="button-light">查看详情</button>
+      <button class="t-button t-button--outline">联系顾问</button>
+    </div>
+    <div class="tag-row">
+      <span class="t-tag t-tag--primary" data-accent="tag">品牌标签</span>
+      <span class="t-tag t-tag--success">已审核</span>
+      <span class="t-tag t-tag--warning">待确认</span>
+      <span class="t-tag t-tag--error">已取消</span>
+      <span class="t-tag t-tag--info">新消息</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>单元格 Cell</h2><span class="muted">圆角 / 间距 / 边框</span></div>
+    <div class="cell" data-testid="cell">
+      <div class="cell-icon">会</div>
+      <div class="cell-body"><div class="cell-title">会员空间 · 产业资源对接</div><div class="cell-desc">2026 年 12 月 · 上海</div></div>
+      <div class="cell-arrow">›</div>
+    </div>
+    <div class="cell">
+      <div class="cell-icon cell-icon--accent">课</div>
+      <div class="cell-body"><div class="cell-title">学院课程 · 品牌主题课</div><div class="cell-desc">已报名 18 / 30 人</div></div>
+      <div class="t-tag t-tag--primary">进行中</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>输入与反馈</h2><span class="muted">字号 / 语义色</span></div>
+    <label class="field-label" for="company">企业名称</label>
+    <input id="company" class="t-input" value="示例会员企业（虚构）" />
+    <div class="hint">仅用于界面预览，所有数据均为虚构。</div>
+    <div class="notice notice-success"><strong>提交成功</strong><span>我们会在 1 个工作日内联系你。</span></div>
+    <div class="notice notice-warning"><strong>待补充资料</strong><span>请完善企业简介后再提交审核。</span></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>设计变量</h2><span class="muted">tokens.json → theme.wxss</span></div>
+    <div class="token-grid">
+      <div class="token"><span class="token-dot dot-brand"></span><span>brand.primary</span><code>#1F5EFF</code></div>
+      <div class="token"><span class="token-dot dot-accent"></span><span>accent.primary</span><code>#0F766E</code></div>
+      <div class="token"><span class="token-dot dot-success"></span><span>semantic.success</span><code>#0E7A5F</code></div>
+      <div class="token"><span class="token-dot dot-warning"></span><span>semantic.warning</span><code>#9A5B00</code></div>
+    </div>
+  </section>
+
+  <footer class="footer">会员空间平台 · 设计变量示例 · 数据均为虚构</footer>
+</main>
+</body>
+</html>
