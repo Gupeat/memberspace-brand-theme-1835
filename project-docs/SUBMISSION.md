@@ -1,61 +1,46 @@
-# #1835 提交材料（rework v2.2.0）
+# #1835 提交材料（rework v2.3.0）
 
 - 任务：#1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射
 - 金额：7000 USD；agent 1688（craftmesh-v7.env）
-- 状态：v1 已于 2026-11-19T10:46:33.421669Z 提交；平台随后 request-rework（rework_count=1）。rework v2.2.0 已完成实现、微信开发者工具真实截图、在线 Figma、两轮 7 步验收、证据与文档；**尚未提交**，等待用户审核与明确批准。
-- 更新时间：2026-11-20 11:35（Asia/Shanghai）
+- 状态：v1 已于 2026-11-19T10:46:33.421669Z 提交；平台随后 request-rework（rework_count=1）。v2.3.0 已完成实现、严格 DTCG、微信开发者工具真实截图、在线 Figma、62 组对比度、17 tests、23 项 DevTools、两轮 7 步验收、GitHub Release；**尚未提交**，等待用户审核与明确批准。
+- 更新时间：2026-11-20 20:40（Asia/Shanghai）
 
-## 1. rework v2.2.0 相对 v1 的修改
+## 1. rework v2.3.0 相对 v1 的修改
 
-1. 新增微信开发者工具真实运行证据：miniprogram-demo 使用 t-button / t-tag，app.wxss 引入生成的 theme.wxss；DevTools 2.02.2609250 Stable、沙箱 AppID wx65dda5a642890a95、libVersion 3.4.10；模拟器与完整 IDE 两张截图；verify_devtools_evidence.py 18/18 PASS。
-2. theme.wxss 从 68 收敛到 64 个 TDesign 1.18.0 实际消费变量：移除 --td-line-height、--td-anim-duration-moderate、--td-anim-duration-slow、--td-anim-time-fn-ease-in；对应 token 保留。
-3. 在线 Figma 文件：collection Theme、mode Light、74 变量、Anyone can edit；可导入 DTCG（figma-import.tokens.json / Light.tokens.json，74 项，字节相同）；verify_figma_export.py 74/74 校验。
-4. 测试从 14 增至 16；新增 miniprogram theme 同源测试与 DevTools 证据校验；验收从 6 步扩展到 7 步。
-5. Figma 插件保持非破坏性：不删除任何既有变量，类型冲突跳过，未匹配变量保留并提示。
-6. 交付通道为 GitHub 公开仓库 + Release 资产，不使用 filebin；包内不含 project-docs，避免包 SHA 与文档互相引用。
+1. **严格 W3C DTCG**：38 个 color 全部改为 `{colorSpace:"srgb",components:[r,g,b],hex:"#RRGGBB"}` 对象；21 个 dimension 改为 px；3 个 shadow 改为含 color 对象和四边 dimension 的复合对象；7 个 alias 全部可解析。validate.py 检查 1 与 tests/test_tokens.py 覆盖严格值类型。
+2. **TDesign 语义浅底与组合字体**：theme.wxss 从 64 个映射扩展到 84 个（77 个被 TDesign 1.18.0 直接消费，7 个兼容别名）。新增 `--td-tag-success-light-color` / `--td-tag-warning-light-color` / `--td-tag-danger-light-color`，修复 TDesign 标签只换文字色、浅底仍是默认色的问题；新增 mark/body/title/headline 的 `--td-font-size-*` 与 `--td-line-height-*`，修复组合字体不采用 24/28/32/36/40/48 阶梯的问题；删除会改变语义的 `--td-font-size-xxl`。
+3. **Figma 显示名统一**：在线文件 74 个变量、collection Theme / mode Light、Anyone can edit；Figma 显示名为 `color/brand/primary` 这类 `/` 分组，canonical tokenPath 为 `color.brand.primary` 点分路径，逐段 1:1。对照表、插件 JSON、插件脚本、导入 DTCG 全部统一；verify_figma_export.py 同时校验 74/74 tokenPath 与 74/74 显示名。
+4. **对比度表补齐**：62 组正文组合，最低 4.66:1；新增语义标签实际浅底组合：success #0E7A5F on #E7F7F0=4.78、warning #9A5B00 on #FFF4E5=4.99、error #B42318 on #FEE9E9=5.65、info #0B5C8A on #E6F3FB=6.38、accent #0F766E on #E6F4F1=4.84。
+5. **微信开发者工具真实截图**：DevTools 2.02.2609250 Stable、沙箱 AppID wx65dda5a642890a95、libVersion 3.4.10、页面 pages/index/index；t-button/t-tag 真实计算样式为品牌色、语义浅底与 16px/12px 字号；模拟器 488x941 与 IDE 1564x1250 两张截图；verify_devtools_evidence.py 23/23 PASS。
+6. **交付通道**：GitHub 公开仓库 + Release v2.3.0 资产（1,959,220 B / SHA-256 3544c2d0…），下载回验一致；不使用 filebin。包内不含 project-docs，避免包 SHA 与文档互相引用。
 
 ## 2. 交付清单
 
-1. repo/tokens.json：74 个 W3C DTCG token，7 个别名，覆盖色彩/字号/行高/字重/圆角/间距/阴影/动效。
-2. repo/theme.wxss：64 个 TDesign 1.18.0 实际消费的 CSS 变量，选择器 page, .td-theme。
-3. repo/figma/figma-variables.json：74 个 Figma 变量，名称与 tokens.json 1:1。
-4. repo/figma/figma-import.tokens.json + Light.tokens.json：Figma Variables 可直接导入的嵌套 DTCG（74 项，字节相同）。
-5. repo/figma/create-variables.js + manifest.json：非破坏性 Figma Plugin API 导入脚本。
-6. repo/evidence/figma-online/：在线 Figma 导出快照、verify.json、登录态/共享/匿名截图与 README。
-7. repo/evidence/devtools/：真实微信开发者工具截图、run.json（版本/AppID/页面/截图哈希/计算样式）、verify.json（18/18）。
-8. repo/miniprogram-demo/：可直接在 DevTools 打开的最小 TDesign 小程序（t-button / t-tag，引用生成的 theme.wxss）。
-9. repo/docs/FIGMA-VARIABLES.md：74 行 1:1 对照表；docs/FIGMA-ONLINE.md、docs/WECHAT-DEVTOOLS.md、docs/USAGE.md。
-10. repo/docs/CONTRAST.md：57 组对比度，全部 ≥4.5:1，最小 4.66:1。
-11. repo/demo/ + repo/artifacts/example-page.png：完整 TDesign 风格 Web 预览，750×2269。
-12. repo/tests/test_tokens.py + scripts/validate.py + verify_figma_export.py + verify_devtools_evidence.py：16 tests、8/8 校验、Figma 74/74、DevTools 18/18。
-13. repo/artifacts/acceptance-round1.log、round2.log、ACCEPTANCE-*.md：两轮 7 步从零验收。
-14. repo/artifacts/reverse-drill.log：3/3 变异命中。
-15. 项目文档 00/01/02/03/STATUS；本文件与 submission-solution-v2.txt；GitHub 仓库 project-docs/ 同版存档。
-16. GitHub Release v2.2.0 与归档 zip（见第 6 节）。
+1. repo/tokens.json：74 个严格 DTCG token，7 个别名；覆盖色彩、字号/行高/字重、圆角、间距、阴影、动效。
+2. repo/theme.wxss：84 个 TDesign 小程序 CSS 变量映射；由 tokens.json 生成；与 miniprogram-demo/theme.wxss 字节相同。
+3. repo/figma/figma-variables.json：74 个变量定义（tokenPath 点分 + `/` 显示名）；create-variables.js + manifest.json 为桌面插件备选路径。
+4. repo/figma/figma-import.tokens.json 与 Light.tokens.json：Figma Variables 可直接导入的嵌套 DTCG；74 项，两份字节相同。
+5. repo/docs/CONTRAST.md：62 组正文对比度表，全部 >=4.5:1。
+6. repo/docs/FIGMA-VARIABLES.md：74 行对照表（tokenPath + 显示名）；docs/FIGMA-ONLINE.md：在线/导入/导出说明。
+7. repo/docs/WECHAT-DEVTOOLS.md：DevTools 打开、截图、复现与限制。
+8. repo/evidence/devtools/：两张截图、run.json、verify.json。
+9. repo/evidence/figma-online/：Theme.zip、Light.tokens.json、verify.json、登录/共享/匿名截图。
+10. repo/scripts/：build.py、validate.py、verify_figma_export.py、verify_devtools_evidence.py、capture.mjs、run_acceptance.py、reverse_drill.py。
+11. repo/tests/test_tokens.py：17 项测试；repo/README.md 与 docs/USAGE.md：使用、替换品牌色、Figma 导入、验证说明。
+12. 交付包：1835-s3-brand-001-rework-v2.3.0.zip；GitHub Release v2.3.0。
 
-## 3. rework 六项逐条答复
+## 3. AC 对照与证据
 
-| # | 平台要求 | 交付与证据 |
+| AC | 原文 | 交付证据 |
 | --- | --- | --- |
-| 1 [blocker] | GitHub 仓库或 PR，README 写运行/测试，包含 tokens、theme、校验脚本、demo、文档 | https://github.com/Gupeat/memberspace-brand-theme-1835（public，可直接克隆）；README「快速开始」7 条命令；tokens.json、theme.wxss、scripts/、miniprogram-demo/、demo/、docs/ 全部在仓库 |
-| 2 [blocker] | Figma 变量集合链接，实际建立与 tokens.json 同名变量 | https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1；collection Theme / mode Light / 74 变量 / Anyone can edit；evidence/figma-online/verify.json 74/74 |
-| 3 [major] | theme.wxss 应用到 TDesign 小程序组件的截图，必须在微信开发者工具或真机中截取 | evidence/devtools/miniprogram-simulator.png（488×941，仅模拟器）与 miniprogram-devtools.png（1564×1250，完整 IDE）；run.json 记录 DevTools 2.02.2609250、页面 pages/index/index；verify.json 18/18；README 与 docs/WECHAT-DEVTOOLS.md 引用 |
-| 4 [major] | Figma 变量名与 tokens.json 一一对应，且与 Figma 文件实际一致 | docs/FIGMA-VARIABLES.md 74 行；figma/figma-variables.json 74 个；evidence/figma-online/verify.json 74/74（名称/类型/别名/值/描述） |
-| 5 [major] | tokens.json 通过 W3C DTCG 校验，提交校验脚本与输出 | scripts/validate.py 第 1 项 DTCG；artifacts/validation.log、validation.json（8/8 PASS）；pytest test_token_index_has_74_valid_tokens |
-| 6 [minor] | 对比度检查表所有正文组合 ≥4.5:1，完整表含前景/背景/比值/用途 | docs/CONTRAST.md 57 组（前景、背景、比值、用途），最小 4.66:1；validate.py 第 4/8 项；pytest test_all_57_body_text_pairs_meet_wcag_aa |
+| AC1 | tokens.json 通过 W3C Design Tokens 格式校验 | 严格 DTCG：38 个 color 对象、21 个 px dimension、3 个复合 shadow；validate.py 8/8 检查 1 通过；tests/test_tokens.py 严格值类型测试；artifacts/validation.log |
+| AC2 | 对比度检查表中所有正文文字组合 >= 4.5:1 | docs/CONTRAST.md 62 组，最低 4.66:1；validate.py 检查 4/8；test_all_62_body_text_pairs_meet_wcag_aa |
+| AC3 | theme.wxss 应用到 TDesign 组件示例页后的截图中按钮、标签使用新品牌色 | artifacts/example-page.png 750x2261；DevTools 真实截图 + 23 项计算样式；button background rgb(31,94,255)、tag 浅底 #E7F7F0/#FFF4E5/#FEE9E9、字号 16px/12px |
+| AC4 | Figma 变量名与 tokens.json 中的名称一一对应（对照表） | 74 个 `/` 显示名 + 74 个点分 tokenPath；verify_figma_export.py 74/74+74/74；docs/FIGMA-VARIABLES.md；figma-variables.json；在线 Theme/Light |
 
-## 4. 客户 AC 逐条对照
+## 4. 复现命令
 
-| 编号 | 客户验收标准 | 结果 | 证据 |
-| --- | --- | --- | --- |
-| AC1 | tokens.json 通过 W3C Design Tokens 格式校验 | PASS | validate.py 检查 1；artifacts/validation.log；pytest test_token_index_has_74_valid_tokens |
-| AC2 | 对比度检查表所有正文组合 ≥4.5:1 | PASS | docs/CONTRAST.md 57 组，min 4.66:1；validate.py 检查 4；pytest test_all_57_body_text_pairs_meet_wcag_aa |
-| AC3 | theme.wxss 应用到 TDesign 组件示例页后按钮/标签使用新品牌色 | PASS | 微信开发者工具真实截图 evidence/devtools/*.png；run.json 计算样式；verify.json 18/18；pytest test_miniprogram_demo_uses_the_generated_theme |
-| AC4 | Figma 变量名与 tokens.json 名称一一对应 | PASS | 在线 74 变量；evidence/figma-online/verify.json 74/74；docs/FIGMA-VARIABLES.md 74 行；validate.py 检查 6 |
-
-## 5. 复现命令
-
-在 repo/ 下执行：
+在 repo 根目录：
 
     python scripts/build.py
     python scripts/validate.py
@@ -63,46 +48,49 @@
     python scripts/verify_figma_export.py
     python scripts/verify_devtools_evidence.py
     node scripts/capture.mjs
+    python scripts/reverse_drill.py
     python scripts/run_acceptance.py --label round1
-    python scripts/run_acceptance.py --label round2
 
-## 6. 交付包与 Release
+实测：build `{"tokens":74,"themeVariables":84,"figmaVariables":74,"figmaImportVariables":74,"contrastPairs":62,"minContrast":4.66,"tokensHash":"4e5dc3b3…"}`；validate 8/8 PASS；pytest 17 passed；Figma 74/74；DevTools 23/23；两轮 7 步均 exit 0；变异 3/3 DETECTED。
 
-- 本地路径：clawhunt/projects/1835/artifacts/1835-s3-brand-001-rework-v2.2.0.zip
-- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
-- Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.2.0
-- 资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.2.0/1835-s3-brand-001-rework-v2.2.0.zip
-- 字节：1,954,726 B
-- SHA-256：12375a159a723b526492bf11b45cb37f8167af25c6f78df328696367583d8156
-- 包内：repo 源码/生成物/测试/证据（含 miniprogram-demo 与 evidence/devtools）+ README-PACKAGE.txt + MANIFEST.txt；项目文档在 GitHub project-docs/。
-- 下载回验：curl -L 重新下载 1,954,726 B，SHA-256 与上方完全一致；GitHub asset id 770354389、digest sha256:12375a…8156。
-- solution precheck：POST https://clawhunt.store/api/v1/problems/1835/solution/precheck，HTTP 200，would_pass=true、defects=[]、critic.score=7、blocked_by=[]；仅 dry-run，未提交。
+## 5. 交付包与 GitHub Release
 
-## 7. 平台状态与提交记录
+- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835（public；main 2da1d8e…）
+- Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.3.0
+- 资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.3.0/1835-s3-brand-001-rework-v2.3.0.zip
+- 字节：1,959,220 B；SHA-256：3544c2d089b74bfc91e993d2c6ec56bc04449d5d2e352478ba55e72d878a0c65；asset id 771731043。
+- zip 1,250 entries；MANIFEST 覆盖 1,249 个文件；逐文件 SHA-256/字节校验 0 错误；无 missing/extra；testzip 无错误；隐私扫描 0 命中。
+- 上传后 curl -L 下载 1,959,220 B，SHA-256 与上传一致。
 
-- v1：2026-11-19T10:46:33.421669Z 提交成功；instant_review needs_changes（启发式语义打分）；平台随后 request-rework，rework_count=1、latest_delivery_status=rework_requested。
-- v2.2.0：**未提交**。提交必须等用户审核并明确批准；批准后执行：
+## 6. 沙箱/隐私
 
-    powershell.exe -NoProfile -ExecutionPolicy Bypass -File "clawhunt\clawhunt.ps1" submit -ProblemId 1835 -EnvFile "craftmesh-v7.env" -TextFile "clawhunt\projects\1835\submission-solution-v2.txt"
+- 所有数据均为虚构：占位品牌名「会员空间平台」，无客户名、真实企业、手机号、邮箱、身份证。
+- Figma 账号凭证只在本机 .clawhunt/figma-account.txt，不进仓库/包/提交文本。
+- 微信开发者工具使用个人沙箱测试号，不是客户 AppID；不上传、不预览、不连接后端。
+- 仓库和包不含 API Key、token、Cookie、授权头或 PII；验收日志已按 ROOT/HOME 三种写法脱敏，含 JSON 转义双反斜杠。
+- 包扫描 C:/Users、/Users/、xibei、craftmesh、ghp_/github_pat_/sk-、邮箱、手机号 0 命中。
 
-- 提交后 WorkStatus 回写 submitted，记录 submitted_at 与 latest_delivery_version；绝不重复提交。
+## 7. 质量闸门
 
-## 8. 提交检查表（v2.2.0）
-
-- [x] 平台已 request-rework（rework_count=1）
-- [x] 16 tests、8/8 校验、Figma 74/74、DevTools 18/18
-- [x] 两轮 7 步从零验收、3/3 变异
-- [x] 交付包已打包并本地自检
-- [ ] 回填包 URL/字节/SHA-256 并下载回验
-- [ ] 预检 would_pass=true、defects=[]
+- [x] build 幂等；theme.wxss 与 miniprogram-demo/theme.wxss 字节相同
+- [x] validate.py 8/8 PASS
+- [x] pytest 17 passed
+- [x] 严格 DTCG：38 color 对象、21 px dimension、3 复合 shadow
+- [x] 84 映射：77 直接消费 + 7 兼容；标签语义浅底与组合字体在真实 DevTools 生效
+- [x] Figma 74 tokenPath + 74 显示名；在线文件 74 变量
+- [x] 62 组对比度，最小 4.66:1
+- [x] 两轮 7 步从零验收 exit 0
+- [x] 变异 3/3 DETECTED
+- [x] 包 MANIFEST/zip/隐私/下载回验通过
+- [ ] v2.3.0 solution precheck would_pass=true、defects=[]（2026-11-20T12:30Z/12:33Z 两次：deterministic 通过、defects=[]；critic outage、would_pass=null，待重试）
 - [ ] 用户审核并明确批准
 - [ ] 执行 submit 并记录 submitted_at/version
-- [ ] 提交后 WorkStatus submitted；绝不重复提交
 
-## 9. 已知限制
+## 8. 已知限制
 
 - 微信开发者工具截图使用沙箱测试号与模拟器（iPhone 12/13 Pro），不是真机截图；不同 IDE 版本/设备模拟器可能导致 PNG 字节不同。
 - Figma 免费版；匿名查看者不显示 Variables 编辑面板，变量证据以登录态截图与导出快照为准。
-- miniprogram-demo 只演示 t-button/t-tag 的品牌色、圆角与字号，不代表全部 TDesign 组件。
-- 57 组对比度是颜色组合校验，不等同完整 UI 无障碍审计。
+- miniprogram-demo 只演示 t-button/t-tag 的品牌色、语义浅底与字号，不代表全部 TDesign 组件；完整组件外观见 demo/index.html（Web 预览）。
+- 62 组对比度是颜色组合校验，不等同完整 UI 无障碍审计。
 - 本机无 git 客户端，GitHub 通过 REST API 提交，不是 git CLI 生成的 PR。
+- 项目文档不放入 zip；GitHub 仓库 project-docs 为文档快照。

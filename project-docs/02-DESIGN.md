@@ -129,8 +129,8 @@ WCAG 2.1 相对亮度：sRGB 分量 <=0.04045 时 c/12.92，否则 ((c+0.055)/1.
 
 - 17 项 pytest 通过：严格 DTCG、84 个映射、62 组对比度、Figma tokenPath + display name、导入 DTCG 字节一致、miniprogram-demo 主题同源、验证脚本 8/8。
 - validate.py 8/8 PASS，exit 0；62 组对比度，最低 4.66:1；74 个 Figma 变量 + 74 个导入变量。
-- 两轮从零验收：round1 2026-11-20T11:58:27Z、round2 11:58:32Z，均 exit 0；每轮 7 步；Web 截图 750×2261、296,124 B，哈希 8d7b49c3…。
+- 两轮从零验收：round1 2026-11-20T12:08:00Z、round2 12:08:06Z，均 exit 0；每轮 7 步；Web 截图 750×2261、296,124 B，哈希 8d7b49c3…。
 - 微信开发者工具真实模拟器截图（488×941）与完整 IDE 截图（1564×1250），verify_devtools_evidence.py 23/23 PASS。
 - 在线 Figma 导出快照：74/74 tokenPath、74/74 显示名、类型、别名、值、描述一致；collection Theme、mode Light。
-- 变异演练 3/3 DETECTED：中性色改浅触发对比度失败、删除品牌映射触发 demo 未定义变量、改 Figma 名称触发 1:1 失败。
-- 交付包与证据见 03-EVIDENCE.md。
+- 变异演练 3/3 DETECTED：中性色改浅触发对比度失败、删除品牌映射触发 demo 未定义变量、改 Figma 名称触发 1:1 失败；reverse_drill.py 已适配严格 DTCG color 对象（同时改 hex 与 components），日志 1,033 B / SHA-256 c0868156…。
+- 交付包：1,959,220 B / SHA-256 3544c2d0…；GitHub Release v2.3.0 资产 771731043，下载回验一致；详见 03-EVIDENCE.md。

@@ -1,7 +1,7 @@
 # #1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射 · 理解与范围
 
 更新时间：2026-11-20 20:10（Asia/Shanghai）
-状态：v1 已于 2026-11-19T10:46:33Z 提交；平台随后要求 rework（rework_count=1，latest_delivery_status=rework_requested）。v2.3.0 已完成严格 DTCG 修复、TDesign 语义浅底与组合字体映射、Figma 显示名统一、62 组对比度、23 项 DevTools 证据、两轮 7 步验收与 GitHub 交付准备；**尚未提交**，等待用户审核与明确批准。
+状态：v1 已于 2026-11-19T10:46:33Z 提交；平台随后要求 rework（rework_count=1，latest_delivery_status=rework_requested）。v2.3.0 已完成严格 DTCG 修复、TDesign 语义浅底与组合字体映射、Figma 显示名统一、62 组对比度、23 项 DevTools 证据、两轮 7 步验收；交付包已生成并自检（1,959,220 B，SHA-256 3544c2d0…），源码已推送 GitHub main（2da1d8e…），GitHub Release v2.3.0 与下载回验完成；solution precheck 已执行（deterministic checks passed、defects=[]，LLM critic outage、would_pass=null，待重试）；**尚未提交**，等待用户审核与明确批准。
 
 ## 1. 平台事实
 
@@ -74,5 +74,6 @@
 - [x] Figma 显示名与 token 路径 1:1，附对照表、插件与导入清单。
 - [x] build 幂等、两轮从零演练、变异演练（3/3 DETECTED）。
 - [x] README/USAGE 完整、可复现。
-- [x] v2.3.0 交付包、GitHub Release 与下载回验（见 03-EVIDENCE E12）。
+- [x] v2.3.0 交付包已生成并通过 MANIFEST/zip/隐私自检；GitHub Release v2.3.0 已创建，资产下载回验通过（见 03-EVIDENCE E12）。
+- [ ] v2.3.0 提交前预检 would_pass=true、defects=[] 并记录。
 - [x] v1 经用户 2026-11-19 明确批准后提交；v2.3.0 已按平台 rework 完成，待用户审核与明确批准，不重复提交。
