@@ -5,8 +5,8 @@
 ## 1. 设计师：改颜色/字号/圆角
 
 1. 只编辑 `tokens.json`，不要手改 `theme.wxss`、`demo/theme.css`、`figma/*.json`、`docs/CONTRAST.md`、`docs/FIGMA-VARIABLES.md`；这些都是生成物。
-2. 颜色值用 6 位十六进制（如 `#1F5EFF`）；需要透明时用 8 位（`#RRGGBBAA`）。
-3. 尺寸用 DTCG dimension 对象：`{ "value": 28, "unit": "rpx" }`。
+2. 颜色值用 DTCG color 对象：`{ "colorSpace": "srgb", "components": [0.121569, 0.368627, 1.0], "hex": "#1F5EFF" }`；需要透明度时加 `"alpha": 0.5`。不要只写 hex 字符串，严格 DTCG 校验会失败。
+3. 尺寸用 DTCG dimension 对象：`{ "value": 14, "unit": "px" }`。px 是唯一真源；`build.py` 按 2rpx = 1px 写成 `theme.wxss` 里的 rpx。
 4. 别名写成 `{color.neutral.900}`；构建时会解析，循环引用会直接失败。
 5. 运行：
 
@@ -66,7 +66,7 @@ node scripts/capture.mjs
    }
    ```
 
-6. 字号是 rpx，原则：正文 `--td-font-size-base`（28rpx），辅助 `--td-font-size-s`（24rpx），标题按 32/36/40/48rpx。
+6. `theme.wxss` 的长度单位是 rpx（由 tokens.json 的 px 按 2rpx = 1px 转换）。正文用 `--td-font-size-body-medium` / `--td-font-size-base`（28rpx），辅助用 `--td-font-size-body-small` / `--td-font-size-s`（24rpx），标题用 `--td-font-size-title-small/medium/large`（32/36/40rpx），大标题用 `--td-font-size-headline-small`（48rpx）。
 
 ### 组件对照
 
@@ -82,7 +82,7 @@ node scripts/capture.mjs
 | 阴影 | `--td-shadow-1/2/3` |
 | 动效 | `--td-anim-duration-base`、`--td-anim-time-fn-easing/ease-out` |
 
-完整清单见 `theme.wxss`（64 项）。
+完整清单见 `theme.wxss`（84 项：77 项被 TDesign 1.18.0 直接消费，7 项为兼容别名）。
 
 ## 3. 设计系统维护者：生成物与闸门
 
@@ -113,7 +113,7 @@ python scripts/run_acceptance.py --label round1
 python scripts/run_acceptance.py --label round2
 ```
 
-`run_acceptance.py` 会删除生成物后重建，校验 8 项、15 项 pytest、在线 Figma 导出 74/74、截图尺寸/色彩，并写出：
+`run_acceptance.py` 会删除生成物后重建，校验 8 项、17 项 pytest、在线 Figma 导出 74/74、截图尺寸/色彩，并写出：
 
 - `artifacts/acceptance-<label>.log`（每条命令、stdout、stderr）
 - `artifacts/ACCEPTANCE-<label>.md`、`artifacts/ACCEPTANCE.md`
@@ -143,7 +143,7 @@ python scripts/reverse_drill.py
 ### 不变量
 
 - `tokens.json` 是唯一真源；生成物不得手改。
-- 74 个 token、64 个 TDesign 消费变量、74 个 Figma 变量、57 组对比度必须保持一致。
+- 74 个 token、84 个 TDesign 主题变量（77 直接消费 + 7 兼容）、74 个 Figma 变量、62 组对比度必须保持一致。
 - 在线 Figma 导出快照必须 74/74 与 `tokens.json` 一致（`verify_figma_export.py`）。
 - 最低正文对比度 4.66:1。
 - 示例页 750px 宽、2x 预览、截图高 ≥1500。

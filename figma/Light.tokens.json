@@ -497,64 +497,64 @@
     "size": {
       "24": {
         "$type": "number",
-        "$value": 12.0,
+        "$value": 12,
         "$description": "辅助说明（24rpx = 12px）"
       },
       "28": {
         "$type": "number",
-        "$value": 14.0,
+        "$value": 14,
         "$description": "正文/基础（28rpx = 14px）"
       },
       "32": {
         "$type": "number",
-        "$value": 16.0,
+        "$value": 16,
         "$description": "小标题（32rpx = 16px）"
       },
       "36": {
         "$type": "number",
-        "$value": 18.0,
+        "$value": 18,
         "$description": "标题（36rpx = 18px）"
       },
       "40": {
         "$type": "number",
-        "$value": 20.0,
+        "$value": 20,
         "$description": "大标题（40rpx = 20px）"
       },
       "48": {
         "$type": "number",
-        "$value": 24.0,
+        "$value": 24,
         "$description": "页面主标题（48rpx = 24px）"
       }
     },
     "lineHeight": {
       "24": {
         "$type": "number",
-        "$value": 18.0,
+        "$value": 18,
         "$description": "24 号字行高（36rpx = 18px）"
       },
       "28": {
         "$type": "number",
-        "$value": 20.0,
+        "$value": 20,
         "$description": "28 号字行高（40rpx = 20px）"
       },
       "32": {
         "$type": "number",
-        "$value": 22.0,
+        "$value": 22,
         "$description": "32 号字行高（44rpx = 22px）"
       },
       "36": {
         "$type": "number",
-        "$value": 24.0,
+        "$value": 24,
         "$description": "36 号字行高（48rpx = 24px）"
       },
       "40": {
         "$type": "number",
-        "$value": 28.0,
+        "$value": 28,
         "$description": "40 号字行高（56rpx = 28px）"
       },
       "48": {
         "$type": "number",
-        "$value": 32.0,
+        "$value": 32,
         "$description": "48 号字行高（64rpx = 32px）"
       }
     },
@@ -579,17 +579,17 @@
   "radius": {
     "8": {
       "$type": "number",
-      "$value": 4.0,
+      "$value": 4,
       "$description": "小圆角（8rpx = 4px）"
     },
     "16": {
       "$type": "number",
-      "$value": 8.0,
+      "$value": 8,
       "$description": "默认圆角（16rpx = 8px）"
     },
     "24": {
       "$type": "number",
-      "$value": 12.0,
+      "$value": 12,
       "$description": "大圆角（24rpx = 12px）"
     },
     "full": {
@@ -601,27 +601,27 @@
   "space": {
     "16": {
       "$type": "number",
-      "$value": 8.0,
+      "$value": 8,
       "$description": "紧凑间距（16rpx = 8px）"
     },
     "24": {
       "$type": "number",
-      "$value": 12.0,
+      "$value": 12,
       "$description": "默认间距（24rpx = 12px）"
     },
     "32": {
       "$type": "number",
-      "$value": 16.0,
+      "$value": 16,
       "$description": "块间距（32rpx = 16px）"
     },
     "48": {
       "$type": "number",
-      "$value": 24.0,
+      "$value": 24,
       "$description": "大块间距（48rpx = 24px）"
     },
     "64": {
       "$type": "number",
-      "$value": 32.0,
+      "$value": 32,
       "$description": "页面分区（64rpx = 32px）"
     }
   },

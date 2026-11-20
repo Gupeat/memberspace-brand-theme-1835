@@ -65,16 +65,48 @@ def resolve(value, index, seen=()):
 def dim(value) -> str:
     if not isinstance(value, dict) or set(value) != {"value", "unit"}:
         raise SystemExit(f"invalid dimension: {value!r}")
+    if value["unit"] == "px":
+        # tokens.json stores CSS pixels; WeChat uses 2rpx = 1px at 375pt.
+        number = value["value"] * 2
+        if float(number).is_integer():
+            number = int(number)
+        return f"{number}rpx"
     return f"{value['value']}{value['unit']}"
 
 
-def color_css(value: str) -> str:
-    value = value.strip()
-    if len(value) == 9:
-        r, g, b = value[1:3], value[3:5], value[5:7]
-        a = int(value[7:9], 16) / 255
+def color_hex(value) -> str:
+    if isinstance(value, str):
+        text = value.strip()
+        if not (text.startswith("#") and len(text) in (7, 9)):
+            raise SystemExit(f"invalid color: {value!r}")
+        return text.upper()
+    if isinstance(value, dict):
+        hex_value = value.get("hex")
+        if isinstance(hex_value, str):
+            return color_hex(hex_value)
+        components = value.get("components")
+        if isinstance(components, list) and len(components) == 3:
+            channels = [max(0, min(255, round(float(c) * 255))) for c in components]
+            alpha = round(float(value.get("alpha", 1)) * 255)
+            suffix = "" if alpha >= 255 else f"{alpha:02X}"
+            return ("#" + "".join(f"{c:02X}" for c in channels) + suffix).upper()
+    raise SystemExit(f"invalid color: {value!r}")
+
+
+def color_alpha(value) -> float:
+    if isinstance(value, dict) and "alpha" in value:
+        return float(value["alpha"])
+    h = color_hex(value).lstrip("#")
+    return int(h[6:8], 16) / 255 if len(h) == 8 else 1.0
+
+
+def color_css(value) -> str:
+    h = color_hex(value).lstrip("#")
+    if len(h) == 8:
+        r, g, b = h[0:2], h[2:4], h[4:6]
+        a = int(h[6:8], 16) / 255
         return f"rgba({int(r,16)},{int(g,16)},{int(b,16)},{a:.3f})"
-    return value.upper()
+    return "#" + h
 
 
 def css_value(path: str, token: dict, typ: str, index: dict) -> str:
@@ -118,7 +150,7 @@ def figma_type(typ: str) -> str:
 def figma_value(path: str, token: dict, typ: str, index: dict):
     value = resolve(token["$value"], index)
     if typ == "color":
-        return value.upper()
+        return color_hex(value)
     if typ == "dimension":
         number = value["value"]
         unit = value["unit"]
@@ -169,12 +201,11 @@ def figma_import_value(path: str, token: dict, typ: str, index: dict):
         return raw  # keep DTCG alias; Figma imports it as a variable reference
     value = resolve(raw, index)
     if typ == "color":
-        h = value.lstrip("#")
-        if len(h) not in (6, 8):
-            raise SystemExit(f"invalid color at {path}: {value!r}")
-        alpha = int(h[6:8], 16) / 255 if len(h) == 8 else 1.0
+        hex_value = color_hex(value)
+        h = hex_value.lstrip("#")
+        alpha = color_alpha(value)
         components = [round(int(h[i:i + 2], 16) / 255, 6) for i in (0, 2, 4)]
-        return {"colorSpace": "srgb", "components": components, "alpha": alpha, "hex": value.upper()}
+        return {"colorSpace": "srgb", "components": components, "alpha": alpha, "hex": hex_value}
     if typ == "dimension":
         return px_number(value)
     if typ == "fontWeight":
@@ -198,7 +229,13 @@ def figma_import_description(token: dict, typ: str, index: dict) -> str:
         return desc
     value = resolve(raw, index)
     if typ == "dimension":
-        suffix = f"{value['value']}{value['unit']} = {px_number(value):g}px"
+        if value["unit"] == "px":
+            rpx = value["value"] * 2
+            if float(rpx).is_integer():
+                rpx = int(rpx)
+            suffix = f"{rpx}rpx = {px_number(value):g}px"
+        else:
+            suffix = f"{value['value']}{value['unit']} = {px_number(value):g}px"
     elif typ == "duration":
         suffix = f"{value['value']}ms" if value["unit"] == "ms" else f"{value['value']}s = {ms_number(value):g}ms"
     elif typ == "fontWeight":
@@ -255,6 +292,10 @@ THEME_MAP = [
     ("--td-warning-color-light", "color.semantic.warningLight"),
     ("--td-error-color", "color.semantic.error"),
     ("--td-error-color-light", "color.semantic.errorLight"),
+    # TDesign tag light variants consume these three directly.
+    ("--td-tag-success-light-color", "color.semantic.successLight"),
+    ("--td-tag-warning-light-color", "color.semantic.warningLight"),
+    ("--td-tag-danger-light-color", "color.semantic.errorLight"),
     ("--td-text-color-primary", "color.text.primary"),
     ("--td-text-color-secondary", "color.text.secondary"),
     ("--td-text-color-placeholder", "color.neutral.400"),
@@ -277,18 +318,37 @@ THEME_MAP = [
     ("--td-component-border", "color.border.default"),
     ("--td-border-level-2-color", "color.border.strong"),
     ("--td-font-family", "font.family.sans"),
+    # Legacy aliases kept for components that consume them directly.
     ("--td-font-size-s", "font.size.24"),
     ("--td-font-size-base", "font.size.28"),
     ("--td-font-size-m", "font.size.32"),
     ("--td-font-size-l", "font.size.36"),
     ("--td-font-size-xl", "font.size.40"),
-    ("--td-font-size-xxl", "font.size.48"),
+    # The real composite --td-font-* variables resolve through these size/line-height vars.
+    ("--td-font-size-mark-extraSmall", "font.size.24"),
+    ("--td-font-size-mark-small", "font.size.24"),
+    ("--td-font-size-mark-medium", "font.size.28"),
+    ("--td-font-size-mark-large", "font.size.32"),
+    ("--td-font-size-body-extraSmall", "font.size.24"),
+    ("--td-font-size-body-small", "font.size.24"),
+    ("--td-font-size-body-medium", "font.size.28"),
+    ("--td-font-size-body-large", "font.size.32"),
+    ("--td-font-size-title-small", "font.size.32"),
+    ("--td-font-size-title-medium", "font.size.36"),
+    ("--td-font-size-title-large", "font.size.40"),
+    ("--td-font-size-title-extraLarge", "font.size.40"),
+    ("--td-font-size-headline-small", "font.size.48"),
+    ("--td-line-height-mark-medium", "font.lineHeight.28"),
+    ("--td-line-height-mark-large", "font.lineHeight.32"),
     ("--td-line-height-body-extraSmall", "font.lineHeight.24"),
     ("--td-line-height-body-small", "font.lineHeight.28"),
+    ("--td-line-height-body-medium", "font.lineHeight.28"),
+    ("--td-line-height-body-large", "font.lineHeight.32"),
     ("--td-line-height-title-small", "font.lineHeight.32"),
     ("--td-line-height-title-medium", "font.lineHeight.36"),
     ("--td-line-height-title-large", "font.lineHeight.40"),
-    ("--td-line-height-title-extraLarge", "font.lineHeight.48"),
+    ("--td-line-height-title-extraLarge", "font.lineHeight.40"),
+    ("--td-line-height-headline-small", "font.lineHeight.48"),
     ("--td-line-height-headline-large", "font.lineHeight.48"),
     ("--td-radius-small", "radius.8"),
     ("--td-radius-default", "radius.16"),
@@ -361,6 +421,14 @@ for _bg_label, _bg in DARK_BACKGROUNDS:
 for _bg_label, _bg in (("白底", "color.bg.surface"), ("页面底", "color.bg.page"), ("品牌浅底", "color.brand.light")):
     CONTRAST_PAIRS.append((f"品牌链接 / {_bg_label}", "color.brand.hover", _bg))
 CONTRAST_PAIRS.append(("品牌主色文字 / 品牌浅底", "color.brand.primary", "color.brand.light"))
+for _name, _label in (
+    ("success", "成功"),
+    ("warning", "警告"),
+    ("error", "错误"),
+    ("info", "信息"),
+):
+    CONTRAST_PAIRS.append((f"{_label}标签文字 / {_label}浅底", f"color.semantic.{_name}", f"color.semantic.{_name}Light"))
+CONTRAST_PAIRS.append(("辅助标签文字 / 辅助浅底", "color.accent.primary", "color.accent.light"))
 
 
 def theme_lines(index) -> list[str]:
@@ -395,8 +463,8 @@ def render_demo_theme(index) -> str:
     return text
 
 
-def luminance(hex_value: str) -> float:
-    h = hex_value.lstrip("#")
+def luminance(hex_value) -> float:
+    h = color_hex(hex_value).lstrip("#")
     if len(h) == 8:
         h = h[:6]
     if len(h) != 6:
@@ -408,7 +476,7 @@ def luminance(hex_value: str) -> float:
     return 0.2126 * r + 0.7152 * g + 0.0722 * b
 
 
-def contrast(a: str, b: str) -> float:
+def contrast(a, b) -> float:
     la, lb = luminance(a), luminance(b)
     return (max(la, lb) + 0.05) / (min(la, lb) + 0.05)
 
@@ -439,7 +507,7 @@ def main() -> None:
         if typ not in {"color", "dimension", "fontFamily", "fontWeight", "shadow", "duration", "cubicBezier", "number"}:
             continue
         figma_vars.append({
-            "name": path,
+            "name": path.replace(".", "/"),
             "tokenPath": path,
             "type": figma_type(typ),
             "value": figma_value(path, token, typ, index),
@@ -518,7 +586,7 @@ def main() -> None:
         ok = ratio >= 4.5
         if not ok:
             failures.append(f"{label}: {ratio:.2f}")
-        rows.append((label, fg, bg, ratio, "PASS" if ok else "FAIL"))
+        rows.append((label, color_hex(fg), color_hex(bg), ratio, "PASS" if ok else "FAIL"))
     if failures:
         raise SystemExit("contrast failures: " + "; ".join(failures))
 
@@ -536,7 +604,8 @@ def main() -> None:
         "",
         "## 统计与说明",
         "",
-        "- 上表覆盖 4 种正文文字（主/二级/三级/弱化）× 11 种浅底，以及反白文字 × 9 种深底。",
+        f"- 上表共 {len(rows)} 组：4 种正文文字（主/二级/三级/弱化）× 11 种浅底，反白文字 × 9 种深底，3 组品牌链接，品牌主色 / 品牌浅底，以及 5 组语义/辅助标签文字 / 浅底。",
+        "- TDesign 标签的浅底由 --td-tag-success-light-color、--td-tag-warning-light-color、--td-tag-danger-light-color 控制，均已映射到对应语义浅底 token。",
         "- 表外颜色只用于边框、占位、禁用态、装饰性色块，不作为正文文字。",
         "- 品牌链接统一使用品牌悬停色，避免主色在浅底上余量不足。",
         "- 最小对比度由 scripts/build.py 计算并断言，低于 4.5:1 会直接失败。",
@@ -548,12 +617,12 @@ def main() -> None:
         "",
         "在线 Figma 文件（viewer 可看）：" + FIGMA_FILE_URL,
         "",
-        "该文件由 Figma Variables 导入 `figma/Light.tokens.json` 生成：collection `Theme`、mode `Light`、74 个变量；Figma 中显示为 / 分隔的嵌套分组，对应下表的点分路径。",
-        "`figma/figma-import.tokens.json` 为同一 DTCG 数据的通用文件名副本；`figma/figma-variables.json` 与 `figma/create-variables.js` 是机器可读定义和桌面插件备选路径。",
+        "该文件由 Figma Variables 导入 figma/Light.tokens.json 生成：collection Theme、mode Light、74 个变量；Figma 以 / 分隔嵌套分组，下表 Figma 变量名就是实际显示名，token 路径是 tokens.json 的点分路径，两者逐段一一对应（仅分隔符不同）。",
+        "figma/figma-import.tokens.json 为同一 DTCG 数据的通用文件名副本；figma/figma-variables.json 与 figma/create-variables.js 是机器可读定义和桌面插件备选路径，二者也统一使用 / 显示名，并保留 tokenPath 点分路径。",
         "",
-        "变量名严格等于 tokens.json 的点分路径。尺寸按 2rpx = 1px 换算为 Figma 数值；别名保留为 `{path}` 引用。",
+        "命名规范：Figma 显示名 = token 点分路径将 . 替换为 /；例如 color.brand.primary <=> color/brand/primary。尺寸按 2rpx = 1px 换算为 Figma 数值；别名保留为 {path} 引用。",
         "",
-        "| # | token 路径 | Figma 变量名 | Figma 类型 | 值 | 说明 |",
+        "| # | token 路径 | Figma 变量名（/ 分组） | Figma 类型 | 值 | 说明 |",
         "| ---: | --- | --- | --- | --- | --- |",
     ]
     for i, v in enumerate(figma_vars, 1):

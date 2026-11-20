@@ -19,7 +19,7 @@
 1. 打开文件 → Variables 面板。
 2. Import variables → 选择 figma/Light.tokens.json。
 3. 如有旧集合，先确认新集合变量数；把新集合重命名为 Theme，mode 保持 Light。
-4. 应看到 74 个变量；分组为 color/font/radius/space/shadow/motion，名称与 tokens.json 点分路径一致。
+4. 应看到 74 个变量；分组为 color/font/radius/space/shadow/motion。Figma 显示名是 `color/brand/primary` 这类 `/` 分组路径，与 tokens.json 的点分路径 `color.brand.primary` 逐段 1:1；`scripts/verify_figma_export.py` 同时校验 tokenPath 点分集合与显示名集合。
 5. 设计稿中按名称绑定变量。
 
 ## 4. 导出与校验
@@ -27,7 +27,7 @@
 1. Variables 面板 → Export modes → 导出 Theme.zip。
 2. 覆盖 evidence/figma-online/Theme.zip，解包出 Light.tokens.json 覆盖同目录文件。
 3. 运行 python scripts/verify_figma_export.py。
-4. 结果写入 evidence/figma-online/verify.json：74/74 名称 1:1、类型计数 38/28/8、别名、值、描述一致，exit 0。
+4. 结果写入 evidence/figma-online/verify.json：74/74 tokenPath 与 74/74 显示名分别 1:1、类型计数 38/28/8、别名、值、描述一致，exit 0。
 
 当前校验结果（2026-11-19）：
 
@@ -53,5 +53,5 @@
 
 - figma/figma-variables.json：机器可读变量定义（74 项）。
 - figma/create-variables.js + figma/manifest.json：桌面插件备选路径（非破坏性创建/更新）。
-- docs/FIGMA-VARIABLES.md：74 行 token 路径与 Figma 名称对照。
+- docs/FIGMA-VARIABLES.md：74 行 tokenPath（点分）与 Figma 显示名（`/` 分组）对照。
 - evidence/figma-online/README.md：证据目录说明与哈希。

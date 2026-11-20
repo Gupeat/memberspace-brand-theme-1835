@@ -14,6 +14,7 @@ BUILD_PATH = ROOT / "scripts" / "build.py"
 TOKENS_PATH = ROOT / "tokens.json"
 IMPORT_PATH = ROOT / "figma" / "figma-import.tokens.json"
 LIGHT_PATH = ROOT / "figma" / "Light.tokens.json"
+FIGMA_VARS_PATH = ROOT / "figma" / "figma-variables.json"
 EXPORT_PATH = ROOT / "evidence" / "figma-online" / "Light.tokens.json"
 OUT_PATH = ROOT / "evidence" / "figma-online" / "verify.json"
 
@@ -75,6 +76,17 @@ def main() -> int:
     actual_light = json.loads(LIGHT_PATH.read_text(encoding="utf-8"))
     actual_export = json.loads(EXPORT_PATH.read_text(encoding="utf-8"))
     export = flatten(actual_export)
+    figma_payload = json.loads(FIGMA_VARS_PATH.read_text(encoding="utf-8"))
+    figma_variables = figma_payload["collections"][0]["variables"]
+    expected_names = {p.replace(".", "/") for p in expected}
+    figma_token_paths = {v["tokenPath"] for v in figma_variables}
+    figma_display_names = {v["name"] for v in figma_variables}
+    display_names_ok = (
+        len(figma_variables) == 74
+        and figma_token_paths == set(expected)
+        and figma_display_names == expected_names
+        and all(v["name"] == v["tokenPath"].replace(".", "/") for v in figma_variables)
+    )
 
     import_fresh = actual_import == expected_import
     light_identical = IMPORT_PATH.read_bytes() == LIGHT_PATH.read_bytes()
@@ -110,6 +122,7 @@ def main() -> int:
         and not description_mismatches
         and counts == expected_counts
         and len(export) == 74
+        and display_names_ok
     )
     report = {
         "ok": ok,
@@ -119,6 +132,8 @@ def main() -> int:
         "expected_counts": expected_counts,
         "import_fresh": import_fresh,
         "light_identical": light_identical,
+        "display_names_ok": display_names_ok,
+        "display_names": sorted(figma_display_names),
         "missing": missing,
         "extra": extra,
         "type_mismatches": type_mismatches,
@@ -131,6 +146,7 @@ def main() -> int:
             "tokens.json": sha256(TOKENS_PATH),
             "figma/figma-import.tokens.json": sha256(IMPORT_PATH),
             "figma/Light.tokens.json": sha256(LIGHT_PATH),
+            "figma/figma-variables.json": sha256(FIGMA_VARS_PATH),
             "evidence/figma-online/Light.tokens.json": sha256(EXPORT_PATH),
             "evidence/figma-online/Theme.zip": sha256(EXPORT_PATH.parent / "Theme.zip"),
         },
@@ -140,7 +156,7 @@ def main() -> int:
     if not ok:
         print(json.dumps({"type_mismatches": type_mismatches, "value_mismatches": value_mismatches, "description_mismatches": description_mismatches}, ensure_ascii=False, indent=2))
         return 1
-    print("OK: 74/74 names 1:1, type counts, aliases, values and descriptions match; export snapshot is fresh.")
+    print("OK: 74/74 canonical paths and / display names, type counts, aliases, values and descriptions match; export snapshot is fresh.")
     return 0
 
 if __name__ == "__main__":

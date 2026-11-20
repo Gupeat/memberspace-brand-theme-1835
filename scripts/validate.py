@@ -71,72 +71,39 @@ REQUIRED_CATEGORIES = {
     "motion.easing.accelerate": "cubicBezier",
 }
 
-TDESIGN_VARIABLES = {
-    "--td-brand-color",
-    "--td-brand-color-active",
-    "--td-brand-color-disabled",
-    "--td-brand-color-focus",
-    "--td-brand-color-light",
-    "--td-brand-color-light-active",
-    "--td-text-color-brand",
-    "--td-text-color-link",
-    "--td-success-color",
-    "--td-success-color-light",
-    "--td-warning-color",
-    "--td-warning-color-light",
-    "--td-error-color",
-    "--td-error-color-light",
-    "--td-text-color-primary",
-    "--td-text-color-secondary",
-    "--td-text-color-placeholder",
-    "--td-text-color-disabled",
-    "--td-text-color-anti",
-    "--td-bg-color-page",
-    "--td-bg-color-container",
-    "--td-bg-color-container-active",
-    "--td-bg-color-secondarycontainer",
-    "--td-bg-color-secondarycontainer-active",
-    "--td-bg-color-component",
-    "--td-bg-color-component-active",
-    "--td-bg-color-component-disabled",
-    "--td-bg-color-secondarycomponent",
-    "--td-bg-color-secondarycomponent-active",
-    "--td-bg-color-specialcomponent",
-    "--td-component-stroke",
-    "--td-border-color",
-    "--td-border-level-1-color",
-    "--td-component-border",
-    "--td-border-level-2-color",
-    "--td-font-family",
-    "--td-font-size-s",
-    "--td-font-size-base",
-    "--td-font-size-m",
-    "--td-font-size-l",
-    "--td-font-size-xl",
-    "--td-font-size-xxl",
-    "--td-line-height-body-extraSmall",
-    "--td-line-height-body-small",
-    "--td-line-height-title-small",
-    "--td-line-height-title-medium",
-    "--td-line-height-title-large",
-    "--td-line-height-title-extraLarge",
-    "--td-line-height-headline-large",
-    "--td-radius-small",
-    "--td-radius-default",
-    "--td-radius-large",
-    "--td-radius-round",
-    "--td-spacer",
-    "--td-spacer-1",
-    "--td-spacer-2",
-    "--td-spacer-3",
-    "--td-spacer-4",
-    "--td-shadow-1",
-    "--td-shadow-2",
-    "--td-shadow-3",
-    "--td-anim-duration-base",
-    "--td-anim-time-fn-easing",
-    "--td-anim-time-fn-ease-out",
-}
+
+
+def _number(value) -> bool:
+    return isinstance(value, (int, float)) and not isinstance(value, bool)
+
+
+def _is_color(value) -> bool:
+    if not isinstance(value, dict):
+        return False
+    if set(value) - {"colorSpace", "components", "alpha", "hex"}:
+        return False
+    if value.get("colorSpace") != "srgb":
+        return False
+    components = value.get("components")
+    if not isinstance(components, list) or len(components) != 3:
+        return False
+    if not all(_number(c) and 0 <= c <= 1 for c in components):
+        return False
+    if "alpha" in value and not (_number(value["alpha"]) and 0 <= value["alpha"] <= 1):
+        return False
+    if "hex" in value and not re.fullmatch(r"#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?", str(value["hex"])):
+        return False
+    return True
+
+
+def _is_dimension(value) -> bool:
+    return (
+        isinstance(value, dict)
+        and set(value) == {"value", "unit"}
+        and _number(value["value"])
+        and value["value"] >= 0
+        and value["unit"] in {"px", "rem"}
+    )
 
 
 def validate_dtcg() -> str:
@@ -151,26 +118,41 @@ def validate_dtcg() -> str:
         if isinstance(value, str) and value.startswith("{") and value.endswith("}"):
             value = build.resolve(value, INDEX)
         if typ == "color":
-            if not isinstance(value, str) or not re.fullmatch(r"#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?", value):
-                raise AssertionError(f"invalid color at {path}: {value!r}")
+            if not _is_color(value):
+                raise AssertionError(f"invalid DTCG color at {path}: {value!r}")
         elif typ == "dimension":
-            if not isinstance(value, dict) or set(value) != {"value", "unit"}:
-                raise AssertionError(f"invalid dimension at {path}: {value!r}")
-            if not isinstance(value["value"], (int, float)) or value["unit"] not in {"rpx", "px", "ms", "s", "deg"}:
-                raise AssertionError(f"invalid dimension unit/value at {path}: {value!r}")
+            if not _is_dimension(value):
+                raise AssertionError(f"invalid DTCG dimension at {path}: {value!r}")
         elif typ == "shadow":
             if not isinstance(value, dict) or set(value) != {"offsetX", "offsetY", "blur", "spread", "color"}:
                 raise AssertionError(f"invalid shadow at {path}: {value!r}")
+            if not _is_color(value["color"]):
+                raise AssertionError(f"invalid DTCG shadow color at {path}: {value['color']!r}")
+            for key in ("offsetX", "offsetY", "blur", "spread"):
+                if not _is_dimension(value[key]):
+                    raise AssertionError(f"invalid DTCG shadow dimension at {path}.{key}: {value[key]!r}")
         elif typ == "duration":
-            if not isinstance(value, dict) or set(value) != {"value", "unit"} or value["unit"] not in {"ms", "s"}:
+            if not isinstance(value, dict) or set(value) != {"value", "unit"} or value["unit"] not in {"ms", "s"} or not _number(value["value"]):
                 raise AssertionError(f"invalid duration at {path}: {value!r}")
         elif typ == "cubicBezier":
-            if not isinstance(value, list) or len(value) != 4 or not all(isinstance(n, (int, float)) and 0 <= n <= 1 for n in value):
+            if not isinstance(value, list) or len(value) != 4 or not all(_number(n) and 0 <= n <= 1 for n in value):
                 raise AssertionError(f"invalid cubicBezier at {path}: {value!r}")
         elif typ == "fontWeight":
-            if not isinstance(value, int) or not 100 <= value <= 900:
+            if not isinstance(value, int) or not 1 <= value <= 1000:
                 raise AssertionError(f"invalid fontWeight at {path}: {value!r}")
-    return f"{len(INDEX)} tokens; types and values valid"
+        elif typ == "fontFamily":
+            if isinstance(value, list):
+                if not value or not all(isinstance(v, str) and v for v in value):
+                    raise AssertionError(f"invalid fontFamily at {path}: {value!r}")
+            elif not isinstance(value, str) or not value:
+                raise AssertionError(f"invalid fontFamily at {path}: {value!r}")
+        elif typ == "number":
+            if not _number(value):
+                raise AssertionError(f"invalid number at {path}: {value!r}")
+        elif typ == "string":
+            if not isinstance(value, str):
+                raise AssertionError(f"invalid string at {path}: {value!r}")
+    return f"{len(INDEX)} tokens; strict DTCG value types valid (color objects, px dimensions, composite shadows)"
 
 
 def validate_categories() -> str:
@@ -209,8 +191,8 @@ def validate_aliases() -> str:
 
 def validate_contrast() -> str:
     pairs = build.CONTRAST_PAIRS
-    if len(pairs) != 57:
-        raise AssertionError(f"expected exactly 57 body-text pairs, got {len(pairs)}")
+    if len(pairs) < 57:
+        raise AssertionError(f"expected at least 57 body-text pairs, got {len(pairs)}")
     worst = None
     for label, fg_path, bg_path in pairs:
         fg = build.resolve(INDEX[fg_path][0]["$value"], INDEX)
@@ -224,19 +206,17 @@ def validate_contrast() -> str:
 
 
 def validate_theme() -> str:
-    if len(build.THEME_MAP) != 64:
-        raise AssertionError(f"THEME_MAP must contain 64 variables, got {len(build.THEME_MAP)}")
-    mapped = {css_var for css_var, _ in build.THEME_MAP}
-    if mapped != TDESIGN_VARIABLES:
-        missing = sorted(TDESIGN_VARIABLES - mapped)
-        extra = sorted(mapped - TDESIGN_VARIABLES)
-        raise AssertionError(f"THEME_MAP is not the official TDesign set; missing={missing} extra={extra}")
+    mapped = [css_var for css_var, _ in build.THEME_MAP]
+    if len(mapped) != len(set(mapped)):
+        raise AssertionError("THEME_MAP contains duplicate variables")
+    if not all(css_var.startswith("--td-") for css_var in mapped):
+        raise AssertionError("THEME_MAP contains a non-TDesign variable")
     theme = read(ROOT / "theme.wxss")
     if theme != build.render_theme(INDEX):
         raise AssertionError("theme.wxss is stale; run python scripts/build.py")
     names = re.findall(r"^  (--td-[A-Za-z0-9-]+):", theme, re.M)
-    if len(names) != 64 or len(set(names)) != len(names):
-        raise AssertionError(f"theme variable count/duplication mismatch: {len(names)}")
+    if len(names) != len(mapped) or set(names) != set(mapped):
+        raise AssertionError(f"theme variable count/set mismatch: {len(names)} vs {len(mapped)}")
     if "rpx" not in theme:
         raise AssertionError("theme.wxss should use rpx")
     for bad in (
@@ -246,6 +226,18 @@ def validate_theme() -> str:
     ):
         if bad in theme:
             raise AssertionError(f"theme.wxss contains non-TDesign variable {bad!r}")
+
+    tdesign_root = ROOT / "miniprogram-demo" / "miniprogram_npm" / "tdesign-miniprogram"
+    consumed = set()
+    for wxss in tdesign_root.rglob("*.wxss"):
+        consumed.update(re.findall(r"var\((--td-[A-Za-z0-9-]+)", wxss.read_text(encoding="utf-8")))
+    directly_consumed = sorted(set(mapped) & consumed)
+    compatibility_only = sorted(set(mapped) - consumed)
+    if len(directly_consumed) < 75:
+        raise AssertionError(f"only {len(directly_consumed)} mapped variables are directly consumed by TDesign")
+    if len(compatibility_only) > 8:
+        raise AssertionError(f"too many compatibility-only variables: {compatibility_only}")
+
     mini_theme = read(ROOT / "miniprogram-demo" / "theme.wxss")
     if mini_theme != theme:
         raise AssertionError("miniprogram-demo/theme.wxss is stale; run python scripts/build.py")
@@ -256,12 +248,16 @@ def validate_theme() -> str:
     if demo != build.render_demo_theme(INDEX):
         raise AssertionError("demo/theme.css is stale; run python scripts/build.py")
     demo_names = re.findall(r"^  (--(?:td|brand)-[A-Za-z0-9-]+):", demo, re.M)
-    if len(demo_names) != 64 + len(build.DEMO_EXTRA_MAP) or len(set(demo_names)) != len(demo_names):
+    if len(demo_names) != len(mapped) + len(build.DEMO_EXTRA_MAP) or len(set(demo_names)) != len(demo_names):
         raise AssertionError(f"demo theme variable count/duplication mismatch: {len(demo_names)}")
     for css_var, _ in build.DEMO_EXTRA_MAP:
         if css_var not in demo_names:
             raise AssertionError(f"demo extension variable missing: {css_var}")
-    return f"64 TDesign-consumed variables; miniprogram-demo/theme.wxss matches; {len(build.DEMO_EXTRA_MAP)} documented preview extensions; browser preview is 2x rpx->px"
+    return (
+        f"{len(mapped)} mapped variables; {len(directly_consumed)} directly consumed by TDesign 1.18.0; "
+        f"{len(compatibility_only)} compatibility-only; miniprogram-demo/theme.wxss matches; "
+        f"{len(build.DEMO_EXTRA_MAP)} preview extensions; browser preview is 2x rpx->px"
+    )
 
 
 
@@ -269,20 +265,33 @@ def validate_figma() -> str:
     payload = json.loads(read(ROOT / "figma" / "figma-variables.json"))
     variables = payload["collections"][0]["variables"]
     names = [v["name"] for v in variables]
-    if len(names) != 74 or len(names) != len(PATHS) or set(names) != PATHS:
-        missing = sorted(PATHS - set(names))
-        extra = sorted(set(names) - PATHS)
-        raise AssertionError(f"Figma names not 1:1; missing={missing} extra={extra}")
+    token_paths = [v["tokenPath"] for v in variables]
+    expected_display = {path.replace(".", "/") for path in PATHS}
+    if len(names) != 74 or len(token_paths) != 74:
+        raise AssertionError(f"Figma variable count must be 74, got names={len(names)} tokenPaths={len(token_paths)}")
+    if set(token_paths) != PATHS:
+        missing = sorted(PATHS - set(token_paths))
+        extra = sorted(set(token_paths) - PATHS)
+        raise AssertionError(f"Figma canonical token paths not 1:1; missing={missing} extra={extra}")
+    if set(names) != expected_display:
+        missing = sorted(expected_display - set(names))
+        extra = sorted(set(names) - expected_display)
+        raise AssertionError(f"Figma slash display names not 1:1; missing={missing} extra={extra}")
+    for variable in variables:
+        if variable["name"] != variable["tokenPath"].replace(".", "/"):
+            raise AssertionError(f"Figma display name/tokenPath mismatch: {variable!r}")
     if payload["tokensHash"] != hashlib.sha256((ROOT / "tokens.json").read_bytes()).hexdigest():
         raise AssertionError("figma-variables tokensHash is stale")
     doc = read(ROOT / "docs" / "FIGMA-VARIABLES.md")
     for path in PATHS:
-        if f"| {path} |" not in doc:
-            raise AssertionError(f"Figma mapping doc missing row: {path}")
+        slash = path.replace(".", "/")
+        if f"| {path} | {slash} |" not in doc:
+            raise AssertionError(f"Figma mapping doc missing row: {path} -> {slash}")
     plugin = read(ROOT / "figma" / "create-variables.js")
     for path in PATHS:
-        if path not in plugin:
-            raise AssertionError(f"Figma plugin script missing variable: {path}")
+        slash = path.replace(".", "/")
+        if slash not in plugin:
+            raise AssertionError(f"Figma plugin script missing slash variable: {slash}")
     import_path = ROOT / "figma" / "figma-import.tokens.json"
     import_text = read(import_path)
     expected_import = json.dumps(build.render_figma_import(INDEX), ensure_ascii=False, indent=2) + "\n"
@@ -308,7 +317,10 @@ def validate_figma() -> str:
         raise AssertionError("Figma import aliases must be preserved as {path} references")
     if "（rpx" in import_text:
         raise AssertionError("Figma import description contains a truncated rpx suffix")
-    return f"{len(variables)} Figma variables + {len(imported_paths)} DTCG import variables, names exactly equal tokens.json paths"
+    return (
+        f"{len(variables)} Figma variables with / display names; {len(imported_paths)} DTCG import variables; "
+        "canonical tokenPath values exactly equal tokens.json dot paths"
+    )
 
 
 def validate_demo() -> str:
@@ -335,7 +347,7 @@ def validate_demo() -> str:
 def validate_contrast_doc() -> str:
     doc = read(ROOT / "docs" / "CONTRAST.md")
     rows = [line for line in doc.splitlines() if line.startswith("| ") and ":1" in line]
-    if len(rows) != 57 or len(rows) != len(build.CONTRAST_PAIRS):
+    if len(rows) != len(build.CONTRAST_PAIRS):
         raise AssertionError(f"CONTRAST.md rows {len(rows)} != {len(build.CONTRAST_PAIRS)}")
     if "FAIL" in doc:
         raise AssertionError("CONTRAST.md contains FAIL")

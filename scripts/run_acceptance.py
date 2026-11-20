@@ -24,7 +24,11 @@ if not NODE:
 HOME = str(Path.home())
 
 def redact(text: str) -> str:
-    return text.replace(HOME, "<home>").replace(HOME.replace("\\", "/"), "<home>")
+    for value in sorted({str(ROOT), str(ROOT).replace("\\", "\\\\"), str(ROOT).replace("\\", "/")}, key=len, reverse=True):
+        text = text.replace(value, "<repo>")
+    for value in sorted({HOME, HOME.replace("\\", "\\\\"), HOME.replace("\\", "/")}, key=len, reverse=True):
+        text = text.replace(value, "<home>")
+    return text
 
 GENERATED_DIRS = [ROOT / "__pycache__", ROOT / "scripts" / "__pycache__", ROOT / "tests" / "__pycache__", ROOT / ".pytest_cache"]
 GENERATED_FILES = [
@@ -84,8 +88,8 @@ def main() -> None:
     pytest_step = run("pytest", [sys.executable, "-m", "pytest", "-q", "tests"])
     steps.append(pytest_step)
     match = re.search(r"(\d+) passed", pytest_step["stdout"])
-    if not match or int(match.group(1)) < 16:
-        raise SystemExit("pytest did not report at least 16 passed")
+    if not match or int(match.group(1)) < 17:
+        raise SystemExit("pytest did not report at least 17 passed")
     tests_passed = int(match.group(1))
 
     steps.append(run("verify-figma", [sys.executable, str(ROOT / "scripts" / "verify_figma_export.py")]))
@@ -116,7 +120,7 @@ def main() -> None:
     figma_verify = json.loads((ROOT / "evidence" / "figma-online" / "verify.json").read_text(encoding="utf-8"))
     devtools_verify = json.loads((ROOT / "evidence" / "devtools" / "verify.json").read_text(encoding="utf-8"))
     summary = {
-        "ok": validation["ok"] and build_json["tokens"] == 74 and build_json["themeVariables"] == 64 and build_json["figmaImportVariables"] == 74 and build_json["contrastPairs"] == 57 and figma_verify["ok"] and devtools_verify["ok"],
+        "ok": validation["ok"] and build_json["tokens"] == 74 and build_json["themeVariables"] == 84 and build_json["figmaImportVariables"] == 74 and build_json["contrastPairs"] == 62 and figma_verify["ok"] and devtools_verify["ok"],
         "figmaExport": {"ok": figma_verify["ok"], "checked": figma_verify["checked"], "collection": figma_verify["collection"], "mode": figma_verify["mode"]},
         "devtoolsEvidence": {"ok": devtools_verify["ok"], "checked": len(devtools_verify["checks"]), "tool": devtools_verify["tool"]},
         "label": args.label,

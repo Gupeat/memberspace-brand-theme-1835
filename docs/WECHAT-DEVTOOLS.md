@@ -69,26 +69,32 @@ Remove-Item Env:ELECTRON_RUN_AS_NODE -ErrorAction SilentlyContinue
 
 | 文件 | 说明 |
 | --- | --- |
-| `evidence/devtools/miniprogram-simulator.png` | 仅模拟器画面，488×941，101,264 B，SHA-256 `210ec05728a5e8d835189d0ac10dd7eb4e6b2032a54fac39f1f7f122722c0fde` |
-| `evidence/devtools/miniprogram-devtools.png` | 完整 IDE 窗口（文件树、模拟器、调试器），1564×1250，176,635 B，SHA-256 `fce1d407dfb94168dadb2c07670f8fe65551c702a6b8a3044000be8d88dac2b6` |
+| `evidence/devtools/miniprogram-simulator.png` | 仅模拟器画面，488×941，101,266 B，SHA-256 `3df9ec5a364e7067953609beecac54bb65591607c02f733192a84900ebc2a187` |
+| `evidence/devtools/miniprogram-devtools.png` | 完整 IDE 窗口（文件树、模拟器、调试器），1564×1250，179,074 B，SHA-256 `97d49831578538a6bab2e839a951c47c0c2faad995a91327be4b41e1f893e8fe` |
 | `evidence/devtools/run.json` | 工具版本、AppID、页面、设备、截图尺寸/字节/哈希、计算样式、复现命令 |
-| `evidence/devtools/verify.json` | 18 项校验结果（截图、AppID、主题副本、`@import`、WXML 组件、计算样式） |
+| `evidence/devtools/verify.json` | 23 项校验结果（截图、AppID、主题副本、`@import`、WXML 组件、计算样式、语义浅底与字号） |
 
 ```powershell
 python scripts/verify_devtools_evidence.py
-# {"ok": true, "checked": 18, ...}
+# {"ok": true, "checked": 23, ...}
 ```
 
 计算样式（真实渲染，随工具版本可能有机差异）：
 
 ```text
 button_primary.background = rgb(31, 94, 255)
+button_primary.color      = rgb(255, 255, 255)
+button_primary.fontSize   = 16px
 button_light.background   = rgb(241, 244, 255)
-tag_brand.background     = rgb(241, 244, 255)
-tag_brand.color          = rgb(31, 94, 255)
-tag_success.color        = rgb(14, 122, 95)
-tag_warning.color        = rgb(154, 91, 0)
-tag_danger.color         = rgb(180, 35, 24)
+tag_brand.background      = rgb(241, 244, 255)
+tag_brand.color           = rgb(31, 94, 255)
+tag_brand.fontSize        = 12px
+tag_success.background    = rgb(231, 247, 240)
+tag_success.color         = rgb(14, 122, 95)
+tag_warning.background    = rgb(255, 244, 229)
+tag_warning.color         = rgb(154, 91, 0)
+tag_danger.background     = rgb(254, 233, 233)
+tag_danger.color          = rgb(180, 35, 24)
 ```
 
 ## 6. 限制

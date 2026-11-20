@@ -4,7 +4,7 @@
     {
       "name": "DTCG structure and value types",
       "ok": true,
-      "detail": "74 tokens; types and values valid"
+      "detail": "74 tokens; strict DTCG value types valid (color objects, px dimensions, composite shadows)"
     },
     {
       "name": "required token categories and scales",
@@ -19,17 +19,17 @@
     {
       "name": "WCAG contrast >= 4.5:1",
       "ok": true,
-      "detail": "57 pairs, minimum 品牌主色文字 / 品牌浅底 4.66:1"
+      "detail": "62 pairs, minimum 品牌主色文字 / 品牌浅底 4.66:1"
     },
     {
       "name": "theme.wxss and browser preview freshness",
       "ok": true,
-      "detail": "64 TDesign-consumed variables; miniprogram-demo/theme.wxss matches; 10 documented preview extensions; browser preview is 2x rpx->px"
+      "detail": "84 mapped variables; 77 directly consumed by TDesign 1.18.0; 7 compatibility-only; miniprogram-demo/theme.wxss matches; 10 preview extensions; browser preview is 2x rpx->px"
     },
     {
       "name": "Figma variables 1:1",
       "ok": true,
-      "detail": "74 Figma variables + 74 DTCG import variables, names exactly equal tokens.json paths"
+      "detail": "74 Figma variables with / display names; 74 DTCG import variables; canonical tokenPath values exactly equal tokens.json dot paths"
     },
     {
       "name": "demo references and variables",
@@ -39,12 +39,12 @@
     {
       "name": "contrast documentation",
       "ok": true,
-      "detail": "57 documented pairs, no FAIL"
+      "detail": "62 documented pairs, no FAIL"
     }
   ],
   "failures": [],
   "tokens": 74,
-  "themeVariables": 64,
-  "contrastPairs": 57,
-  "tokensHash": "63972f37c08d0e6a28b88579a8e0880503ce0c43770b7fdf12f2e7f89fe3f6ef"
+  "themeVariables": 84,
+  "contrastPairs": 62,
+  "tokensHash": "4e5dc3b3c3e31a0ecebee9f4e030966233f4599984d7b204aaa3174a9f0b0b35"
 }

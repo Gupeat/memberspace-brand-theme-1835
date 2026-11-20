@@ -1,12 +1,12 @@
 ClawHunt #1835 token package validation
 
-[PASS] DTCG structure and value types: 74 tokens; types and values valid
+[PASS] DTCG structure and value types: 74 tokens; strict DTCG value types valid (color objects, px dimensions, composite shadows)
 [PASS] required token categories and scales: 33 required tokens; 6 sizes; 10 neutrals; 4 semantics
 [PASS] alias resolution: 7 aliases resolve without cycles
-[PASS] WCAG contrast >= 4.5:1: 57 pairs, minimum 品牌主色文字 / 品牌浅底 4.66:1
-[PASS] theme.wxss and browser preview freshness: 64 TDesign-consumed variables; miniprogram-demo/theme.wxss matches; 10 documented preview extensions; browser preview is 2x rpx->px
-[PASS] Figma variables 1:1: 74 Figma variables + 74 DTCG import variables, names exactly equal tokens.json paths
+[PASS] WCAG contrast >= 4.5:1: 62 pairs, minimum 品牌主色文字 / 品牌浅底 4.66:1
+[PASS] theme.wxss and browser preview freshness: 84 mapped variables; 77 directly consumed by TDesign 1.18.0; 7 compatibility-only; miniprogram-demo/theme.wxss matches; 10 preview extensions; browser preview is 2x rpx->px
+[PASS] Figma variables 1:1: 74 Figma variables with / display names; 74 DTCG import variables; canonical tokenPath values exactly equal tokens.json dot paths
 [PASS] demo references and variables: 42 theme variables used by demo, all defined
-[PASS] contrast documentation: 57 documented pairs, no FAIL
+[PASS] contrast documentation: 62 documented pairs, no FAIL
 
 RESULT: PASS (8/8 checks)

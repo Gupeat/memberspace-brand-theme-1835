@@ -10,52 +10,64 @@
     "path": "evidence/devtools/miniprogram-simulator.png",
     "width": 488,
     "height": 941,
-    "bytes": 101264,
-    "sha256": "210ec05728a5e8d835189d0ac10dd7eb4e6b2032a54fac39f1f7f122722c0fde"
+    "bytes": 101266,
+    "sha256": "3df9ec5a364e7067953609beecac54bb65591607c02f733192a84900ebc2a187"
   },
   "screenshot_devtools": {
     "path": "evidence/devtools/miniprogram-devtools.png",
     "width": 1564,
     "height": 1250,
-    "bytes": 176635,
-    "sha256": "fce1d407dfb94168dadb2c07670f8fe65551c702a6b8a3044000be8d88dac2b6"
+    "bytes": 179074,
+    "sha256": "97d49831578538a6bab2e839a951c47c0c2faad995a91327be4b41e1f893e8fe"
   },
   "computed_styles": {
     "button_primary": {
       "text": "立即报名",
       "background": "rgb(31, 94, 255)",
       "color": "rgb(255, 255, 255)",
-      "radius": "8px"
+      "radius": "8px",
+      "fontSize": "16px",
+      "fontWeight": "600"
     },
     "button_light": {
       "text": "查看详情",
       "background": "rgb(241, 244, 255)",
       "color": "rgb(31, 94, 255)",
-      "radius": "8px"
+      "radius": "8px",
+      "fontSize": "16px",
+      "fontWeight": "600"
     },
     "tag_brand": {
       "text": "品牌标签",
       "background": "rgb(241, 244, 255)",
       "color": "rgb(31, 94, 255)",
-      "radius": "4px"
+      "radius": "4px",
+      "fontSize": "12px",
+      "fontWeight": "400"
     },
     "tag_success": {
       "text": "已审核",
-      "background": "rgb(227, 249, 233)",
+      "background": "rgb(231, 247, 240)",
       "color": "rgb(14, 122, 95)",
-      "radius": "4px"
+      "radius": "4px",
+      "fontSize": "12px",
+      "fontWeight": "400"
     },
     "tag_warning": {
       "text": "待确认",
-      "background": "rgb(255, 241, 233)",
+      "background": "rgb(255, 244, 229)",
       "color": "rgb(154, 91, 0)",
-      "radius": "4px"
+      "radius": "4px",
+      "fontSize": "12px",
+      "fontWeight": "400"
     },
     "tag_danger": {
       "text": "已取消",
-      "background": "rgb(255, 240, 237)",
+      "background": "rgb(254, 233, 233)",
       "color": "rgb(180, 35, 24)",
-      "radius": "4px"
+      "radius": "4px",
+      "fontSize": "12px",
+      "fontWeight": "400"
     }
   },
   "observed_text": [
@@ -76,11 +88,13 @@
     "Remove-Item Env:ELECTRON_RUN_AS_NODE",
     "Start-Process 微信开发者工具.exe -ArgumentList \"--remote-debugging-port=9222\"",
     "cli.bat open --project <repo>/miniprogram-demo --port 24728 --lang zh",
-    "CDP Page.captureScreenshot on simulator webview and project window"
+    "CDP Emulation.setDeviceMetricsOverride(width=390,height=753,deviceScaleFactor=1.25) on simulator webview",
+    "CDP Page.captureScreenshot on simulator webview and on the project window"
   ],
   "limitations": [
     "sandbox AppID belongs to the signed-in account; use your own test AppID to reproduce",
     "DevTools simulator is not a physical device",
+    "simulator capture uses a 390x753 CSS viewport at deviceScaleFactor 1.25 to reproduce the 488x941 device raster",
     "no production upload/preview performed"
   ]
 }

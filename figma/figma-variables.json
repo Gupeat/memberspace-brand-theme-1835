@@ -1,7 +1,7 @@
 {
   "name": "会员空间平台 / Theme",
   "generatedFrom": "tokens.json",
-  "tokensHash": "63972f37c08d0e6a28b88579a8e0880503ce0c43770b7fdf12f2e7f89fe3f6ef",
+  "tokensHash": "4e5dc3b3c3e31a0ecebee9f4e030966233f4599984d7b204aaa3174a9f0b0b35",
   "collections": [
     {
       "name": "Theme",
@@ -10,518 +10,518 @@
       ],
       "variables": [
         {
-          "name": "color.brand.primary",
+          "name": "color/brand/primary",
           "tokenPath": "color.brand.primary",
           "type": "COLOR",
           "value": "#1F5EFF",
           "description": "品牌主色"
         },
         {
-          "name": "color.brand.hover",
+          "name": "color/brand/hover",
           "tokenPath": "color.brand.hover",
           "type": "COLOR",
           "value": "#1748D6",
           "description": "主色悬停"
         },
         {
-          "name": "color.brand.active",
+          "name": "color/brand/active",
           "tokenPath": "color.brand.active",
           "type": "COLOR",
           "value": "#1239B0",
           "description": "主色按下"
         },
         {
-          "name": "color.brand.light",
+          "name": "color/brand/light",
           "tokenPath": "color.brand.light",
           "type": "COLOR",
           "value": "#F1F4FF",
           "description": "主色浅底"
         },
         {
-          "name": "color.brand.lightHover",
+          "name": "color/brand/lightHover",
           "tokenPath": "color.brand.lightHover",
           "type": "COLOR",
           "value": "#EDF1FF",
           "description": "主色浅底悬停"
         },
         {
-          "name": "color.brand.disabled",
+          "name": "color/brand/disabled",
           "tokenPath": "color.brand.disabled",
           "type": "COLOR",
           "value": "#B5C7FF",
           "description": "品牌色禁用态"
         },
         {
-          "name": "color.accent.primary",
+          "name": "color/accent/primary",
           "tokenPath": "color.accent.primary",
           "type": "COLOR",
           "value": "#0F766E",
           "description": "辅助色"
         },
         {
-          "name": "color.accent.light",
+          "name": "color/accent/light",
           "tokenPath": "color.accent.light",
           "type": "COLOR",
           "value": "#E6F4F1",
           "description": "辅助色浅底"
         },
         {
-          "name": "color.neutral.50",
+          "name": "color/neutral/50",
           "tokenPath": "color.neutral.50",
           "type": "COLOR",
           "value": "#F8FAFC",
           "description": "中性 50"
         },
         {
-          "name": "color.neutral.100",
+          "name": "color/neutral/100",
           "tokenPath": "color.neutral.100",
           "type": "COLOR",
           "value": "#F1F5F9",
           "description": "中性 100"
         },
         {
-          "name": "color.neutral.200",
+          "name": "color/neutral/200",
           "tokenPath": "color.neutral.200",
           "type": "COLOR",
           "value": "#E2E8F0",
           "description": "中性 200"
         },
         {
-          "name": "color.neutral.300",
+          "name": "color/neutral/300",
           "tokenPath": "color.neutral.300",
           "type": "COLOR",
           "value": "#CBD5E1",
           "description": "中性 300"
         },
         {
-          "name": "color.neutral.400",
+          "name": "color/neutral/400",
           "tokenPath": "color.neutral.400",
           "type": "COLOR",
           "value": "#94A3B8",
           "description": "中性 400"
         },
         {
-          "name": "color.neutral.500",
+          "name": "color/neutral/500",
           "tokenPath": "color.neutral.500",
           "type": "COLOR",
           "value": "#57677C",
           "description": "中性 500"
         },
         {
-          "name": "color.neutral.600",
+          "name": "color/neutral/600",
           "tokenPath": "color.neutral.600",
           "type": "COLOR",
           "value": "#475569",
           "description": "中性 600"
         },
         {
-          "name": "color.neutral.700",
+          "name": "color/neutral/700",
           "tokenPath": "color.neutral.700",
           "type": "COLOR",
           "value": "#334155",
           "description": "中性 700"
         },
         {
-          "name": "color.neutral.800",
+          "name": "color/neutral/800",
           "tokenPath": "color.neutral.800",
           "type": "COLOR",
           "value": "#1E293B",
           "description": "中性 800"
         },
         {
-          "name": "color.neutral.900",
+          "name": "color/neutral/900",
           "tokenPath": "color.neutral.900",
           "type": "COLOR",
           "value": "#0F172A",
           "description": "中性 900"
         },
         {
-          "name": "color.text.primary",
+          "name": "color/text/primary",
           "tokenPath": "color.text.primary",
           "type": "COLOR",
           "value": "#0F172A",
           "description": "主文字（引用 neutral.900）"
         },
         {
-          "name": "color.text.secondary",
+          "name": "color/text/secondary",
           "tokenPath": "color.text.secondary",
           "type": "COLOR",
           "value": "#334155",
           "description": "二级文字（引用 neutral.700）"
         },
         {
-          "name": "color.text.tertiary",
+          "name": "color/text/tertiary",
           "tokenPath": "color.text.tertiary",
           "type": "COLOR",
           "value": "#475569",
           "description": "三级文字（引用 neutral.600）"
         },
         {
-          "name": "color.text.muted",
+          "name": "color/text/muted",
           "tokenPath": "color.text.muted",
           "type": "COLOR",
           "value": "#57677C",
           "description": "弱化文字（引用 neutral.500，全浅底 >= 4.5:1）"
         },
         {
-          "name": "color.text.anti",
+          "name": "color/text/anti",
           "tokenPath": "color.text.anti",
           "type": "COLOR",
           "value": "#FFFFFF",
           "description": "反白文字"
         },
         {
-          "name": "color.bg.page",
+          "name": "color/bg/page",
           "tokenPath": "color.bg.page",
           "type": "COLOR",
           "value": "#F8FAFC",
           "description": "页面背景"
         },
         {
-          "name": "color.bg.surface",
+          "name": "color/bg/surface",
           "tokenPath": "color.bg.surface",
           "type": "COLOR",
           "value": "#FFFFFF",
           "description": "卡片/容器背景"
         },
         {
-          "name": "color.bg.surfaceAlt",
+          "name": "color/bg/surfaceAlt",
           "tokenPath": "color.bg.surfaceAlt",
           "type": "COLOR",
           "value": "#F8FAFC",
           "description": "次级容器背景（引用 neutral.50）"
         },
         {
-          "name": "color.bg.inverse",
+          "name": "color/bg/inverse",
           "tokenPath": "color.bg.inverse",
           "type": "COLOR",
           "value": "#0F172A",
           "description": "反色背景"
         },
         {
-          "name": "color.border.default",
+          "name": "color/border/default",
           "tokenPath": "color.border.default",
           "type": "COLOR",
           "value": "#E2E8F0",
           "description": "默认边框（引用 neutral.200）"
         },
         {
-          "name": "color.border.strong",
+          "name": "color/border/strong",
           "tokenPath": "color.border.strong",
           "type": "COLOR",
           "value": "#CBD5E1",
           "description": "强调边框（引用 neutral.300）"
         },
         {
-          "name": "color.semantic.success",
+          "name": "color/semantic/success",
           "tokenPath": "color.semantic.success",
           "type": "COLOR",
           "value": "#0E7A5F",
           "description": "成功"
         },
         {
-          "name": "color.semantic.successLight",
+          "name": "color/semantic/successLight",
           "tokenPath": "color.semantic.successLight",
           "type": "COLOR",
           "value": "#E7F7F0",
           "description": "成功浅底"
         },
         {
-          "name": "color.semantic.warning",
+          "name": "color/semantic/warning",
           "tokenPath": "color.semantic.warning",
           "type": "COLOR",
           "value": "#9A5B00",
           "description": "警告"
         },
         {
-          "name": "color.semantic.warningLight",
+          "name": "color/semantic/warningLight",
           "tokenPath": "color.semantic.warningLight",
           "type": "COLOR",
           "value": "#FFF4E5",
           "description": "警告浅底"
         },
         {
-          "name": "color.semantic.error",
+          "name": "color/semantic/error",
           "tokenPath": "color.semantic.error",
           "type": "COLOR",
           "value": "#B42318",
           "description": "错误"
         },
         {
-          "name": "color.semantic.errorLight",
+          "name": "color/semantic/errorLight",
           "tokenPath": "color.semantic.errorLight",
           "type": "COLOR",
           "value": "#FEE9E9",
           "description": "错误浅底"
         },
         {
-          "name": "color.semantic.info",
+          "name": "color/semantic/info",
           "tokenPath": "color.semantic.info",
           "type": "COLOR",
           "value": "#0B5C8A",
           "description": "信息"
         },
         {
-          "name": "color.semantic.infoLight",
+          "name": "color/semantic/infoLight",
           "tokenPath": "color.semantic.infoLight",
           "type": "COLOR",
           "value": "#E6F3FB",
           "description": "信息浅底"
         },
         {
-          "name": "color.focus.ring",
+          "name": "color/focus/ring",
           "tokenPath": "color.focus.ring",
           "type": "COLOR",
           "value": "#1F5EFF",
           "description": "焦点环（实心，避免透明导致不可见）"
         },
         {
-          "name": "font.family.sans",
+          "name": "font/family/sans",
           "tokenPath": "font.family.sans",
           "type": "STRING",
           "value": "PingFang SC, Helvetica Neue, Microsoft YaHei, sans-serif",
           "description": "系统中文字体栈"
         },
         {
-          "name": "font.size.24",
+          "name": "font/size/24",
           "tokenPath": "font.size.24",
           "type": "FLOAT",
-          "value": 12.0,
+          "value": 12,
           "description": "辅助说明"
         },
         {
-          "name": "font.size.28",
+          "name": "font/size/28",
           "tokenPath": "font.size.28",
           "type": "FLOAT",
-          "value": 14.0,
+          "value": 14,
           "description": "正文/基础"
         },
         {
-          "name": "font.size.32",
+          "name": "font/size/32",
           "tokenPath": "font.size.32",
           "type": "FLOAT",
-          "value": 16.0,
+          "value": 16,
           "description": "小标题"
         },
         {
-          "name": "font.size.36",
+          "name": "font/size/36",
           "tokenPath": "font.size.36",
           "type": "FLOAT",
-          "value": 18.0,
+          "value": 18,
           "description": "标题"
         },
         {
-          "name": "font.size.40",
+          "name": "font/size/40",
           "tokenPath": "font.size.40",
           "type": "FLOAT",
-          "value": 20.0,
+          "value": 20,
           "description": "大标题"
         },
         {
-          "name": "font.size.48",
+          "name": "font/size/48",
           "tokenPath": "font.size.48",
           "type": "FLOAT",
-          "value": 24.0,
+          "value": 24,
           "description": "页面主标题"
         },
         {
-          "name": "font.lineHeight.24",
+          "name": "font/lineHeight/24",
           "tokenPath": "font.lineHeight.24",
           "type": "FLOAT",
-          "value": 18.0,
+          "value": 18,
           "description": "24 号字行高"
         },
         {
-          "name": "font.lineHeight.28",
+          "name": "font/lineHeight/28",
           "tokenPath": "font.lineHeight.28",
           "type": "FLOAT",
-          "value": 20.0,
+          "value": 20,
           "description": "28 号字行高"
         },
         {
-          "name": "font.lineHeight.32",
+          "name": "font/lineHeight/32",
           "tokenPath": "font.lineHeight.32",
           "type": "FLOAT",
-          "value": 22.0,
+          "value": 22,
           "description": "32 号字行高"
         },
         {
-          "name": "font.lineHeight.36",
+          "name": "font/lineHeight/36",
           "tokenPath": "font.lineHeight.36",
           "type": "FLOAT",
-          "value": 24.0,
+          "value": 24,
           "description": "36 号字行高"
         },
         {
-          "name": "font.lineHeight.40",
+          "name": "font/lineHeight/40",
           "tokenPath": "font.lineHeight.40",
           "type": "FLOAT",
-          "value": 28.0,
+          "value": 28,
           "description": "40 号字行高"
         },
         {
-          "name": "font.lineHeight.48",
+          "name": "font/lineHeight/48",
           "tokenPath": "font.lineHeight.48",
           "type": "FLOAT",
-          "value": 32.0,
+          "value": 32,
           "description": "48 号字行高"
         },
         {
-          "name": "font.weight.regular",
+          "name": "font/weight/regular",
           "tokenPath": "font.weight.regular",
           "type": "FLOAT",
           "value": 400,
           "description": "常规"
         },
         {
-          "name": "font.weight.medium",
+          "name": "font/weight/medium",
           "tokenPath": "font.weight.medium",
           "type": "FLOAT",
           "value": 500,
           "description": "中等"
         },
         {
-          "name": "font.weight.semibold",
+          "name": "font/weight/semibold",
           "tokenPath": "font.weight.semibold",
           "type": "FLOAT",
           "value": 600,
           "description": "半粗"
         },
         {
-          "name": "radius.8",
+          "name": "radius/8",
           "tokenPath": "radius.8",
           "type": "FLOAT",
-          "value": 4.0,
+          "value": 4,
           "description": "小圆角"
         },
         {
-          "name": "radius.16",
+          "name": "radius/16",
           "tokenPath": "radius.16",
           "type": "FLOAT",
-          "value": 8.0,
+          "value": 8,
           "description": "默认圆角"
         },
         {
-          "name": "radius.24",
+          "name": "radius/24",
           "tokenPath": "radius.24",
           "type": "FLOAT",
-          "value": 12.0,
+          "value": 12,
           "description": "大圆角"
         },
         {
-          "name": "radius.full",
+          "name": "radius/full",
           "tokenPath": "radius.full",
           "type": "FLOAT",
           "value": 4999.5,
           "description": "全圆"
         },
         {
-          "name": "space.16",
+          "name": "space/16",
           "tokenPath": "space.16",
           "type": "FLOAT",
-          "value": 8.0,
+          "value": 8,
           "description": "紧凑间距"
         },
         {
-          "name": "space.24",
+          "name": "space/24",
           "tokenPath": "space.24",
           "type": "FLOAT",
-          "value": 12.0,
+          "value": 12,
           "description": "默认间距"
         },
         {
-          "name": "space.32",
+          "name": "space/32",
           "tokenPath": "space.32",
           "type": "FLOAT",
-          "value": 16.0,
+          "value": 16,
           "description": "块间距"
         },
         {
-          "name": "space.48",
+          "name": "space/48",
           "tokenPath": "space.48",
           "type": "FLOAT",
-          "value": 24.0,
+          "value": 24,
           "description": "大块间距"
         },
         {
-          "name": "space.64",
+          "name": "space/64",
           "tokenPath": "space.64",
           "type": "FLOAT",
-          "value": 32.0,
+          "value": 32,
           "description": "页面分区"
         },
         {
-          "name": "shadow.sm",
+          "name": "shadow/sm",
           "tokenPath": "shadow.sm",
           "type": "STRING",
           "value": "0rpx 2rpx 8rpx 0rpx rgba(15,23,42,0.059)",
           "description": "轻阴影"
         },
         {
-          "name": "shadow.md",
+          "name": "shadow/md",
           "tokenPath": "shadow.md",
           "type": "STRING",
           "value": "0rpx 8rpx 24rpx 0rpx rgba(15,23,42,0.102)",
           "description": "中阴影"
         },
         {
-          "name": "shadow.lg",
+          "name": "shadow/lg",
           "tokenPath": "shadow.lg",
           "type": "STRING",
           "value": "0rpx 16rpx 48rpx 0rpx rgba(15,23,42,0.141)",
           "description": "重阴影"
         },
         {
-          "name": "motion.duration.fast",
+          "name": "motion/duration/fast",
           "tokenPath": "motion.duration.fast",
           "type": "FLOAT",
           "value": 120,
           "description": "快速反馈"
         },
         {
-          "name": "motion.duration.base",
+          "name": "motion/duration/base",
           "tokenPath": "motion.duration.base",
           "type": "FLOAT",
           "value": 200,
           "description": "常规过渡"
         },
         {
-          "name": "motion.duration.moderate",
+          "name": "motion/duration/moderate",
           "tokenPath": "motion.duration.moderate",
           "type": "FLOAT",
           "value": 240,
           "description": "中速过渡"
         },
         {
-          "name": "motion.duration.slow",
+          "name": "motion/duration/slow",
           "tokenPath": "motion.duration.slow",
           "type": "FLOAT",
           "value": 320,
           "description": "大范围过渡"
         },
         {
-          "name": "motion.easing.standard",
+          "name": "motion/easing/standard",
           "tokenPath": "motion.easing.standard",
           "type": "STRING",
           "value": "cubic-bezier(0.2, 0, 0, 1)",
           "description": "标准缓动"
         },
         {
-          "name": "motion.easing.emphasized",
+          "name": "motion/easing/emphasized",
           "tokenPath": "motion.easing.emphasized",
           "type": "STRING",
           "value": "cubic-bezier(0.3, 0, 0, 1)",
           "description": "强调缓动"
         },
         {
-          "name": "motion.easing.decelerate",
+          "name": "motion/easing/decelerate",
           "tokenPath": "motion.easing.decelerate",
           "type": "STRING",
           "value": "cubic-bezier(0, 0, 0.15, 1)",
           "description": "减速缓动（进入）"
         },
         {
-          "name": "motion.easing.accelerate",
+          "name": "motion/easing/accelerate",
           "tokenPath": "motion.easing.accelerate",
           "type": "STRING",
           "value": "cubic-bezier(0.82, 0, 1, 0.9)",

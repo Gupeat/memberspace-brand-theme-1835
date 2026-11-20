@@ -1,20 +1,20 @@
 {
   "ok": true,
-  "checkedAt": "2026-11-20T03:40:18Z",
+  "checkedAt": "2026-11-20T12:08:03Z",
   "tool": "微信开发者工具 2.02.2609250 Stable (Windows)",
   "appid": "wx65dda5a642890a95",
   "screenshots": {
     "screenshot_simulator": {
       "path": "evidence/devtools/miniprogram-simulator.png",
-      "bytes": 101264,
-      "sha256": "210ec05728a5e8d835189d0ac10dd7eb4e6b2032a54fac39f1f7f122722c0fde",
+      "bytes": 101266,
+      "sha256": "3df9ec5a364e7067953609beecac54bb65591607c02f733192a84900ebc2a187",
       "width": 488,
       "height": 941
     },
     "screenshot_devtools": {
       "path": "evidence/devtools/miniprogram-devtools.png",
-      "bytes": 176635,
-      "sha256": "fce1d407dfb94168dadb2c07670f8fe65551c702a6b8a3044000be8d88dac2b6",
+      "bytes": 179074,
+      "sha256": "97d49831578538a6bab2e839a951c47c0c2faad995a91327be4b41e1f893e8fe",
       "width": 1564,
       "height": 1250
     }
@@ -28,12 +28,12 @@
     {
       "name": "screenshot_simulator bytes",
       "ok": true,
-      "detail": "101264 == 101264"
+      "detail": "101266 == 101266"
     },
     {
       "name": "screenshot_simulator sha256",
       "ok": true,
-      "detail": "210ec05728a5e8d835189d0ac10dd7eb4e6b2032a54fac39f1f7f122722c0fde"
+      "detail": "3df9ec5a364e7067953609beecac54bb65591607c02f733192a84900ebc2a187"
     },
     {
       "name": "screenshot_simulator dimensions",
@@ -48,12 +48,12 @@
     {
       "name": "screenshot_devtools bytes",
       "ok": true,
-      "detail": "176635 == 176635"
+      "detail": "179074 == 179074"
     },
     {
       "name": "screenshot_devtools sha256",
       "ok": true,
-      "detail": "fce1d407dfb94168dadb2c07670f8fe65551c702a6b8a3044000be8d88dac2b6"
+      "detail": "97d49831578538a6bab2e839a951c47c0c2faad995a91327be4b41e1f893e8fe"
     },
     {
       "name": "screenshot_devtools dimensions",
@@ -106,9 +106,34 @@
       "detail": "rgb(31, 94, 255)"
     },
     {
-      "name": "success tag",
+      "name": "success tag text",
       "ok": true,
       "detail": "rgb(14, 122, 95)"
+    },
+    {
+      "name": "success tag background",
+      "ok": true,
+      "detail": "rgb(231, 247, 240)"
+    },
+    {
+      "name": "warning tag background",
+      "ok": true,
+      "detail": "rgb(255, 244, 229)"
+    },
+    {
+      "name": "danger tag background",
+      "ok": true,
+      "detail": "rgb(254, 233, 233)"
+    },
+    {
+      "name": "primary button font size",
+      "ok": true,
+      "detail": "16px"
+    },
+    {
+      "name": "tag font size",
+      "ok": true,
+      "detail": "12px"
     }
   ]
 }

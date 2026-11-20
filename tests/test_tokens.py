@@ -29,13 +29,42 @@ def test_token_index_has_74_valid_tokens():
         assert token.get("$value") not in (None, "", [], {}), path
 
 
-def test_font_scale_and_line_height_are_rpx():
+def test_tokens_use_strict_dtcg_value_shapes():
+    def is_color(value):
+        return (
+            isinstance(value, dict)
+            and value.get("colorSpace") == "srgb"
+            and isinstance(value.get("components"), list)
+            and len(value["components"]) == 3
+            and all(isinstance(c, (int, float)) and 0 <= c <= 1 for c in value["components"])
+            and (("alpha" not in value) or (isinstance(value["alpha"], (int, float)) and 0 <= value["alpha"] <= 1))
+        )
+    def is_dimension(value):
+        return isinstance(value, dict) and set(value) == {"value", "unit"} and value["unit"] in {"px", "rem"}
+    for path, (token, typ) in INDEX.items():
+        value = token["$value"]
+        if isinstance(value, str) and value.startswith("{"):
+            value = build.resolve(value, INDEX)
+        if typ == "color":
+            assert is_color(value), path
+        elif typ == "dimension":
+            assert is_dimension(value), path
+        elif typ == "shadow":
+            assert set(value) == {"offsetX", "offsetY", "blur", "spread", "color"}, path
+            assert is_color(value["color"]), path
+            assert all(is_dimension(value[key]) for key in ("offsetX", "offsetY", "blur", "spread")), path
+
+
+def test_font_scale_and_line_height_are_standard_px_dimensions():
     sizes = sorted(int(p.split(".")[-1]) for p in PATHS if p.startswith("font.size."))
     assert sizes == [24, 28, 32, 36, 40, 48]
     for path in sorted(p for p in PATHS if p.startswith("font.lineHeight.")):
-        assert INDEX[path][0]["$value"]["unit"] == "rpx"
+        assert INDEX[path][0]["$value"]["unit"] == "px"
     for path in sorted(p for p in PATHS if p.startswith("font.size.")):
-        assert INDEX[path][0]["$value"]["unit"] == "rpx"
+        assert INDEX[path][0]["$value"]["unit"] == "px"
+    theme = read(ROOT / "theme.wxss")
+    assert "--td-font-size-m: 32rpx;" in theme
+    assert "--td-line-height-body-medium: 40rpx;" in theme
 
 
 def test_rework_tokens_exist():
@@ -62,8 +91,8 @@ def test_aliases_resolve_without_cycles():
     assert aliases >= 7
 
 
-def test_all_57_body_text_pairs_meet_wcag_aa():
-    assert len(build.CONTRAST_PAIRS) == 57
+def test_all_62_body_text_pairs_meet_wcag_aa():
+    assert len(build.CONTRAST_PAIRS) == 62
     ratios = []
     for label, fg_path, bg_path in build.CONTRAST_PAIRS:
         fg = build.resolve(INDEX[fg_path][0]["$value"], INDEX)
@@ -79,16 +108,27 @@ def test_font_family_keeps_generic_family_unquoted():
     assert "sans-serif" in theme
     assert '"sans-serif"' not in theme
 
-def test_theme_has_64_tdesign_consumed_variables_and_is_fresh():
+def test_theme_mapping_is_fresh_and_targets_real_tdesign_names():
     theme = read(ROOT / "theme.wxss")
     names = re.findall(r"^  (--td-[A-Za-z0-9-]+):", theme, re.M)
-    assert len(build.THEME_MAP) == 64
-    assert len(names) == 64
-    assert len(set(names)) == 64
+    assert len(build.THEME_MAP) == 84
+    assert len(names) == 84
+    assert len(set(names)) == 84
     assert theme == build.render_theme(INDEX)
     for bad in ("--td-font-line-height", "--td-spacing-", "--td-transition-", "--td-info-", "--td-font-weight-", "--td-bg-color-inverse", "--td-brand-color-hover", "--td-font-size-xxxl"):
         assert bad not in theme
     assert "rpx" in theme
+    for css_var in (
+        "--td-tag-success-light-color",
+        "--td-tag-warning-light-color",
+        "--td-tag-danger-light-color",
+        "--td-font-size-body-medium",
+        "--td-font-size-mark-large",
+        "--td-line-height-mark-large",
+        "--td-line-height-headline-small",
+    ):
+        assert css_var in theme, css_var
+    assert "--td-font-size-xxl" not in theme
 
 
 def test_miniprogram_demo_uses_the_generated_theme():
@@ -119,8 +159,10 @@ def test_figma_variables_are_exactly_1_to_1():
     payload = json.loads(read(ROOT / "figma" / "figma-variables.json"))
     variables = payload["collections"][0]["variables"]
     assert len(variables) == 74
-    assert sorted(v["name"] for v in variables) == sorted(PATHS)
-    assert {v["name"] for v in variables} == PATHS
+    assert {v["tokenPath"] for v in variables} == PATHS
+    assert {v["name"] for v in variables} == {p.replace(".", "/") for p in PATHS}
+    for variable in variables:
+        assert variable["name"] == variable["tokenPath"].replace(".", "/")
     assert payload["tokensHash"] == hashlib.sha256((ROOT / "tokens.json").read_bytes()).hexdigest()
 
 
@@ -135,8 +177,9 @@ def test_figma_plugin_and_doc_cover_every_token():
     assert ".remove()" not in plugin
     assert "left untouched" in plugin
     for path in PATHS:
-        assert path in plugin
-        assert f"| {path} |" in doc
+        slash = path.replace(".", "/")
+        assert slash in plugin
+        assert f"| {path} | {slash} |" in doc
 
 
 def test_figma_import_file_is_nested_dtcg_and_matches_tokens():
@@ -155,7 +198,8 @@ def test_figma_import_file_is_nested_dtcg_and_matches_tokens():
 def test_contrast_doc_matches_generated_pairs():
     doc = read(ROOT / "docs" / "CONTRAST.md")
     rows = [line for line in doc.splitlines() if line.startswith("| ") and ":1" in line]
-    assert len(rows) == 57
+    assert len(rows) == 62
+    assert len(rows) == len(build.CONTRAST_PAIRS)
     assert "FAIL" not in doc
     assert "4.66:1" in doc
 

@@ -73,7 +73,12 @@ def main() -> None:
     checks.append(check("primary button brand", styles["button_primary"]["background"] == "rgb(31, 94, 255)", styles["button_primary"]["background"]))
     checks.append(check("brand tag background", styles["tag_brand"]["background"] == "rgb(241, 244, 255)", styles["tag_brand"]["background"]))
     checks.append(check("brand tag text", styles["tag_brand"]["color"] == "rgb(31, 94, 255)", styles["tag_brand"]["color"]))
-    checks.append(check("success tag", styles["tag_success"]["color"] == "rgb(14, 122, 95)", styles["tag_success"]["color"]))
+    checks.append(check("success tag text", styles["tag_success"]["color"] == "rgb(14, 122, 95)", styles["tag_success"]["color"]))
+    checks.append(check("success tag background", styles["tag_success"]["background"] == "rgb(231, 247, 240)", styles["tag_success"]["background"]))
+    checks.append(check("warning tag background", styles["tag_warning"]["background"] == "rgb(255, 244, 229)", styles["tag_warning"]["background"]))
+    checks.append(check("danger tag background", styles["tag_danger"]["background"] == "rgb(254, 233, 233)", styles["tag_danger"]["background"]))
+    checks.append(check("primary button font size", styles["button_primary"]["fontSize"] == "16px", styles["button_primary"]["fontSize"]))
+    checks.append(check("tag font size", styles["tag_success"]["fontSize"] == "12px", styles["tag_success"]["fontSize"]))
 
     result = {
         "ok": True,
@@ -84,7 +89,8 @@ def main() -> None:
         "checks": checks,
     }
     OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"ok": True, "checked": len(checks), "screenshots": screenshots, "verify": str(OUT)}, ensure_ascii=False))
+    verify_path = str(OUT.relative_to(ROOT)).replace("\\", "/")
+    print(json.dumps({"ok": True, "checked": len(checks), "screenshots": screenshots, "verify": verify_path}, ensure_ascii=False))
 
 
 if __name__ == "__main__":

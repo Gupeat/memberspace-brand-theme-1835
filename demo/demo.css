@@ -6,7 +6,7 @@ body { width: 750px; min-height: 100vh; }
 .hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .hero-brand { font-size: var(--td-font-size-base); font-weight: var(--brand-font-weight-semibold); letter-spacing: 1px; }
 .hero-badge { font-size: var(--td-font-size-s); line-height: var(--td-line-height-body-extraSmall); background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.28); padding: 4px 12px; border-radius: var(--td-radius-round); }
-.hero-title { font-size: var(--td-font-size-xxl); line-height: var(--td-line-height-title-extraLarge); margin: 28px 0 10px; font-weight: var(--brand-font-weight-semibold); }
+.hero-title { font-size: var(--td-font-size-headline-small); line-height: var(--td-line-height-title-extraLarge); margin: 28px 0 10px; font-weight: var(--brand-font-weight-semibold); }
 .hero-sub { font-size: var(--td-font-size-base); line-height: var(--td-line-height-body-small); margin: 0; color: rgba(255,255,255,0.9); }
 .swatch-row { display: flex; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
 .swatch { font-size: var(--td-font-size-s); line-height: var(--td-line-height-body-extraSmall); border-radius: var(--td-radius-round); padding: 6px 14px; }
