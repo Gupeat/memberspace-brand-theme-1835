@@ -1,7 +1,7 @@
 # #1835 实施计划
 
-更新时间：2026-11-19 23:30（Asia/Shanghai）
-状态：v1 已于 2026-11-19T10:46:33Z 提交；rework-v2 已把 theme 变量从 68 收敛到 64，完成两轮验收、变异、安全修复、在线 Figma 变量交付与 GitHub Release v2.1.0，未重复提交。
+更新时间：2026-11-20 11:56（Asia/Shanghai）
+状态：v1 已于 2026-11-19T10:46:33Z 提交；rework-v2 已把 theme 变量从 68 收敛到 64，完成两轮验收、变异、安全修复、在线 Figma 变量交付、微信开发者工具真实截图与 GitHub Release v2.2.0，未重复提交。
 
 ## 1. 里程碑
 
@@ -12,8 +12,8 @@
 | M2 | theme.wxss 生成器与 TDesign 变量映射 | 64 个 TDesign 消费变量，重新生成逐字节一致 | ✅ |
 | M3 | 示例页与截图 | 750×2269 截图；按钮/标签计算样式与 PNG 尺寸断言 | ✅ |
 | M4 | Figma 变量 JSON、插件、1:1 对照表 | 74 名称完全相等；node --check 通过 | ✅ |
-| M5 | 对比度、测试、两轮、变异、README/USAGE | 15 tests；8/8；两轮（6 步）；3/3 变异 | ✅ |
-| M6 | 在线 Figma、交付包、提交正文、WorkStatus | 在线 74/74；包校验 + 用户批准后提交 | v1 已于 2026-11-19T10:46:33Z 提交；v2.1.0 已发布 GitHub Release 与在线 Figma，等待平台 rework 或用户明确指示 |
+| M5 | 对比度、测试、两轮、变异、README/USAGE | 16 tests；8/8；两轮（7 步）；3/3 变异 | ✅ |
+| M6 | 在线 Figma、微信 DevTools、交付包、提交正文、WorkStatus | 在线 74/74；DevTools 18/18；包校验 + 用户批准后提交 | v1 已于 2026-11-19T10:46:33Z 提交；v2.2.0 已发布 GitHub Release、在线 Figma 与 DevTools 截图，等待用户审核批准 |
 
 ## 2. 依赖图
 
@@ -32,7 +32,7 @@ M0 -> M1 -> M2 -> M3 -> M4 -> M5 -> M6
 | 示例页 | demo/ | 用 theme 变量渲染 TDesign 风格组件 | 不实现业务逻辑 |
 | Figma | figma/ + evidence/figma-online/ | 在线文件、导入 DTCG、Plugin API 脚本、导出快照与校验 | 不伪造变量或链接 |
 | 测试 | tests/ | 固化上述断言 | 不做视觉主观判断 |
-| 验收 | scripts/run_acceptance.py | 清空生成物、跑 6 步、写日志与证据 | 不修改业务源码 |
+| 验收 | scripts/run_acceptance.py | 清空生成物、跑 7 步、写日志与证据 | 不修改业务源码 |
 
 ## 4. 验证计划（实际执行）
 
@@ -73,6 +73,7 @@ M0 -> M1 -> M2 -> M3 -> M4 -> M5 -> M6
 - 2026-11-19 21:40：修复 Figma 插件破坏性删除与公共托管两项 safety blocker；改为 GitHub 仓库 + Release 交付。
 - 2026-11-19 18:46：经用户明确批准提交；平台 status=submitted、assigned_to_me=true；WorkStatus submitted。
 - 2026-11-19 21:20 起：rework-v2，移除 4 个 TDesign 1.18.0 未消费映射，theme 变量 68→64。
-- 2026-11-19 22:55–23:20：在线 Figma 导入 74 变量（collection Theme / mode Light），导出快照并校验 74/74；新增 figma-import.tokens.json 生成与 15th test。
-- 2026-11-19 23:27：两轮 6 步验收（round1 15:27:10Z、round2 15:27:15Z）均 exit 0；15 tests、8/8、74/74。
+- 2026-11-19 22:55–23:20：在线 Figma 导入 74 变量（collection Theme / mode Light），导出快照并校验 74/74；新增 figma-import.tokens.json 生成与第 15 个测试。
+- 2026-11-20 11:20–11:40：新增微信开发者工具真实截图与 verify_devtools_evidence.py（18/18）、miniprogram-demo 主题同源测试（第 16 个测试）；两轮 7 步验收（round1 03:40:14Z、round2 03:40:22Z）均 exit 0；16 tests、8/8、Figma 74/74、DevTools 18/18。
+- 2026-11-20 11:47：GitHub Release v2.2.0 与资产上传、下载回验完成（1,954,726 B，SHA-256 12375a15…8156）。
 - 提交必须用户当轮明确批准；本单不自动提交。

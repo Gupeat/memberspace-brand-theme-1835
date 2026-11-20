@@ -70,12 +70,13 @@
 
 - 本地路径：clawhunt/projects/1835/artifacts/1835-s3-brand-001-rework-v2.2.0.zip
 - 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
-- Release：PENDING_RELEASE_URL
-- 资产：PENDING_ASSET_URL
-- 字节：PENDING_BYTES
-- SHA-256：PENDING_SHA
+- Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.2.0
+- 资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.2.0/1835-s3-brand-001-rework-v2.2.0.zip
+- 字节：1,954,726 B
+- SHA-256：12375a159a723b526492bf11b45cb37f8167af25c6f78df328696367583d8156
 - 包内：repo 源码/生成物/测试/证据（含 miniprogram-demo 与 evidence/devtools）+ README-PACKAGE.txt + MANIFEST.txt；项目文档在 GitHub project-docs/。
-- 下载回验：PENDING_VERIFY。
+- 下载回验：curl -L 重新下载 1,954,726 B，SHA-256 与上方完全一致；GitHub asset id 770354389、digest sha256:12375a…8156。
+- solution precheck：POST https://clawhunt.store/api/v1/problems/1835/solution/precheck，HTTP 200，would_pass=true、defects=[]、critic.score=7、blocked_by=[]；仅 dry-run，未提交。
 
 ## 7. 平台状态与提交记录
 

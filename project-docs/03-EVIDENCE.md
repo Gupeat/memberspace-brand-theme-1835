@@ -88,11 +88,11 @@
 
 ## E8 两轮从零验收（v2.2.0）
 
-- round1：2026-11-20T03:19:21Z；round2：2026-11-20T03:19:40Z；均 exit 0。
+- round1：2026-11-20T03:40:14Z；round2：2026-11-20T03:40:22Z；均 exit 0。
 - 每轮 7 步：build、figma-syntax、validate、pytest、verify-figma、verify-devtools、capture。
-- 两轮均：build 0.18/0.15s；figma-syntax 0.14/0.14s；validate 0.17/0.15s；pytest 1.33/1.08s（16 passed）；verify-figma 0.13/0.12s；verify-devtools 0.12/0.12s；capture 3.97/3.39s；8/8 PASS；Figma 74/74；DevTools 18 项；Web 截图 750×2269、300,034 B。
+- 两轮均：pytest 16 passed；validate 8/8 PASS；Figma 74/74；DevTools 18 项；capture 18.98s / 4.28s；Web 截图 750×2269、300,034 B。
 - 两轮关键哈希完全一致：tokens 63972f37…；theme.wxss 与 miniprogram-demo/theme.wxss 均 0835f0c0…；demo/theme.css 350cc8d9…；figma-variables 9717a2ab…；figma-import/Light ebc70a2a…；CONTRAST 45768f03…；FIGMA-VARIABLES 976603e1…；example-page eccf7532…。
-- 日志：repo/artifacts/acceptance-round1.log（3,864 B，SHA-256 0ccce1fa55f8b382671ded99bc3a653972fa02fcaeec9ef13246e90258501b60）、acceptance-round2.log（3,864 B，aa29e21c9a31004ea80778210a1df260aafdb02256fd92c1f220ae68894dd0de）；ACCEPTANCE-round2.md / ACCEPTANCE.md（各 3,268 B，7871c97de86944934bb0c07f5f4eec4b75673e69578cc0b0f63d51a35217b813）。
+- 日志：repo/artifacts/acceptance-round1.log（3,810 B，SHA-256 b4df7f7529e7ce43…，已脱敏）、acceptance-round2.log（3,809 B，SHA-256 97c03fead9db350b…，已脱敏）；ACCEPTANCE-round1.md 3,269 B、ACCEPTANCE-round2.md 3,268 B（v2.2.0 最终两轮；日志已把本机路径替换为 <home>/<tmp>）。
 
 ## E9 变异（反向）演练
 
@@ -117,6 +117,7 @@
 | --- | ---: | --- |
 | repo/tokens.json | 10,320 | 63972f37c08d0e6a28b88579a8e0880503ce0c43770b7fdf12f2e7f89fe3f6ef |
 | repo/theme.wxss | 2,639 | 0835f0c080c3a48a0d400a37a9822b715e4ee29ad1db033650cccfa503030b28 |
+| repo/miniprogram-demo/theme.wxss | 2,639 | 0835f0c080c3a48a0d400a37a9822b715e4ee29ad1db033650cccfa503030b28 |
 | repo/demo/theme.css | 3,028 | 350cc8d9517a7aa5c461a460bbadce19df45b524452c0533879baa944f7c7339 |
 | repo/demo/index.html | 3,833 | fd9fcc1572ffe3e6ffc7368cfbdffb11bf4ec08bb6648938b62fdf0882418662 |
 | repo/demo/demo.css | 6,923 | 3feb96901db6498cae02cc466a72e5e5274d721f1ea8991c4586225aafaaff8d |
@@ -128,37 +129,52 @@
 | repo/docs/CONTRAST.md | 4,549 | 45768f03698255463f0c4e1d7b18f1c45abd139d70e857a0c2b7d6e023f999b8 |
 | repo/docs/FIGMA-VARIABLES.md | 7,131 | 976603e1eef0d6e6ec022c94b0f4651a00ad5a0d6e662ed8e7721de3b58c872e |
 | repo/docs/FIGMA-ONLINE.md | 3,246 | ef60210e9513699c82672f54f3db5fc1160e5e6eb6ccb9454e8aa71dd0c2d8d4 |
+| repo/docs/WECHAT-DEVTOOLS.md | 5,162 | bb9ae0f5ef865378123a520ec6688a94272bfd89e51e30e858131ccce4f3702c |
 | repo/docs/USAGE.md | 7,062 | 34b69f590c6bfd3b1145cf62541107f99d7935d7c394fe68b0e9488da31298e3 |
-| repo/README.md | 12,300 | b0b16027a285d2073915aae7ec40cfbbb4e7117759d260ea2eae66c2c97cb9d7 |
+| repo/README.md | 15,101 | 47976d122968496e81930f47212ac19d7d295cfdc11c5d481b78d7faeb517ad6 |
+| repo/miniprogram-demo/README.md | 1,078 | 309a57e4d6074005ef562b335f16b559dba83ccc8e85c9c5f4d044d59e90d9ae |
+| repo/miniprogram-demo/project.config.json | 1,339 | 16a92d87587bebfc4ed2c2d0fc153c0efd58c6fe9f642b90544164da18651223 |
 | repo/artifacts/example-page.png | 300,034 | eccf75328d60d6f201e08b872740c786ba4abd3fade4bed05e43d0e8418db23a |
-| repo/artifacts/validation.log | 800 | 0b00277faee450e5f3573dc58d3f012390fc99c8dc693d6fb0bd3306077629f2 |
-| repo/artifacts/validation.json | 1,434 | 129b90626888f57074a2fceac2a73d733bd86309e7d4d0e64aa4276e84a061ec |
-| repo/artifacts/acceptance-round1.log | 2,995 | 516e5a1fe800559e01192b3ff41857457e3865a58e297573fa12f2d6f99c133d |
-| repo/artifacts/acceptance-round2.log | 2,995 | 2ca6197269bdca9acf4ef0831345e80176b0b04a5e5631ef63f2ab6403eceacd |
-| repo/artifacts/ACCEPTANCE-round1.md | 2,844 | f10effd341a96527cbdf3e5f627db2a8da08a1f36cd11b074de20fd7bb442fa5 |
-| repo/artifacts/ACCEPTANCE-round2.md | 2,844 | 70682496d8e82ea3f4062d712f1fc2c508396f48a362ae78f81a8ba2839cbb4f |
-| repo/artifacts/ACCEPTANCE.md | 2,844 | 70682496d8e82ea3f4062d712f1fc2c508396f48a362ae78f81a8ba2839cbb4f |
+| repo/artifacts/validation.log | 837 | ca6eda60957ebcf008c3204fd2603ee565d0d0230532f14d9bd5951c3d997969 |
+| repo/artifacts/validation.json | 1,471 | 27b3356ec8754aa68298b6c29686aad1d19bbd69c7d79d772e47166080d18bdc |
+| repo/artifacts/acceptance-round1.log | 3,810 | b4df7f7529e7ce436d6d7bf48adbd174a928a6428cafe29d68ba9bd1c36b2a32 |
+| repo/artifacts/acceptance-round2.log | 3,809 | 97c03fead9db350b51b10a77bc7254ad016d7e6ba13070a774b8eaa61ca6cd20 |
+| repo/artifacts/ACCEPTANCE-round1.md | 3,269 | 72a5a4fb8fb21499f2d8a0500c24a750ba9f94a78d0d0a285346feda9c026c1c |
+| repo/artifacts/ACCEPTANCE-round2.md | 3,268 | aa80f4e07684d42ce9a81a2e9c30e1587fe31d6219998a12c64692beee877e13 |
+| repo/artifacts/ACCEPTANCE.md | 3,268 | aa80f4e07684d42ce9a81a2e9c30e1587fe31d6219998a12c64692beee877e13 |
 | repo/artifacts/reverse-drill.log | 1,033 | 6a1657ea7cf5ea9dba414b7cfec8c0ed95c3410c09e7ef99b04dd0f0c64fc716 |
-| repo/tests/test_tokens.py | 6,195 | f4cc2650325d43f2f5794dec0cb798242db42afaaad3ccd04196e98b3bcf1560 |
-| repo/scripts/build.py | 24,181 | 356456361b7a04a45be384dc69de889cdf9170d22904680698a90fe2fb2687e0 |
-| repo/scripts/validate.py | 16,078 | f76b6bacbaf506c2496044465e19d36fef818ecfcf98b066ef4b0295baa51fdf |
+| repo/tests/test_tokens.py | 6,470 | 395898cd92e1aa938b091678d12ff2702587d346e088d27e050b898bc2f4ef82 |
+| repo/scripts/build.py | 24,379 | cb21fb73e475eed3bbbdf86fc0f426b29cfb98b742d4c8aed8954996cb5ae000 |
+| repo/scripts/validate.py | 16,497 | 6cb1e61fae6ee2d21741ea281dbf8414da7a79378bd3850f809db780e344eee6 |
 | repo/scripts/verify_figma_export.py | 5,881 | d1dc9bc2862bb4e53d6a7c631c62dd1f733e02278c0c042d52524051784d7be1 |
+| repo/scripts/verify_devtools_evidence.py | 4,013 | 391f273fa0127246044dee0b8fbdeb378733c74eec6c5545a60f45729218686c |
 | repo/scripts/capture.mjs | 3,371 | 76f2b7e6f319b89f41aff9350dd96f97cb16fc28a73ea3174a60cbb946a26b4b |
-| repo/scripts/run_acceptance.py | 7,745 | 9a4d85a83ff69852f91e46ef96a9e4811720f952e44c70f0ed9b655364ffccef |
+| repo/scripts/run_acceptance.py | 8,470 | 435335f7f93fcf7b4cdb51d4f23bc8d877dc3f915dcb21c04b4a6adc86faa80c |
 | repo/scripts/reverse_drill.py | 4,124 | f622b3ebb7f41f4d2dc0b026ea62cbdcba7bed50ae1222c44c09bc6f6e5b9965 |
+| repo/evidence/devtools/miniprogram-simulator.png | 101,264 | 210ec05728a5e8d835189d0ac10dd7eb4e6b2032a54fac39f1f7f122722c0fde |
+| repo/evidence/devtools/miniprogram-devtools.png | 176,635 | fce1d407dfb94168dadb2c07670f8fe65551c702a6b8a3044000be8d88dac2b6 |
+| repo/evidence/devtools/run.json | 2,693 | 3cf66112393d04c14fa060954866213f3c3c387f82c2605519fbbce284ed499d |
+| repo/evidence/devtools/verify.json | 2,808 | e95758e670dc09aafbcb2723d244368928ccc4e383ce8bd747b045b3463670d6 |
+| repo/evidence/figma-online/Theme.zip | 28,607 | f9bc2c8c35a798fca9d9fb7097868645870e1930f0d0f1f1a00e4673cb091ccc |
+| repo/evidence/figma-online/Light.tokens.json | 28,475 | 7ee627941bc69c1699b66a4cce0cf57efebda79175db873f20ffc60c61b56ed8 |
+| repo/evidence/figma-online/verify.json | 1,096 | f088d9e6c5755aad5782b981c927f4e5b48b8bb7b236ee63277cc8faeceecd97 |
+| repo/evidence/figma-online/figma-online-final.png | 49,218 | f611bec12d0339f15fd9d86e7c66024ee07d74fc86953b78b70dbef34cfcb699 |
+| repo/evidence/figma-online/figma-shared-final.png | 60,161 | 1c4b3a46b8abfe0742cbc5cc67b5cb06818814d3817cdf0c61bfb352f7ea85a5 |
+| repo/evidence/figma-online/figma-anon-public.png | 23,804 | 828b060d557296b3092bdd8ba07deeb3ffde9ae28dbf96cb3bb11df774de24dd |
 
-以上哈希均按 2026-11-19 23:33 最终工作树重新计算；README 在 23:30 改一处 Release 链接后哈希为 b0b16027…。
+以上哈希按 2026-11-20 11:58 最终工作树重新计算；与仓库 main 和 Release 资产内容一致。
 
-## E12 交付包（v2.1.0，GitHub Release）
+## E12 交付包（v2.2.0，GitHub Release）
 
 - 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
-- Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.1.0
-- 资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.1.0/1835-s3-brand-001-rework-v2.1.0.zip
-- 本地路径：clawhunt/projects/1835/artifacts/1835-s3-brand-001-rework-v2.1.0.zip
-- 字节数：489,536 B
-- SHA-256：8264e580ca09f88c273e6e057d4bca4c85b5269e91ddae0d5e3038750c6f09e2
-- 内容：repo 下 40 个源码/生成物/证据文件（含 evidence/figma-online 的 7 个文件）+ README-PACKAGE.txt + MANIFEST.txt，共 42 个条目；排除 node_modules、缓存、临时文件、数据库。项目文档不放入 zip，放在 GitHub 仓库 project-docs/，避免包内文档与包 SHA 互相引用。
-- 校验：MANIFEST 逐文件 SHA-256/字节匹配；testzip 无错误；无未列条目；隐私扫描 0 命中；上传后 curl -L 下载回验字节与 SHA-256。
+- Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.2.0
+- 资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.2.0/1835-s3-brand-001-rework-v2.2.0.zip
+- 本地路径：clawhunt/projects/1835/artifacts/1835-s3-brand-001-rework-v2.2.0.zip
+- 字节数：1,954,726 B
+- SHA-256：12375a159a723b526492bf11b45cb37f8167af25c6f78df328696367583d8156
+- GitHub asset：id 770354389；digest sha256:12375a15…8156；创建于 2026-11-20T03:47Z 左右。
+- 内容：repo 源码/生成物/测试/证据（含 tokens.json、theme.wxss、figma/、docs/、evidence/figma-online/、evidence/devtools/、artifacts/、miniprogram-demo/ 全量 miniprogram_npm、vendor/tdesign-miniprogram-1.18.0.tgz）+ README-PACKAGE.txt + MANIFEST.txt，共 1,251 个条目；排除 node_modules、.git、缓存、临时文件、数据库与 project.config.json.bak*。项目文档不放入 zip，放在 GitHub 仓库 project-docs/，避免包内文档与包 SHA 互相引用。
+- 校验：MANIFEST 1,249/1,249 个文件 SHA-256/字节匹配；testzip 无错误；zip 内无未列条目；隐私扫描 0 命中；上传后 curl -L 下载 1,954,726 B，SHA-256 完全一致。
 
 ## E13 限制与边界
 
@@ -200,7 +216,10 @@
 
 ## E17 v2.2.0 提交前预检
 
-- 待 v2.2.0 打包与 Release 上传后执行；结果回填于本文件与项目 STATUS.md，不提交。
+- 时间：2026-11-20T04:05Z 左右；命令：POST https://clawhunt.store/api/v1/problems/1835/solution/precheck，body = submission-solution-v2.txt 全文（5,629 字符）+ assets（GitHub 仓库 + Release 资产）；使用 agent 1688 的 craftmesh-v7.env API Key。
+- 结果：HTTP 200，耗时 99.5s；would_pass=true、defects=[]、critic.passed=true、critic.score=7、blocked_by=[]、reason="passed adversarial critique"；note="dry-run only — nothing was submitted; the formal review may still differ"。
+- 原始响应：repo/artifacts/precheck-v220.json（本地证据，不放进 v2.2.0 包）。
+- 过程记录：同日早些时候第一次返回 critic 不可用（would_pass=null、defects=[]）；第二次 critic 误判 tokens.json 使用点分扁平键，依据是旧正文措辞；核对 tokens.json 实际为嵌套 DTCG（color/font/radius/space/shadow/motion 六组）后，明确正文表述并重跑，第三次通过。未提交任何内容。
 
 ## E18 微信开发者工具真实运行证据（v2.2.0）
 

@@ -2,7 +2,7 @@
 
 - 任务：#1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射
 - 金额：7000 USD；agent 1688（craftmesh-v7.env）；assigned_to_me=true；escrow funded；deadline 2026-12-14T15:59:59Z；assignment_deadline 2026-11-22T01:07:49Z；platform_only；reference_price 11000
-- 更新时间：2026-11-20 11:30（Asia/Shanghai）
+- 更新时间：2026-11-20 12:08（Asia/Shanghai）
 - 状态：v1 已于 2026-11-19T10:46:33.421669Z 提交；平台随后要求 rework（rework_count=1，latest_delivery_status=rework_requested）。rework v2.2.0 已完成 GitHub 仓库、在线 Figma、微信开发者工具真实截图、两轮 7 步验收与证据校验；**尚未提交 v2.2.0**，等待用户审核与明确批准。
 
 ## 里程碑
@@ -14,8 +14,8 @@
 | M2 变量与映射 | ✅ | tokens.json 74；theme.wxss 64；demo 预览 64+10；miniprogram theme 同步 |
 | M3 对比度与文档 | ✅ | CONTRAST.md 57 组；FIGMA-VARIABLES.md 74 行；FIGMA-ONLINE.md；WECHAT-DEVTOOLS.md；USAGE.md |
 | M4 自动校验 | ✅ | validate.py 8/8；pytest 16 passed；verify_figma_export.py 74/74；verify_devtools_evidence.py 18/18 |
-| M5 验收与变异 | ✅ | 两轮 7 步 2026-11-20T03:19:21Z / 03:19:40Z；3/3 DETECTED；截图 750×2269 |
-| M6 仓库/包与 rework 文档 | 🟡 | 文档与证据完成；v2.2.0 zip/Release 待生成；precheck 待跑；等待用户审核批准后提交 |
+| M5 验收与变异 | ✅ | 两轮 7 步 2026-11-20T03:40:14Z / 03:40:22Z；3/3 DETECTED；截图 750×2269 |
+| M6 仓库/包与 rework 文档 | ✅ | 文档、zip、GitHub Release v2.2.0、下载回验与 solution precheck（would_pass=true、defects=[]、score 7）完成；等待用户审核批准后提交 |
 
 ## 验证摘要（v2.2.0）
 
@@ -34,7 +34,9 @@
 - 00-UNDERSTANDING.md、01-PLAN.md、02-DESIGN.md、03-EVIDENCE.md、STATUS.md、SUBMISSION.md、submission-solution-v2.txt、task-1835.json
 - 交付仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
 - 在线 Figma：https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1
-- Release v2.2.0 / zip：待本次打包上传后回填
+- Release v2.2.0：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.2.0
+- 资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.2.0/1835-s3-brand-001-rework-v2.2.0.zip
+- zip：1,954,726 B；SHA-256 12375a159a723b526492bf11b45cb37f8167af25c6f78df328696367583d8156；下载回验字节/SHA 一致
 - v1 历史 zip 仅保留 SHA-256 f69da28e…，不再作为交付主链接。
 
 ## 已知限制
@@ -55,6 +57,6 @@
 
 ## 下一步
 
-1. 打 v2.2.0 zip、生成 MANIFEST、隐私扫描；用 GitHub API 提交 main 并创建 Release v2.2.0；下载回验 SHA。
-2. 跑 solution precheck 并记录 would_pass/defects；回填 03-EVIDENCE E12/E17。
+1. ~~打 v2.2.0 zip、生成 MANIFEST、隐私扫描；用 GitHub API 提交 main 并创建 Release v2.2.0；下载回验 SHA。~~（已完成）
+2. ~~跑 solution precheck 并记录 would_pass/defects；回填 03-EVIDENCE E17。~~（已完成：would_pass=true、defects=[]、score 7）
 3. 向用户汇报，等待审核与明确批准后提交；绝不重复提交、不自动提交。

@@ -7,8 +7,8 @@
 1. GitHub 仓库（blocker）：https://github.com/Gupeat/memberspace-brand-theme-1835 为 public 仓库，README「快速开始」给出 7 条运行/测试命令；tokens.json、theme.wxss、scripts/、miniprogram-demo/、demo/、docs/、tests/ 全部在仓库内，评审可直接克隆复现。
 2. Figma 变量集合（blocker）：https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1 已实际建立 collection Theme、mode Light、74 个变量，共享 Anyone can edit；evidence/figma-online/verify.json 对导出快照逐项校验 74/74（名称、类型、别名、值、描述）。
 3. 微信开发者工具截图（major）：miniprogram-demo 使用 t-button 与 t-tag，app.wxss 引入由 tokens.json 生成的 theme.wxss；在微信开发者工具 2.02.2609250 Stable（沙箱 AppID wx65dda5a642890a95、libVersion 3.4.10、页面 pages/index/index）真实运行并截图。evidence/devtools/miniprogram-simulator.png 为 488×941 模拟器画面，miniprogram-devtools.png 为 1564×1250 完整 IDE；run.json 记录版本/AppID/页面/截图字节与哈希/计算样式；verify_devtools_evidence.py 校验 18/18 PASS。这是 DevTools 模拟器截图，不是 Web 预览，也不是真机。
-4. Figma 名称一一对应（major）：tokens.json 的 74 个点分路径与 Figma 变量名严格 1:1；docs/FIGMA-VARIABLES.md 74 行；figma/figma-variables.json 74 个；在线导出快照 74/74。
-5. W3C DTCG 校验（major）：scripts/validate.py 第 1 项校验 74 个 token 的 $type/$value、分类与 scale，8/8 PASS；输出见 artifacts/validation.log 与 validation.json；pytest test_token_index_has_74_valid_tokens 通过。
+4. Figma 名称一一对应（major）：tokens.json 采用 DTCG 嵌套结构，token 名本身不含点号；其 74 个 token 路径（以点号连接组名用于展示）与 Figma 变量名严格 1:1；docs/FIGMA-VARIABLES.md 74 行；figma/figma-variables.json 74 个；在线导出快照 74/74。
+5. W3C DTCG 校验（major）：tokens.json 是嵌套 DTCG 文档（组可继承 $type，每个 token 有 $value；组名与 token 名不含点号；别名使用 {group.token}）。scripts/validate.py 第 1 项按规范校验组/token 结构、名称、$type/$value 类型与值、必填分类与 scale；tokens.json 顶层为 color/font/radius/space/shadow/motion 六个组，每组可有 $type 继承，token 名本身不含点号。8/8 PASS，输出见 artifacts/validation.log 与 validation.json；pytest test_token_index_has_74_valid_tokens 通过。
 6. 对比度表（minor）：docs/CONTRAST.md 列出 57 组前景、背景、比值与用途，全部 ≥4.5:1，最低 4.66:1（品牌主色文字 #1F5EFF / 品牌浅底 #F1F4FF），白色文字/品牌主色 5.12:1；validate.py 第 4/8 项与 pytest test_all_57_body_text_pairs_meet_wcag_aa 校验。
 
 三、客户 AC 逐条对照
@@ -25,7 +25,7 @@ AC4（Figma 变量名与 tokens.json 一一对应）：PASS。在线 74 变量�
 4) python scripts/verify_figma_export.py → 74/74 PASS，exit 0。
 5) python scripts/verify_devtools_evidence.py → 18/18 PASS，exit 0。
 6) node scripts/capture.mjs → 750×2269 RGB 截图，exit 0。
-7) python scripts/run_acceptance.py --label round1 / round2 → 两轮均 exit 0；每轮 7 步（build、figma-syntax、validate、pytest、verify-figma、verify-devtools、capture）全部通过，关键生成物哈希一致。两轮时间 2026-11-20T03:19:21Z、03:19:40Z；日志 artifacts/acceptance-round1.log、acceptance-round2.log。
+7) python scripts/run_acceptance.py --label round1 / round2 → 两轮均 exit 0；每轮 7 步（build、figma-syntax、validate、pytest、verify-figma、verify-devtools、capture）全部通过，关键生成物哈希一致。两轮时间 2026-11-20T03:40:14Z、03:40:22Z（在 README/文档最终修改后重跑）；日志 artifacts/acceptance-round1.log、acceptance-round2.log。
 变异演练 python scripts/reverse_drill.py → 3/3 DETECTED（改中性色、删除品牌映射、重命名 Figma 变量均被闸门捕获）。
 
 五、实现要点
@@ -33,14 +33,14 @@ AC4（Figma 变量名与 tokens.json 一一对应）：PASS。在线 74 变量�
 2) theme.wxss 只保留 tdesign-miniprogram 1.18.0 实际消费的 64 个变量；未消费的 --td-line-height、--td-anim-duration-moderate、--td-anim-duration-slow、--td-anim-time-fn-ease-in 从映射移除，对应 token 仍保留，避免“官方名但组件不消费”的虚映射。
 3) 对比度按 WCAG 2.1 相对亮度计算，仅把正文文字组合纳入 AC2；装饰色/禁用色不计入正文。该检查是颜色组合校验，不等同完整 UI 无障碍审计。
 4) Figma 名称保留点号路径，不转成 “/” 分组，保证名称严格 1:1；在线文件已实际导入 74 变量并导出快照校验。插件按同名创建/更新，不删除既有变量；类型冲突跳过并提示，未匹配变量保留并报告。
-5) 导入 DTCG 使用嵌套分组（DTCG 不允许点号作为扁平键），颜色为 sRGB，尺寸按 2rpx=1px 换算，动效 ms、字重 int，别名保留 {path}；Light.tokens.json 用于让 Figma mode 名为 Light。
+5) tokens.json 本身就是嵌套 DTCG（DTCG 不允许点号作为扁平键），figma-import/Light 是同一结构的导入副本而非另一套数据；颜色为 sRGB，尺寸按 2rpx=1px 换算，动效 ms、字重 int，别名保留 {path}；Light.tokens.json 用于让 Figma mode 名为 Light。
 
 六、交付包与交付通道
 交付仓库（public，仅虚构数据）：https://github.com/Gupeat/memberspace-brand-theme-1835
 在线 Figma：https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1
-Release v2.2.0：PENDING_RELEASE_URL
-归档资产：PENDING_ASSET_URL
-字节：PENDING_BYTES；SHA-256：PENDING_SHA；包内 MANIFEST 逐文件校验，下载后按字节与 SHA-256 复核。仓库 project-docs/ 同步 00/01/02/03/STATUS/SUBMISSION 与 task-1835.json。
+Release v2.2.0：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.2.0
+归档资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.2.0/1835-s3-brand-001-rework-v2.2.0.zip
+字节：1,954,726；SHA-256：12375a159a723b526492bf11b45cb37f8167af25c6f78df328696367583d8156；包内 MANIFEST 逐文件校验，下载后按字节与 SHA-256 复核。仓库 project-docs/ 同步 00/01/02/03/STATUS/SUBMISSION 与 task-1835.json。
 安全说明：Figma 插件不删除任何既有变量；交付使用 GitHub 仓库 + Release 资产，不使用 filebin；仓库与包不含客户名、PII、API Key 或访问令牌。
 
 七、已知限制

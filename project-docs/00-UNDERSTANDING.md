@@ -1,7 +1,7 @@
 # #1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射 · 理解与范围
 
-更新时间：2026-11-19 23:30（Asia/Shanghai）
-状态：v1 已于 2026-11-19T10:46:33Z 提交（submitted，rework_count=0）；rework-v2 已完成实现、两轮验收、变异、安全修复、在线 Figma 变量交付与 GitHub 仓库/Release v2.1.0 交付，等平台 rework 或用户明确指示；未重复提交。
+更新时间：2026-11-20 11:56（Asia/Shanghai）
+状态：v1 已于 2026-11-19T10:46:33Z 提交（submitted，rework_count=0）；rework-v2 已完成实现、两轮验收、变异、安全修复、在线 Figma 变量交付、微信开发者工具真实截图与 GitHub 仓库/Release v2.2.0 交付，等待用户审核与明确批准；未重复提交。
 
 ## 1. 平台事实
 
@@ -74,5 +74,5 @@
 - [x] Figma 变量名与 token 路径 1:1，附对照表、插件与导入清单。
 - [x] build 幂等、两轮从零演练、变异演练（3/3 DETECTED）。
 - [x] README/USAGE 完整、可复现。
-- [x] v2.1.0 交付包已发布到 GitHub Releases 并回验（字节/SHA-256 见 03-EVIDENCE E12；https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.1.0）。
-- [x] v1 经用户 2026-11-19 明确批准后提交；v2.1.0 待平台 rework 或用户明确指示，不重复提交。
+- [x] v2.2.0 交付包已发布到 GitHub Releases 并回验（字节/SHA-256 见 03-EVIDENCE E12；https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.2.0）。
+- [x] v1 经用户 2026-11-19 明确批准后提交；v2.2.0 已按平台 rework 完成，待用户审核与明确批准，不重复提交。
