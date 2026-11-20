@@ -173,6 +173,27 @@
         },
         "error": null
       }
+    },
+    {
+      "attempted_at": "2026-11-20T14:54:15.610513+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 7.2,
+      "error": null,
+      "solution_chars": 5758,
+      "solution_bytes": 8769,
+      "response": {
+        "success": true,
+        "data": {
+          "would_pass": null,
+          "defects": [],
+          "critic": {
+            "error": true,
+            "reason": "all critic lenses failed to run (outage)"
+          },
+          "note": "deterministic checks passed; the LLM critic could not run — this is NOT a fail"
+        },
+        "error": null
+      }
     }
   ],
   "latest": {

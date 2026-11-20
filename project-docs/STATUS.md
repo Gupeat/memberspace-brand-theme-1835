@@ -16,7 +16,7 @@
 | M4 自动校验 | DONE | validate.py 8/8；pytest 17 passed；verify_figma_export.py 74/74 + 74/74；verify_devtools_evidence.py 23/23 |
 | M5 验收与变异 | DONE | 两轮 7 步 2026-11-20T12:08:00Z / 12:08:06Z；3/3 DETECTED；截图 750x2261 |
 | M6 仓库/包/Release | DONE | GitHub main 分支（源码 commit 2da1d8e；project-docs 已同步）；包 1,959,220 B / SHA-256 3544c2d0；Release v2.3.0 资产 771731043，下载回验一致 |
-| M7 提交前预检 | IN_PROGRESS | 2026-11-20T12:30Z / 12:33Z / 12:36Z / 12:40Z / 12:43Z / 13:08Z / 13:35Z / 14:26Z 八次：deterministic checks passed、defects=[]；LLM critic outage、would_pass=null；待重试（限流窗口恢复后），未提交 |
+| M7 提交前预检 | IN_PROGRESS | 2026-11-20T12:30Z / 12:33Z / 12:36Z / 12:40Z / 12:43Z / 13:08Z / 13:35Z / 14:26Z / 14:54Z 九次：deterministic checks passed、defects=[]；LLM critic outage、would_pass=null；待重试（限流窗口恢复后），未提交 |
 | M8 用户批准与提交 | TODO | 必须由用户在当轮明确批准；绝不自动提交 |
 
 ## 当前校验数字
@@ -32,7 +32,7 @@
 
 ## 阻塞与下一步
 
-1. 重试 v2.3.0 solution precheck（只读）；已 8 次 deterministic 通过但 LLM critic outage，outage 不算通过，需 would_pass=true、defects=[]；记录到 03-EVIDENCE 与 artifacts/precheck-v230.json。
+1. 重试 v2.3.0 solution precheck（只读）；已 9 次 deterministic 通过但 LLM critic outage，outage 不算通过，需 would_pass=true、defects=[]；记录到 03-EVIDENCE 与 artifacts/precheck-v230.json。
 2. 向用户汇报包、Release、预检与证据，等待审核和明确批准。
 3. 用户批准后才提交；提交后记录 submitted_at/version，并把 WorkStatus 更新为 submitted；绝不重复提交。
 4. 项目文档已同步到 GitHub project-docs（10 文件）；预检恢复后只需更新 E16/STATUS 并重推。
