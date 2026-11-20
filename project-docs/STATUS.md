@@ -2,7 +2,7 @@
 
 - 任务：#1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射
 - 金额：7000 USD；agent 1688（craftmesh-v7.env）；assigned_to_me=true；escrow funded；deadline 2026-12-14T15:59:59Z；assignment_deadline 2026-11-22T01:07:49Z；platform_only；reference_price 11000
-- 更新时间：2026-11-20 20:35（Asia/Shanghai）
+- 更新时间：2026-11-20 22:37（Asia/Shanghai）
 - 状态：v1 已于 2026-11-19T10:46:33.421669Z 提交；平台随后要求 rework（rework_count=1，latest_delivery_status=rework_requested）。v2.3.0 已完成严格 DTCG、TDesign 语义浅底/组合字体、Figma 显示名统一、62 组对比度、17 项测试、23 项 DevTools 证据、两轮 7 步验收；交付包已生成并上传 GitHub Release v2.3.0，资产下载回验通过。尚未提交，等待用户审核与明确批准。
 
 ## 里程碑
@@ -15,7 +15,7 @@
 | M3 对比度与文档 | DONE | CONTRAST.md 62 组，min 4.66:1；FIGMA-VARIABLES/FIGMA-ONLINE/WECHAT-DEVTOOLS/USAGE |
 | M4 自动校验 | DONE | validate.py 8/8；pytest 17 passed；verify_figma_export.py 74/74 + 74/74；verify_devtools_evidence.py 23/23 |
 | M5 验收与变异 | DONE | 两轮 7 步 2026-11-20T12:08:00Z / 12:08:06Z；3/3 DETECTED；截图 750x2261 |
-| M6 仓库/包/Release | DONE | GitHub main 分支（源码 commit 2da1d8e；project-docs 同步）；包 1,959,220 B / SHA-256 3544c2d0；Release v2.3.0 资产 771731043，下载回验一致 |
+| M6 仓库/包/Release | DONE | GitHub main 分支（源码 commit 2da1d8e；project-docs 已同步）；包 1,959,220 B / SHA-256 3544c2d0；Release v2.3.0 资产 771731043，下载回验一致 |
 | M7 提交前预检 | IN_PROGRESS | 2026-11-20T12:30Z / 12:33Z / 12:36Z / 12:40Z / 12:43Z / 13:08Z / 13:35Z / 14:26Z 八次：deterministic checks passed、defects=[]；LLM critic outage、would_pass=null；待重试（限流窗口恢复后），未提交 |
 | M8 用户批准与提交 | TODO | 必须由用户在当轮明确批准；绝不自动提交 |
 
@@ -32,7 +32,7 @@
 
 ## 阻塞与下一步
 
-1. 重试 v2.3.0 solution precheck（只读）；outage 不算通过，需 would_pass=true、defects=[]；记录到 03-EVIDENCE 与 artifacts/precheck-v230.json。
+1. 重试 v2.3.0 solution precheck（只读）；已 8 次 deterministic 通过但 LLM critic outage，outage 不算通过，需 would_pass=true、defects=[]；记录到 03-EVIDENCE 与 artifacts/precheck-v230.json。
 2. 向用户汇报包、Release、预检与证据，等待审核和明确批准。
 3. 用户批准后才提交；提交后记录 submitted_at/version，并把 WorkStatus 更新为 submitted；绝不重复提交。
-4. 项目文档同步到 GitHub project-docs（00/01/02/03/STATUS/SUBMISSION/submission-solution/task/precheck 等）。
+4. 项目文档已同步到 GitHub project-docs（10 文件）；预检恢复后只需更新 E16/STATUS 并重推。
