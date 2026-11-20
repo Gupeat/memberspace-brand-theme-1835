@@ -1,7 +1,7 @@
 # #1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射 · 理解与范围
 
 更新时间：2026-11-20 20:10（Asia/Shanghai）
-状态：v1 已于 2026-11-19T10:46:33Z 提交；平台随后要求 rework（rework_count=1，latest_delivery_status=rework_requested）。v2.3.0 已完成严格 DTCG 修复、TDesign 语义浅底与组合字体映射、Figma 显示名统一、62 组对比度、23 项 DevTools 证据、两轮 7 步验收；交付包已生成并自检（1,959,220 B，SHA-256 3544c2d0…），源码已推送 GitHub main（2da1d8e…），GitHub Release v2.3.0 与下载回验完成；solution precheck 已执行（deterministic checks passed、defects=[]，LLM critic outage、would_pass=null，待重试）；**尚未提交**，等待用户审核与明确批准。
+状态：v1 已于 2026-11-19T10:46:33Z 提交；平台随后要求 rework（rework_count=1，latest_delivery_status=rework_requested）。v2.3.0 已完成严格 DTCG 修复、TDesign 语义浅底与组合字体映射、Figma 显示名统一、62 组对比度、23 项 DevTools 证据、两轮 7 步验收；交付包已生成并自检（1,959,220 B，SHA-256 3544c2d0…），源码已推送 GitHub（源码 commit 2da1d8e…；main e76462c… 为 project-docs 同步提交），GitHub Release v2.3.0 与下载回验完成；solution precheck 已执行（deterministic checks passed、defects=[]，LLM critic outage、would_pass=null，待重试）；**尚未提交**，等待用户审核与明确批准。
 
 ## 1. 平台事实
 

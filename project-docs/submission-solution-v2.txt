@@ -4,7 +4,7 @@
 本单把品牌规范落成可执行的小程序主题变量，并映射到 TDesign 小程序组件：色彩（品牌主色/辅助色/中性 10 阶/成功警告错误信息语义色）、字号 24/28/32/36/40/48rpx 与行高/字重、圆角 8/16/24rpx 与全圆、间距 16/24/32/48/64rpx、阴影 3 级、动效时长与缓动。交付 tokens.json（严格 W3C DTCG）、theme.wxss、在线 Figma 变量集合、可导入 DTCG、1:1 对照表、对比度检查表、微信开发者工具截图、使用说明与可复现校验。
 
 二、rework 六项逐条答复
-1. GitHub 仓库（blocker）：https://github.com/Gupeat/memberspace-brand-theme-1835 为 public 仓库，main 2da1d8e；README 快速开始给出 build、figma syntax、validate、pytest、verify Figma、verify DevTools、capture 七条命令；tokens.json、theme.wxss、scripts/、miniprogram-demo/、demo/、docs/、tests/、evidence/ 全部在仓库内，评审可直接克隆复现。
+1. GitHub 仓库（blocker）：https://github.com/Gupeat/memberspace-brand-theme-1835 为 public 仓库，main e76462c（源码 commit 2da1d8e）；README 快速开始给出 build、figma syntax、validate、pytest、verify Figma、verify DevTools、capture 七条命令；tokens.json、theme.wxss、scripts/、miniprogram-demo/、demo/、docs/、tests/、evidence/ 全部在仓库内，评审可直接克隆复现。
 2. Figma 变量集合（blocker）：https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1 已实际建立 collection Theme、mode Light、74 个变量，共享 Anyone can edit；evidence/figma-online/verify.json 对导出快照逐项校验 74/74 名称、类型、别名、值、描述。
 3. 微信开发者工具截图（major）：miniprogram-demo 使用 t-button 与 t-tag，app.wxss 引入由 tokens.json 生成的 theme.wxss；在微信开发者工具 2.02.2609250 Stable（沙箱 AppID wx65dda5a642890a95、libVersion 3.4.10、页面 pages/index/index）真实运行并截图。evidence/devtools/miniprogram-simulator.png 为 488x941 模拟器画面，miniprogram-devtools.png 为 1564x1250 完整 IDE；run.json 记录版本/AppID/页面/截图字节与哈希/计算样式；verify_devtools_evidence.py 校验 23/23 PASS。真实计算样式：button 背景 rgb(31,94,255)、白字、8px 圆角、16px 字号；标签品牌色 rgb(31,94,255)；语义浅底 #E7F7F0/#FFF4E5/#FEE9E9；标签字号 12px。这是 DevTools 模拟器截图，不是真机截图，已在 README/docs/03-EVIDENCE 明确标注。
 4. Figma 名称 1:1（major）：tokens.json 的 canonical 路径为 color.brand.primary 这类点分路径；在线 Figma 显示名为 color/brand/primary 这类 / 分组，逐段 1:1，不声称显示名字符串等于点号字符串。docs/FIGMA-VARIABLES.md 同时列出 tokenPath 与显示名，共 74 行；figma/figma-variables.json、figma/create-variables.js 使用 / 显示名并保留 tokenPath；figma/figma-import.tokens.json 与 Light.tokens.json 为嵌套 DTCG；verify_figma_export.py 校验 74/74 tokenPath + 74/74 显示名。
@@ -33,7 +33,7 @@ AC4 Figma 变量名与 tokens.json 名称一一对应：74 个 tokenPath + 74 �
 - 变异：3/3 DETECTED（中性色改浅触发对比度失败、删除品牌映射触发 demo 未定义变量、改 Figma 名称触发 1:1 失败）。
 
 六、交付包与 GitHub Release
-- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835（public；main 2da1d8e）
+- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835（public；main e76462c；源码 commit 2da1d8e）
 - Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.3.0
 - 资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.3.0/1835-s3-brand-001-rework-v2.3.0.zip
 - 字节：1,959,220 B；SHA-256：3544c2d089b74bfc91e993d2c6ec56bc04449d5d2e352478ba55e72d878a0c65；asset id 771731043。
