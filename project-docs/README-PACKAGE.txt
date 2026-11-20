@@ -6,7 +6,7 @@
 - SHA-256：3544c2d089b74bfc91e993d2c6ec56bc04449d5d2e352478ba55e72d878a0c65
 - Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.3.0
 - 资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.3.0/1835-s3-brand-001-rework-v2.3.0.zip
-- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835（public，main e76462c；源码 commit 2da1d8e）
+- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835（public，main 分支；源码 commit 2da1d8e）
 
 ## 包内容
 

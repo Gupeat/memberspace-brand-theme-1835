@@ -55,7 +55,7 @@
 
 ## 5. 交付包与 GitHub Release
 
-- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835（public；main e76462c…，源码 commit 2da1d8e…）
+- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835（public；main 分支，源码 commit 2da1d8e…）
 - Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.3.0
 - 资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.3.0/1835-s3-brand-001-rework-v2.3.0.zip
 - 字节：1,959,220 B；SHA-256：3544c2d089b74bfc91e993d2c6ec56bc04449d5d2e352478ba55e72d878a0c65；asset id 771731043。
@@ -82,7 +82,7 @@
 - [x] 两轮 7 步从零验收 exit 0
 - [x] 变异 3/3 DETECTED
 - [x] 包 MANIFEST/zip/隐私/下载回验通过
-- [ ] v2.3.0 solution precheck would_pass=true、defects=[]（2026-11-20T12:30Z/12:33Z/12:36Z/12:40Z 四次：deterministic 通过、defects=[]；critic outage、would_pass=null，待重试）
+- [ ] v2.3.0 solution precheck would_pass=true、defects=[]（2026-11-20T12:30Z/12:33Z/12:36Z/12:40Z/12:43Z 五次：deterministic 通过、defects=[]；critic outage、would_pass=null，待重试）
 - [ ] 用户审核并明确批准
 - [ ] 执行 submit 并记录 submitted_at/version
 

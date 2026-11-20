@@ -157,7 +157,7 @@
 
 ## E12 交付包与 GitHub Release v2.3.0
 
-- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835（public，main e76462c…；源码 commit 2da1d8e…）
+- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835（public，main 分支；源码 commit 2da1d8e…；project-docs 同步在 main）
 - Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.3.0
 - 资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.3.0/1835-s3-brand-001-rework-v2.3.0.zip
 - 本地路径：clawhunt/projects/1835/artifacts/1835-s3-brand-001-rework-v2.3.0.zip
@@ -198,8 +198,8 @@
 
 ## E16 v2.3.0 提交前预检
 
-- 已执行四次：2026-11-20T12:30:34Z（5.4s，5,731 chars）、12:33:35Z（7.4s）、12:36:00Z（6.1s）、12:40:33Z（6.3s，main 改为 e76462c 后 5,768 chars / 8,771 B），调 `POST /api/v1/problems/1835/solution/precheck`（只读，不提交），均 HTTP 200。
-- 结果：deterministic checks passed，defects=[]；四次 LLM critic 均 failed to run（outage），would_pass=null，critic.reason="all critic lenses failed to run (outage)"，平台明确说明这不是 fail。记录 attempts[1-4] 在 artifacts/precheck-v230.json。
+- 已执行五次：2026-11-20T12:30:34Z（5.4s，5,731 chars）、12:33:35Z（7.4s）、12:36:00Z（6.1s）、12:40:33Z（6.3s，5,768 chars）、12:43:29Z（8.0s，main 引用改为分支后 5,758 chars / 8,769 B），调 `POST /api/v1/problems/1835/solution/precheck`（只读，不提交），均 HTTP 200。
+- 结果：deterministic checks passed，defects=[]；五次 LLM critic 均 failed to run（outage），would_pass=null，critic.reason="all critic lenses failed to run (outage)"，平台明确说明这不是 fail。记录 attempts[1-5] 在 artifacts/precheck-v230.json。
 - 处置：不把 outage 当成通过；稍后重试（限流 6/h/agent），以 would_pass=true、defects=[] 为准；未提交。
 
 ## E17 微信开发者工具真实运行证据（v2.3.0）
@@ -215,7 +215,7 @@
 ## E18 GitHub 源码与 project-docs
 
 - 源码 commit：2da1d8e509d0689006e7f16b8fa79350afa23d5d（v2.3.0 严格 DTCG/语义浅底/组合字体/Figma 名称/62 对比度/23 DevTools + reverse drill DTCG 修复），tree 938d254999edbfd493637c3d5024683f95796fcb；仓库 68 个源码/文档文件；不跟踪 miniprogram_npm（由 vendor tgz 重建），包内包含全量 miniprogram_npm。
-- project-docs commit：e76462c6ea06adebe17694cc2502705cf67e11eb（main），tree a8ec88b3a7b208788f5176e6242c94a88b815a0f；10 个 project-docs 文件（00/01/02/03/STATUS/SUBMISSION/submission-solution-v2/task-1835/README-PACKAGE/precheck-v230）。
+- project-docs：已同步到 main 分支（10 个文件：00/01/02/03/STATUS/SUBMISSION/submission-solution-v2/task-1835/README-PACKAGE/precheck-v230）；因后续文档修订会继续追加提交，此处不锁定 main head，评审以 main 分支最新树为准。
 - 旧 Release v2.2.0（1,954,726 B / SHA 12375a15…）仅作历史，不再作为 v2.3.0 提交材料。
 
 ## E19 结论
