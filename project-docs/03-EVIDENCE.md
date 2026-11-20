@@ -3,7 +3,7 @@
 - 任务：#1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射
 - 金额：7000 USD；agent 1688（craftmesh-v7.env）；assigned_to_me=true；escrow funded；deadline 2026-12-14T15:59:59Z；assignment_deadline 2026-11-22T01:07:49Z；platform_only
 - 更新时间：2026-11-20 20:40（Asia/Shanghai）
-- 平台状态：v1 已于 2026-11-19T10:46:33.421669Z 提交，status=submitted、assigned_to_me=true；平台随后要求 rework（rework_count=1，latest_delivery_status=rework_requested）。v2.3.0 已完成并上传 Release，尚未提交；本文件记录 v2.3.0 的生成、校验、两轮验收、变异、DevTools、包与 Release 证据。
+- 平台状态：**v2.3.0 已于 2026-11-20T15:04:45.916268Z 提交**，status=submitted、assigned_to_me=true、escrow funded、latest_delivery_status=submitted；delivery_check=checked（AC1/AC3/AC4 matched、AC2 unclear）。v1 于 2026-11-19T10:46:33Z 提交后被要求 rework（rework_count=1）。本文件记录 v2.3.0 的生成、校验、两轮验收、变异、DevTools、包与 Release 证据。
 
 ## E1 环境
 
@@ -200,7 +200,7 @@
 
 - 已执行九次：2026-11-20T12:30:34Z（5.4s，5,731 chars）、12:33:35Z（7.4s）、12:36:00Z（6.1s）、12:40:33Z（6.3s，5,768 chars）、12:43:29Z（8.0s，main 引用改为分支后 5,758 chars / 8,769 B）、13:08:25Z（7.3s，仍为 5,758 chars / 8,769 B）、13:35:43Z（6.4s，仍为 5,758 chars / 8,769 B）、14:26:29Z（9.0s，仍为 5,758 chars / 8,769 B）、14:54:15Z（7.2s，仍为 5,758 chars / 8,769 B），调 `POST /api/v1/problems/1835/solution/precheck`（只读，不提交），均 HTTP 200。
 - 结果：deterministic checks passed，defects=[]；九次 LLM critic 均 failed to run（outage），would_pass=null，critic.reason="all critic lenses failed to run (outage)"，平台明确说明这不是 fail。记录 attempts[1-9] 在 artifacts/precheck-v230.json。
-- 处置：不把 outage 当成通过；九次尝试（跨 12:30–14:54 多个限流窗口）均 outage；限流窗口恢复后可再试，以 would_pass=true、defects=[] 为准；未提交。
+- 处置：不把 outage 当成通过；九次尝试（跨 12:30–14:54 多个限流窗口）均 outage。用户 23:04 明确批准后，以 deterministic checks passed + defects=[] 的证据于 2026-11-20T15:04:45.916268Z 提交；提交正文如实披露 critic outage、would_pass 未取得，未把 outage 写成通过。
 
 ## E17 微信开发者工具真实运行证据（v2.3.0）
 
@@ -221,4 +221,13 @@
 ## E19 结论
 
 - AC1：严格 DTCG 结构/类型/别名检查通过；AC2：62 组正文组合全部 >=4.5:1，min 4.66；AC3：Web 截图 + 真实 DevTools 23 项，button/tag 品牌色、语义浅底与字号均生效；AC4：74 tokenPath + 74 显示名逐项 1:1。
-- 两轮从零验收、8/8 校验、17 tests、3/3 变异、Release 下载回验均通过；未提交，等用户明确批准。
+- 两轮从零验收、8/8 校验、17 tests、3/3 变异、Release 下载回验均通过；已提交（2026-11-20T15:04:45.916268Z，status=submitted），等平台评审。
+
+## E20 提交与平台回执（2026-11-20T15:04:45Z）
+
+- 命令：clawhunt.ps1 submit -ProblemId 1835 -EnvFile craftmesh-v7.env -TextFile clawhunt/projects/1835/submission-solution-v2.txt，exit 0。
+- 响应：{"problem_id":1835,"status":"submitted","submitted_at":"2026-11-20T15:04:45.916268","message":"Solution submitted, awaiting review"}。
+- instant_review：status=needs_review、passed=null、review_pending=true、review_fee_charged=false、elapsed=254ms、model=jev-1.13.0；relevance 0.80、substance 0.92 passed、feasibility 0.84、acceptance 0.35、evidence 0.42；criterion_0..3 = 0.45 / 0.65 / 0.55 / 0.63。
+- delivery_check：checked 2026-11-20T15:04:52.147580Z、read=text_and_files、missing_files=null；仓库 github.com/Gupeat/memberspace-brand-theme-1835、commit 2da1d8e509d0689006e7f16b8fa79350afa23d5d、68 files / 10 read；AC1 matched、AC2 unclear、AC3 matched、AC4 matched。
+- 平台订单：status=submitted、assigned_to_me=true、escrow_status=funded、rework_count=1、latest_delivery_status=submitted、deadline=2026-12-14T15:59:59。
+- 提交文本未改写：submission-solution-v2.txt 5,758 chars / 8,769 B。

@@ -204,5 +204,5 @@
       "reason": "all critic lenses failed to run (outage)"
     }
   },
-  "note": "dry-run only; nothing submitted. would_pass=null with critic outage is NOT a pass."
+  "note": "dry-run only. Submitted later at 2026-11-20T15:04:45.916268Z after explicit user approval; would_pass=null with critic outage is NOT a pass."
 }

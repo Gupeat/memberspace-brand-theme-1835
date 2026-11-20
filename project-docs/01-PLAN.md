@@ -1,7 +1,7 @@
 # #1835 实施计划
 
 更新时间：2026-11-20 20:35（Asia/Shanghai）
-状态：v1 已于 2026-11-19T10:46:33Z 提交；平台要求 rework（rework_count=1）。v2.3.0 已完成严格 DTCG、84 个 TDesign 映射（77 直接消费 + 7 兼容）、语义浅底与组合字体、Figma 显示名统一、62 组对比度、17 tests、23 项 DevTools、两轮验收；交付包已生成并上传 GitHub Release v2.3.0（1,959,220 B / SHA-256 3544c2d0…），资产下载回验通过；预检 deterministic checks passed、defects=[]，LLM critic outage（would_pass=null），待重试；未提交。
+状态：**v2.3.0 已于 2026-11-20T15:04:45.916268Z 提交**（用户当轮明确批准）。v1 于 2026-11-19T10:46:33Z 提交后被要求 rework（rework_count=1）。v2.3.0 已完成严格 DTCG、84 个 TDesign 映射（77 直接消费 + 7 兼容）、语义浅底与组合字体、Figma 显示名统一、62 组对比度、17 tests、23 项 DevTools、两轮验收；包 1,959,220 B / SHA 3544c2d0…，Release v2.3.0 下载回验通过；九次预检 deterministic 通过、defects=[]、critic outage（would_pass=null），已如实披露。平台 status=submitted、latest_delivery_status=submitted；delivery_check=checked（AC1/AC3/AC4 matched、AC2 unclear）。
 
 ## 1. 里程碑
 
@@ -14,8 +14,8 @@
 | M4 | Figma 变量 JSON、插件、1:1 对照表 | 74 tokenPath + 74 显示名；node --check 通过 | DONE |
 | M5 | 对比度、测试、两轮、变异、README/USAGE | 17 tests；8/8；两轮（7 步）；3/3 变异 | DONE |
 | M6 | 在线 Figma、微信 DevTools、交付包、提交正文 | 在线 74/74；DevTools 23/23；包 MANIFEST/隐私/下载回验 | DONE |
-| M7 | solution precheck | 只读预检；deterministic 通过，critic outage 待重试 | IN_PROGRESS |
-| M8 | 用户审核、提交、WorkStatus | 用户当轮明确批准后才 submit；记录 submitted_at/version | TODO |
+| M7 | solution precheck | 九次只读预检；deterministic 通过、defects=[]，critic outage（would_pass=null），如实记录 | DONE |
+| M8 | 用户审核、提交、WorkStatus | 用户当轮明确批准后 submit；记录 submitted_at/version | DONE（2026-11-20T15:04:45Z submitted） |
 
 ## 2. 依赖图
 
@@ -87,6 +87,6 @@ M0 -> M1 -> M2 -> M3 -> M4 -> M5 -> M6 -> M7 -> M8
 
 ## 8. 下一步
 
-1. 重试 v2.3.0 solution precheck（只读），直到 critic 可用并记录 would_pass/defects/score；outage 不算通过。
-2. 汇报用户，等待明确批准；绝不自动提交。
-3. 批准后 submit，记录 submitted_at/version，更新 WorkStatus=submitted。
+1. ~~重试 v2.3.0 solution precheck~~：已九次，critic 持续 outage；用户已明确批准按 deterministic 证据提交。
+2. ~~汇报用户并等待批准~~：已完成，用户 23:04 明确批准。
+3. ~~批准后 submit~~：已于 2026-11-20T15:04:45Z 提交，status=submitted；不重复提交，等评审。

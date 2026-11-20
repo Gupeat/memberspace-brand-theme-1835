@@ -2,8 +2,8 @@
 
 - 任务：#1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射
 - 金额：7000 USD；agent 1688（craftmesh-v7.env）
-- 状态：v1 已于 2026-11-19T10:46:33.421669Z 提交；平台随后 request-rework（rework_count=1）。v2.3.0 已完成实现、严格 DTCG、微信开发者工具真实截图、在线 Figma、62 组对比度、17 tests、23 项 DevTools、两轮 7 步验收、GitHub Release；**尚未提交**，等待用户审核与明确批准。
-- 更新时间：2026-11-20 20:40（Asia/Shanghai）
+- 状态：**v2.3.0 已于 2026-11-20T15:04:45.916268Z 提交**（用户当轮明确批准）；平台 status=submitted、assigned_to_me=true、escrow funded、latest_delivery_status=submitted；instant_review=needs_review、review_pending=true；delivery_check=checked（AC1/AC3/AC4 matched、AC2 unclear）。
+- 更新时间：2026-11-20 23:06（Asia/Shanghai）
 
 ## 1. rework v2.3.0 相对 v1 的修改
 
@@ -62,6 +62,14 @@
 - zip 1,250 entries；MANIFEST 覆盖 1,249 个文件；逐文件 SHA-256/字节校验 0 错误；无 missing/extra；testzip 无错误；隐私扫描 0 命中。
 - 上传后 curl -L 下载 1,959,220 B，SHA-256 与上传一致。
 
+## 5.1 提交记录
+
+- 提交时间：2026-11-20T15:04:45.916268Z；命令 clawhunt.ps1 submit -ProblemId 1835 -EnvFile craftmesh-v7.env -TextFile clawhunt/projects/1835/submission-solution-v2.txt；exit 0。
+- instant_review：status=needs_review、passed=null、review_pending=true、review_fee_charged=false、elapsed=254ms；relevance 0.80、substance 0.92 passed、feasibility 0.84、acceptance 0.35、evidence 0.42；criterion_0..3 = 0.45 / 0.65 / 0.55 / 0.63。
+- delivery_check：checked 2026-11-20T15:04:52.147580Z；read=text_and_files；仓库 github.com/Gupeat/memberspace-brand-theme-1835、commit 2da1d8e、68 files / 10 read；AC1 matched、AC2 unclear、AC3 matched、AC4 matched。
+- 平台订单：status=submitted、assigned_to_me=true、escrow_status=funded、rework_count=1、latest_delivery_status=submitted。
+- 提交文本未改写：submission-solution-v2.txt 5,758 chars / 8,769 B。
+
 ## 6. 沙箱/隐私
 
 - 所有数据均为虚构：占位品牌名「会员空间平台」，无客户名、真实企业、手机号、邮箱、身份证。
@@ -82,9 +90,10 @@
 - [x] 两轮 7 步从零验收 exit 0
 - [x] 变异 3/3 DETECTED
 - [x] 包 MANIFEST/zip/隐私/下载回验通过
-- [ ] v2.3.0 solution precheck would_pass=true、defects=[]（2026-11-20T12:30Z/12:33Z/12:36Z/12:40Z/12:43Z/13:08Z/13:35Z/14:26Z/14:54Z 九次：deterministic 通过、defects=[]；critic outage、would_pass=null，待重试（限流窗口恢复后））
-- [ ] 用户审核并明确批准
-- [ ] 执行 submit 并记录 submitted_at/version
+- [ ] v2.3.0 solution precheck would_pass=true、defects=[]（未取得：九次 deterministic 通过、defects=[]，但 LLM critic 均 outage、would_pass=null；已在提交正文与证据中如实披露，不把 outage 当通过）
+- [x] 用户审核并明确批准（2026-11-20 23:04）
+- [x] 执行 submit 并记录 submitted_at/version（2026-11-20T15:04:45.916268Z；status=submitted）
+- [x] 平台回执：assigned_to_me=true、escrow funded、latest_delivery_status=submitted；delivery_check=checked（AC1/AC3/AC4 matched、AC2 unclear）
 
 ## 8. 已知限制
 
