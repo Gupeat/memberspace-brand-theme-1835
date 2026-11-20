@@ -1,15 +1,15 @@
 #1835 acceptance round1
-generatedAt=2026-11-19T15:27:10Z
+generatedAt=2026-11-20T03:40:14Z
 
-## build (exit 0, 0.13s)
+## build (exit 0, 0.17s)
 $ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\scripts\build.py
 {"tokens": 74, "themeVariables": 64, "figmaVariables": 74, "figmaImportVariables": 74, "contrastPairs": 57, "minContrast": 4.66, "tokensHash": "63972f37c08d0e6a28b88579a8e0880503ce0c43770b7fdf12f2e7f89fe3f6ef"}
 
-## figma-syntax (exit 0, 0.14s)
+## figma-syntax (exit 0, 0.19s)
 $ <home>/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node.exe --check <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\figma\create-variables.js
 
 
-## validate (exit 0, 0.14s)
+## validate (exit 0, 0.19s)
 $ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\scripts\validate.py
 ClawHunt #1835 token package validation
 
@@ -17,24 +17,28 @@ ClawHunt #1835 token package validation
 [PASS] required token categories and scales: 33 required tokens; 6 sizes; 10 neutrals; 4 semantics
 [PASS] alias resolution: 7 aliases resolve without cycles
 [PASS] WCAG contrast >= 4.5:1: 57 pairs, minimum 品牌主色文字 / 品牌浅底 4.66:1
-[PASS] theme.wxss and browser preview freshness: 64 TDesign-consumed variables; 10 documented preview extensions; browser preview is 2x rpx->px
+[PASS] theme.wxss and browser preview freshness: 64 TDesign-consumed variables; miniprogram-demo/theme.wxss matches; 10 documented preview extensions; browser preview is 2x rpx->px
 [PASS] Figma variables 1:1: 74 Figma variables + 74 DTCG import variables, names exactly equal tokens.json paths
 [PASS] demo references and variables: 42 theme variables used by demo, all defined
 [PASS] contrast documentation: 57 documented pairs, no FAIL
 
 RESULT: PASS (8/8 checks)
 
-## pytest (exit 0, 1.03s)
+## pytest (exit 0, 1.14s)
 $ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe -m pytest -q tests
-...............                                                          [100%]
-15 passed in 0.26s
+................                                                         [100%]
+16 passed in 0.29s
 
-## verify-figma (exit 0, 0.12s)
+## verify-figma (exit 0, 0.15s)
 $ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\scripts\verify_figma_export.py
 {"ok": true, "checked": 74, "counts": {"color": 38, "number": 28, "string": 8}, "import_fresh": true, "light_identical": true, "missing": [], "extra": []}
 OK: 74/74 names 1:1, type counts, aliases, values and descriptions match; export snapshot is fresh.
 
-## capture (exit 0, 3.68s)
+## verify-devtools (exit 0, 0.13s)
+$ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\scripts\verify_devtools_evidence.py
+{"ok": true, "checked": 18, "screenshots": {"screenshot_simulator": {"path": "evidence/devtools/miniprogram-simulator.png", "bytes": 101264, "sha256": "210ec05728a5e8d835189d0ac10dd7eb4e6b2032a54fac39f1f7f122722c0fde", "width": 488, "height": 941}, "screenshot_devtools": {"path": "evidence/devtools/miniprogram-devtools.png", "bytes": 176635, "sha256": "fce1d407dfb94168dadb2c07670f8fe65551c702a6b8a3044000be8d88dac2b6", "width": 1564, "height": 1250}}, "verify": "C:\\Users\\<user>\\Documents\\deepseek-harness\\default-workspace\\clawhunt\\projects\\1835\\repo\\evidence\\devtools\\verify.json"}
+
+## capture (exit 0, 18.98s)
 $ <home>/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node.exe <home>\Documents\deepseek-harness\default-workspace\clawhunt\projects\1835\repo\scripts\capture.mjs
 {
   "ok": true,

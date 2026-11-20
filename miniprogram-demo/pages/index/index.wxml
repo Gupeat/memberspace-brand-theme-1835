@@ -1,0 +1,39 @@
+<view class="page td-theme">
+  <view class="hero">
+    <view class="hero-title">会员空间平台</view>
+    <view class="hero-sub">TDesign 小程序组件 · 品牌主题验证</view>
+    <view class="hero-pill">品牌主色 #1F5EFF</view>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">按钮 Button</text>
+      <text class="code">--td-brand-color</text>
+    </view>
+    <view class="row">
+      <t-button theme="primary" size="large">立即报名</t-button>
+      <t-button theme="light" size="large">查看详情</t-button>
+      <t-button theme="default" size="large">联系顾问</t-button>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">标签 Tag</text>
+      <text class="code">--td-brand-color</text>
+    </view>
+    <view class="row tags">
+      <t-tag theme="primary" variant="light">品牌标签</t-tag>
+      <t-tag theme="success" variant="light">已审核</t-tag>
+      <t-tag theme="warning" variant="light">待确认</t-tag>
+      <t-tag theme="danger" variant="light">已取消</t-tag>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">示例说明</text>
+    </view>
+    <view class="note">本页在微信开发者工具中运行，引用 repo/theme.wxss 生成的 TDesign 变量；所有文案与数据均为虚构。</view>
+  </view>
+</view>

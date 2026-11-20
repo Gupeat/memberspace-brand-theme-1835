@@ -8,7 +8,8 @@
 - 技术：Python 3.12 + Node.js（仅截图用 Playwright/Edge）；产物为纯静态文件
 - 交付仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
 - 在线 Figma：https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1
-- 发布资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.1.0
+- 发布资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.2.0
+- 微信开发者工具证据：`evidence/devtools/`（真实模拟器截图、`run.json`、`verify.json`）
 
 ## 交付物
 
@@ -20,12 +21,14 @@
 | `figma/figma-import.tokens.json` + `figma/Light.tokens.json` | 可直接导入 Figma Variables 的嵌套 DTCG 数据；`Light.tokens.json` 用于让 mode 名为 Light |
 | `figma/create-variables.js` + `figma/manifest.json` | Figma 开发插件（备选路径）：导入清单后一键创建/更新同名变量集合 |
 | `evidence/figma-online/` | 在线 Figma 的导出快照、截图、README 与 `verify.json` |
+| `evidence/devtools/` | 微信开发者工具真实运行截图、`run.json`（版本/AppID/页面/截图哈希/计算样式）与 `verify.json` |
+| `miniprogram-demo/` | 可直接在微信开发者工具打开的最小 TDesign 小程序（t-button / t-tag，引用生成的 `theme.wxss`） |
 | `docs/FIGMA-VARIABLES.md` | 74 行 Figma 变量 ↔ tokens.json 1:1 对照表 |
 | `docs/CONTRAST.md` | 57 组正文文字/背景组合的 WCAG 对比度表，最低 4.66:1 |
 | `demo/index.html` + `demo/demo.css` | TDesign 风格示例页（按钮、标签、cell、输入、提示、变量卡） |
 | `artifacts/example-page.png` | 750×2269 示例页截图；由脚本生成并做像素/计算样式断言 |
 | `scripts/` | build / validate / capture / acceptance / reverse drill |
-| `tests/test_tokens.py` | 15 项 pytest，覆盖 token、别名、对比度、主题映射、Figma（含导入文件）、文档、校验脚本 |
+| `tests/test_tokens.py` | 16 项 pytest，覆盖 token、别名、对比度、主题映射、Figma（含导入文件）、小程序主题、文档、校验脚本 |
 
 ## 快速开始
 
@@ -38,17 +41,20 @@ python scripts/build.py
 # 2) 8 项产物校验（DTCG、scale、别名、WCAG、新鲜度、Figma 1:1、demo、文档）
 python scripts/validate.py
 
-# 3) 单元测试（15 passed）
+# 3) 单元测试（16 passed）
 python -m pytest -q tests
 
 # 4) 校验在线 Figma 的导出快照与 tokens.json 74/74 一致
 python scripts/verify_figma_export.py
 
-# 5) Web 预览截图（需要 Node + playwright-core + Microsoft Edge）
+# 5) 校验微信开发者工具证据（截图/哈希/AppID/计算样式）
+python scripts/verify_devtools_evidence.py
+
+# 6) Web 预览截图（需要 Node + playwright-core + Microsoft Edge）
 npm install playwright-core   # 首次
 node scripts/capture.mjs
 
-# 6) 完整两轮验收（清空生成物后重建，并输出 acceptance-<label>.log / ACCEPTANCE-<label>.md）
+# 7) 完整两轮验收（清空生成物后重建，7 步，含 DevTools 证据）
 python scripts/run_acceptance.py --label round1
 python scripts/run_acceptance.py --label round2
 ```
@@ -133,12 +139,22 @@ page, .td-theme {
 - `scripts/capture.mjs` 断言：按钮背景 `rgb(31, 94, 255)`、标签文字同色且浅底 `rgb(241, 244, 255)`、应用宽度 750、PNG 宽 750 且高 ≥1500，然后才写出截图。
 - 产物：`artifacts/example-page.png`（750×2269）。
 
+### 微信开发者工具（真实模拟器）
+
+- 小程序目录：`miniprogram-demo/`；`app.wxss` 引入生成的 `theme.wxss`，页面使用 `t-button` 与 `t-tag`。
+- 工具：微信开发者工具 2.02.2609250 Stable；AppID 为个人沙箱测试号 `wx65dda5a642890a95`；libVersion 3.4.10；页面 `pages/index/index`。
+- 打开方式：`cli.bat open --project <repo>/miniprogram-demo --port 24728 --lang zh`；启动 IDE 前需清除 `ELECTRON_RUN_AS_NODE`。
+- 截图：`evidence/devtools/miniprogram-simulator.png`（488×941，仅模拟器）与 `miniprogram-devtools.png`（1564×1250，完整 IDE）。
+- 计算样式（真实渲染）：主按钮 `rgb(31, 94, 255)`；浅色按钮 `rgb(241, 244, 255)`；品牌标签文字 `rgb(31, 94, 255)`、浅底 `rgb(241, 244, 255)`。
+- `scripts/verify_devtools_evidence.py` 校验 18 项（截图存在/字节/哈希/尺寸、AppID/libVersion、主题副本、`@import`、WXML 组件、计算样式），结果见 `evidence/devtools/verify.json`。
+- 运行步骤与限制详见 `docs/WECHAT-DEVTOOLS.md`；这是模拟器截图，不是真机截图。
+
 ## 交付与复现
 
 - 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835 （public，全部为虚构数据）
-- Release v2.1.0：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.1.0
-- 归档资产：`1835-s3-brand-001-rework-v2.zip`；资产页含字节数与 SHA-256，可与提交正文交叉核对。
-- 评审可直接在仓库根目录执行“快速开始”的 6 条命令复现 15 passed / 8/8 PASS / Figma 74/74 / 750×2269 截图。
+- Release v2.2.0：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.2.0
+- 归档资产：`1835-s3-brand-001-rework-v2.2.0.zip`；资产页含字节数与 SHA-256，可与提交正文交叉核对。
+- 评审可直接在仓库根目录执行“快速开始”的 7 条命令复现 16 passed / 8/8 PASS / Figma 74/74 / DevTools 18 项 / 750×2269 截图。
 
 ## 验收对照
 
@@ -146,7 +162,7 @@ page, .td-theme {
 | --- | --- | --- |
 | AC1 | tokens.json 通过 W3C Design Tokens 格式校验 | `validate.py` 检查 1；`artifacts/validation.log`；DTCG `$type/$value` 与 74 token 校验；pytest `test_token_index_has_74_valid_tokens` |
 | AC2 | 对比度检查表所有正文组合 ≥4.5:1 | `docs/CONTRAST.md` 57 组；最低 4.66:1；`validate.py` 检查 4；pytest `test_all_57_body_text_pairs_meet_wcag_aa` |
-| AC3 | theme.wxss 应用到 TDesign 示例页后按钮/标签使用新品牌色 | `artifacts/example-page.png`；`capture.mjs` 计算样式断言；pytest `test_theme_has_64_tdesign_consumed_variables_and_is_fresh`、`test_browser_preview_is_same_theme_at_2x` |
+| AC3 | theme.wxss 应用到 TDesign 示例页后按钮/标签使用新品牌色 | **微信开发者工具真实截图**：`evidence/devtools/miniprogram-simulator.png`、`miniprogram-devtools.png`；`evidence/devtools/run.json` 计算样式；`evidence/devtools/verify.json` 18 项；pytest `test_miniprogram_demo_uses_the_generated_theme`、`test_theme_has_64_tdesign_consumed_variables_and_is_fresh`；Web 预览 `artifacts/example-page.png` 作为补充 |
 | AC4 | Figma 变量名与 tokens.json 名称一一对应（对照表） | 在线文件 74 变量；`evidence/figma-online/verify.json` 74/74 名称 1:1；`figma/figma-variables.json` 74 个；`docs/FIGMA-VARIABLES.md` 74 行；`validate.py` 检查 6；pytest `test_figma_variables_are_exactly_1_to_1`、`test_figma_plugin_and_doc_cover_every_token`、`test_figma_import_file_is_nested_dtcg_and_matches_tokens` |
 
 ## 质量闸门
@@ -162,13 +178,14 @@ page, .td-theme {
 7. demo 使用的 42 个主题变量全部已定义
 8. 对比度文档行数与无 FAIL
 
-补充证据：两轮从零重建；3/3 变异演练（改中性色、删品牌映射、改 Figma 名称）均被闸门捕获，日志见 `artifacts/reverse-drill.log`；在线 Figma 导出快照由 `verify_figma_export.py` 校验 74/74，结果见 `evidence/figma-online/verify.json`。
+补充证据：两轮从零重建；3/3 变异演练（改中性色、删品牌映射、改 Figma 名称）均被闸门捕获，日志见 `artifacts/reverse-drill.log`；在线 Figma 导出快照由 `verify_figma_export.py` 校验 74/74，结果见 `evidence/figma-online/verify.json`；微信开发者工具证据由 `verify_devtools_evidence.py` 校验 18 项，结果见 `evidence/devtools/verify.json`。
 
 ## 已知限制
 
 - Figma 使用免费版：在线文件、变量与共享链接可用；匿名查看者不显示 Variables 编辑面板，变量证据以登录态截图与导出快照为准。不提供暗色模式/多品牌切换。
 - 在线 Figma 是手工导入的交付物；`tokens.json` 变更后需重新导入并更新 `evidence/figma-online`，`verify_figma_export.py` 会拦截过期快照。
-- 无微信开发者工具；示例页是 TDesign 变量/组件外观的 Web 预览，不是真机截图。
+- 微信开发者工具截图使用沙箱测试号与模拟器（iPhone 12/13 Pro），不是真机截图；不同 IDE 版本/设备模拟器可能导致 PNG 字节不同。
+- `miniprogram-demo` 只演示 t-button/t-tag 的品牌色、圆角与字号，不代表全部 TDesign 组件；Web 预览仍用于完整示例页。
 - Figma 变量名称保留点号，不映射为 `/` 分组；这是为了保证与 `tokens.json` 名称严格 1:1。
 - 仅提供 Light 模式；未实现暗色主题、动态字体缩放和多品牌切换。
 - 示例页面只覆盖按钮、标签、cell、输入、提示与变量卡，不代表全部 TDesign 组件。
@@ -183,8 +200,11 @@ repo/
 ├─ demo/{index.html,demo.css,theme.css}
 ├─ figma/{figma-variables.json,figma-import.tokens.json,Light.tokens.json,create-variables.js,manifest.json}
 ├─ evidence/figma-online/{Theme.zip,Light.tokens.json,verify.json,*.png,README.md}
-├─ docs/{CONTRAST.md,FIGMA-VARIABLES.md,FIGMA-ONLINE.md,USAGE.md}
-├─ scripts/{build.py,validate.py,verify_figma_export.py,capture.mjs,run_acceptance.py,reverse_drill.py}
+├─ evidence/devtools/{miniprogram-simulator.png,miniprogram-devtools.png,run.json,verify.json}
+├─ miniprogram-demo/{app.*,project.config.json,theme.wxss,pages/index/*,README.md}
+├─ vendor/tdesign-miniprogram-1.18.0.tgz    # 用于重建 miniprogram_npm，不提交依赖目录
+├─ docs/{CONTRAST.md,FIGMA-VARIABLES.md,FIGMA-ONLINE.md,USAGE.md,WECHAT-DEVTOOLS.md}
+├─ scripts/{build.py,validate.py,verify_figma_export.py,verify_devtools_evidence.py,capture.mjs,run_acceptance.py,reverse_drill.py}
 ├─ tests/test_tokens.py
 └─ artifacts/{example-page.png,validation.log,ACCEPTANCE*.md,...}
 ```
@@ -195,6 +215,7 @@ repo/
 - 不包含真实客户名、手机号、邮箱、身份证、API Key 或访问令牌。
 - 构建/校验/截图均在本地执行；示例页不发起网络请求。
 - 交付仓库为 public，仅含虚构数据、源码、生成物与证据；不含客户名、PII、API Key 或访问令牌。
+- `wx65dda5a642890a95` 是个人沙箱测试号，不是客户 AppID；`miniprogram-demo` 不连接任何后端。
 
 ## S2-BRAND 对接
 
@@ -202,3 +223,4 @@ repo/
 - 下游小程序：引入 `theme.wxss`，按 `--td-*` 变量使用 TDesign。
 - 下游 Figma：直接使用在线文件，或导入 `figma/Light.tokens.json`；设计稿绑定同名变量。
 - Figma 在线文件与导入快照是交付物的一部分；令牌变化后重导入、重导出、重跑 `verify_figma_export.py`，不手改变量。
+- 小程序端：`miniprogram-demo/theme.wxss` 由 `build.py` 同步生成；不要手改，重跑 `build.py` 与 `verify_devtools_evidence.py`。

@@ -1,0 +1,3 @@
+@import "./theme.wxss";
+
+page { background: var(--td-bg-color-page); color: var(--td-text-color-primary); font-family: var(--td-font-family); }

@@ -1,45 +1,50 @@
-【S3-BRAND-001】会员空间平台 · 小程序主题设计变量与 TDesign 主题映射
+【S3-BRAND-001】会员空间平台 · 小程序主题设计变量与 TDesign 主题映射（rework v2.2.0）
 
-一、交付范围与目标
-本单属于 Stage iii 业务框架与小程序 / 小程序视觉主题，目标是把品牌规范落成可执行的小程序主题变量，并映射到 TDesign 小程序组件：色彩（品牌主色/辅助色/中性 10 阶/成功警告错误信息语义色）、字号 24/28/32/36/40/48rpx 与对应行高/字重、圆角 8/16/24rpx 与全圆、间距 16/24/32/48/64rpx、阴影 3 级、动效时长与缓动。交付 tokens.json（W3C DTCG）、theme.wxss、Figma 变量集合与导入脚本、1:1 对照表、对比度检查表、使用说明、TDesign 示例页截图。
+一、交付范围
+本单目标是把品牌规范落成可执行的小程序主题变量，并映射到 TDesign 小程序组件：色彩（品牌主色/辅助色/中性 10 阶/成功警告错误信息语义色）、字号 24/28/32/36/40/48rpx 与行高/字重、圆角 8/16/24rpx 与全圆、间距 16/24/32/48/64rpx、阴影 3 级、动效时长与缓动。交付 tokens.json（W3C DTCG）、theme.wxss、在线 Figma 变量集合、可导入 DTCG、1:1 对照表、对比度检查表、微信开发者工具截图、使用说明与可复现校验。
 
-二、验收标准逐条对照（客户原文）
-下表四条为客户验收标准原文；每条都给出结果、复现命令与证据文件，均为本机实际执行结果，不是主观声明。
+二、rework 六项逐条答复
+1. GitHub 仓库（blocker）：https://github.com/Gupeat/memberspace-brand-theme-1835 为 public 仓库，README「快速开始」给出 7 条运行/测试命令；tokens.json、theme.wxss、scripts/、miniprogram-demo/、demo/、docs/、tests/ 全部在仓库内，评审可直接克隆复现。
+2. Figma 变量集合（blocker）：https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1 已实际建立 collection Theme、mode Light、74 个变量，共享 Anyone can edit；evidence/figma-online/verify.json 对导出快照逐项校验 74/74（名称、类型、别名、值、描述）。
+3. 微信开发者工具截图（major）：miniprogram-demo 使用 t-button 与 t-tag，app.wxss 引入由 tokens.json 生成的 theme.wxss；在微信开发者工具 2.02.2609250 Stable（沙箱 AppID wx65dda5a642890a95、libVersion 3.4.10、页面 pages/index/index）真实运行并截图。evidence/devtools/miniprogram-simulator.png 为 488×941 模拟器画面，miniprogram-devtools.png 为 1564×1250 完整 IDE；run.json 记录版本/AppID/页面/截图字节与哈希/计算样式；verify_devtools_evidence.py 校验 18/18 PASS。这是 DevTools 模拟器截图，不是 Web 预览，也不是真机。
+4. Figma 名称一一对应（major）：tokens.json 的 74 个点分路径与 Figma 变量名严格 1:1；docs/FIGMA-VARIABLES.md 74 行；figma/figma-variables.json 74 个；在线导出快照 74/74。
+5. W3C DTCG 校验（major）：scripts/validate.py 第 1 项校验 74 个 token 的 $type/$value、分类与 scale，8/8 PASS；输出见 artifacts/validation.log 与 validation.json；pytest test_token_index_has_74_valid_tokens 通过。
+6. 对比度表（minor）：docs/CONTRAST.md 列出 57 组前景、背景、比值与用途，全部 ≥4.5:1，最低 4.66:1（品牌主色文字 #1F5EFF / 品牌浅底 #F1F4FF），白色文字/品牌主色 5.12:1；validate.py 第 4/8 项与 pytest test_all_57_body_text_pairs_meet_wcag_aa 校验。
 
-AC1 原文：1. tokens.json 通过 W3C Design Tokens 格式校验
-结果：PASS。命令 python scripts/validate.py（第 1 项 DTCG structure and value types），输出 74 tokens; types and values valid；pytest tests/test_tokens.py::test_token_index_has_74_valid_tokens 通过。证据：repo/artifacts/validation.log、repo/artifacts/validation.json（8/8 PASS）、repo/tokens.json。
+三、客户 AC 逐条对照
+AC1（DTCG 校验）：PASS。validate.py 检查 1；74 tokens; types and values valid；artifacts/validation.log；pytest test_token_index_has_74_valid_tokens。
+AC2（正文对比度 ≥4.5:1）：PASS。57 组，最低 4.66:1；docs/CONTRAST.md；validate.py 检查 4；pytest test_all_57_body_text_pairs_meet_wcag_aa。
+AC3（theme.wxss 应用到 TDesign 组件后按钮/标签使用新品牌色）：PASS。微信开发者工具真实截图 evidence/devtools/miniprogram-simulator.png 与 miniprogram-devtools.png；真实计算样式主按钮 rgb(31,94,255)、品牌标签文字 rgb(31,94,255)/浅底 rgb(241,244,255)；verify.json 18/18；pytest test_miniprogram_demo_uses_the_generated_theme。Web 预览 artifacts/example-page.png（750×2269）作为完整示例页补充。
+AC4（Figma 变量名与 tokens.json 一一对应）：PASS。在线 74 变量；evidence/figma-online/verify.json 74/74；docs/FIGMA-VARIABLES.md 74 行；validate.py 检查 6；pytest test_figma_variables_are_exactly_1_to_1、test_figma_plugin_and_doc_cover_every_token、test_figma_import_file_is_nested_dtcg_and_matches_tokens。
 
-AC2 原文：2. 对比度检查表中所有正文文字组合 ≥ 4.5:1
-结果：PASS。57 组正文文字/背景组合全部 ≥4.5:1，最低 4.66:1（品牌主色文字 #1F5EFF / 品牌浅底 #F1F4FF）；白色文字/品牌主色 5.12:1；正文主色/页面底色 12.66:1。命令 python scripts/validate.py（第 4 项 WCAG contrast）；pytest tests/test_tokens.py::test_all_57_body_text_pairs_meet_wcag_aa；证据：repo/docs/CONTRAST.md（57 行，无 FAIL）。
-
-AC3 原文：3. theme.wxss 应用到 TDesign 组件示例页后的截图中按钮、标签使用新品牌色
-结果：PASS。theme.wxss 含 64 个 TDesign 1.18.0 实际消费变量；示例页按钮背景实测 rgb(31,94,255)，标签文字 rgb(31,94,255)、浅底 rgb(241,244,255)、圆角 9999px。命令 node scripts/capture.mjs；证据：repo/artifacts/example-page.png（750×2269，300,034 B，SHA-256 eccf75328d60d6f201e08b872740c786ba4abd3fade4bed05e43d0e8418db23a）；pytest tests/test_tokens.py::test_theme_has_64_tdesign_consumed_variables_and_is_fresh、test_browser_preview_is_same_theme_at_2x。
-
-AC4 原文：4. Figma 变量名与 tokens.json 中的名称一一对应（对照表）
-结果：PASS。figma/figma-variables.json 含 74 个变量，名称集合与 tokens.json 的 74 个路径严格相等；docs/FIGMA-VARIABLES.md 74 行逐行对照；create-variables.js 为 Figma Plugin API 幂等导入脚本，manifest.json 可在 Figma 桌面端 Import plugin from manifest 运行。命令 python scripts/validate.py（第 6 项 Figma variables 1:1）；pytest tests/test_tokens.py::test_figma_variables_are_exactly_1_to_1、test_figma_plugin_and_doc_cover_every_token。证据：repo/figma/、repo/docs/FIGMA-VARIABLES.md。
-
-三、复现命令与结果
+四、复现命令与实测结果
 在 repo/ 下执行：
-1) python scripts/build.py → {"tokens":74,"themeVariables":64,"figmaVariables":74,"contrastPairs":57,"minContrast":4.66,"tokensHash":"63972f37c08d0e6a28b88579a8e0880503ce0c43770b7fdf12f2e7f89fe3f6ef"}。
+1) python scripts/build.py → {"tokens":74,"themeVariables":64,"figmaVariables":74,"figmaImportVariables":74,"contrastPairs":57,"minContrast":4.66,"tokensHash":"63972f37c08d0e6a28b88579a8e0880503ce0c43770b7fdf12f2e7f89fe3f6ef"}，exit 0。
 2) python scripts/validate.py → 8/8 PASS，exit 0。
-3) python -m pytest -q tests → 14 passed，exit 0。
-4) node scripts/capture.mjs → 750×2269 RGB 截图，exit 0。
-5) python scripts/run_acceptance.py --label round1 / round2 → 两轮均 exit 0；build/validate/pytest/capture 全部通过，关键生成物哈希一致。
-两轮时间：2026-11-19T13:56:03Z、2026-11-19T13:56:08Z；日志：repo/artifacts/acceptance-round1.log、acceptance-round2.log。变异演练 python scripts/reverse_drill.py → 3/3 DETECTED（破坏对比度、删除品牌映射、重命名 Figma 变量均被闸门发现）。
+3) python -m pytest -q tests → 16 passed，exit 0。
+4) python scripts/verify_figma_export.py → 74/74 PASS，exit 0。
+5) python scripts/verify_devtools_evidence.py → 18/18 PASS，exit 0。
+6) node scripts/capture.mjs → 750×2269 RGB 截图，exit 0。
+7) python scripts/run_acceptance.py --label round1 / round2 → 两轮均 exit 0；每轮 7 步（build、figma-syntax、validate、pytest、verify-figma、verify-devtools、capture）全部通过，关键生成物哈希一致。两轮时间 2026-11-20T03:19:21Z、03:19:40Z；日志 artifacts/acceptance-round1.log、acceptance-round2.log。
+变异演练 python scripts/reverse_drill.py → 3/3 DETECTED（改中性色、删除品牌映射、重命名 Figma 变量均被闸门捕获）。
 
-四、实现要点与边界处理
-1) tokens.json 是唯一真源，theme.wxss、demo/theme.css、Figma 变量 JSON/插件、对比度表、对照表全部由 build.py 生成；validate.py 会拦截陈旧生成物。
-2) TDesign 映射按 tdesign-miniprogram 1.18.0 实际消费核对：theme.wxss 保留 64 个实际消费变量；未消费的 --td-line-height、--td-anim-duration-moderate、--td-anim-duration-slow、--td-anim-time-fn-ease-in 已从映射移除，对应 token 仍保留，避免“名称官方但组件不消费”的虚映射。
-3) 对比度按 WCAG 2.1 相对亮度计算，仅把正文文字组合纳入 AC2；装饰色/禁用色不计入正文，文档已标注。该检查是颜色组合校验，不等同完整 UI 无障碍审计。
-4) Figma 名称保留 tokens.json 的点号路径，不转成 “/” 分组，保证名称严格 1:1；插件按同名创建/更新，**不删除集合内已有变量**；类型冲突跳过并提示，未匹配变量保留并报告，避免破坏用户既有变量。
+五、实现要点
+1) tokens.json 是唯一真源；theme.wxss、miniprogram-demo/theme.wxss、demo/theme.css、Figma 变量 JSON/插件、DTCG 导入文件、对比度表、对照表全部由 build.py 生成，validate.py 拦截陈旧产物并逐字节比对。
+2) theme.wxss 只保留 tdesign-miniprogram 1.18.0 实际消费的 64 个变量；未消费的 --td-line-height、--td-anim-duration-moderate、--td-anim-duration-slow、--td-anim-time-fn-ease-in 从映射移除，对应 token 仍保留，避免“官方名但组件不消费”的虚映射。
+3) 对比度按 WCAG 2.1 相对亮度计算，仅把正文文字组合纳入 AC2；装饰色/禁用色不计入正文。该检查是颜色组合校验，不等同完整 UI 无障碍审计。
+4) Figma 名称保留点号路径，不转成 “/” 分组，保证名称严格 1:1；在线文件已实际导入 74 变量并导出快照校验。插件按同名创建/更新，不删除既有变量；类型冲突跳过并提示，未匹配变量保留并报告。
+5) 导入 DTCG 使用嵌套分组（DTCG 不允许点号作为扁平键），颜色为 sRGB，尺寸按 2rpx=1px 换算，动效 ms、字重 int，别名保留 {path}；Light.tokens.json 用于让 Figma mode 名为 Light。
 
-五、交付包与交付通道
+六、交付包与交付通道
 交付仓库（public，仅虚构数据）：https://github.com/Gupeat/memberspace-brand-theme-1835
-Release v2.0.0：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.0.0
-归档资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.0.0/1835-s3-brand-001-rework-v2.zip
-字节数：343,925 B；SHA-256：24e6348c7c8b379ed5aa4191de1199725e2b6883a743883ab67fa88ef8ec60e2；30 个条目，MANIFEST 29 个文件逐一匹配；下载后可复核字节与 SHA-256。仓库同时提供 project-docs/（00/01/02/03/STATUS/task-1835.json）与全部源码/生成物/证据，评审无需私有通道即可检查与复现。
-安全说明：v2 修复了 v1 包的两个 safety 问题——Figma 插件不再删除任何既有变量（类型冲突跳过、未匹配变量保留并提示）；交付不再使用 filebin 等公共匿名主机，改为任务允许的 GitHub 仓库 + Release 资产。
-已知限制：本机无 Figma 账号/Token，无法生成在线 Figma 文件链接，交付的是可导入 JSON、Plugin API 脚本与 1:1 表；无微信开发者工具，示例页是 TDesign 变量/组件外观的 Web 预览（2rpx=1px），不是真机截图。若验收方强制要求在线 Figma 链接，需要提供相应账号/权限后再导入。
+在线 Figma：https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1
+Release v2.2.0：PENDING_RELEASE_URL
+归档资产：PENDING_ASSET_URL
+字节：PENDING_BYTES；SHA-256：PENDING_SHA；包内 MANIFEST 逐文件校验，下载后按字节与 SHA-256 复核。仓库 project-docs/ 同步 00/01/02/03/STATUS/SUBMISSION 与 task-1835.json。
+安全说明：Figma 插件不删除任何既有变量；交付使用 GitHub 仓库 + Release 资产，不使用 filebin；仓库与包不含客户名、PII、API Key 或访问令牌。
 
-六、结论
-AC1–AC4 全部 PASS，且每条都有可复现命令、测试函数与证据文件。交付包内包含源码、生成物、测试、验收日志、截图与项目文档；本正文与包内 README/USAGE/03-EVIDENCE 可交叉核对。
+七、已知限制
+微信开发者工具截图使用沙箱测试号与模拟器（iPhone 12/13 Pro），不是真机截图；不同 IDE 版本/设备模拟器可能导致 PNG 字节不同。miniprogram-demo 只演示 t-button/t-tag，不代表全部 TDesign 组件。Figma 免费版匿名查看不显示 Variables 编辑面板，变量证据以登录态截图与导出快照为准。57 组对比度是颜色组合校验，不等同完整 UI 无障碍审计。本机无 git 客户端，GitHub 通过 REST API 提交，不是 git CLI 生成的 PR。上述限制在 README/docs/03-EVIDENCE 中明确标注，不含虚假链接或伪造截图。
+
+八、结论
+AC1–AC4 全部 PASS，rework 六项逐条有仓库、在线 Figma、微信开发者工具真实截图、校验脚本与实测输出；两轮 7 步验收与 3/3 变异证明生成链可重复、闸门有效。交付包内含源码、生成物、测试、验收日志、截图与证据，本正文与仓库 README/USAGE/03-EVIDENCE 可交叉核对。

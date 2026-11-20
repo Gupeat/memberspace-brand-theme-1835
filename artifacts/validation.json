@@ -24,7 +24,7 @@
     {
       "name": "theme.wxss and browser preview freshness",
       "ok": true,
-      "detail": "64 TDesign-consumed variables; 10 documented preview extensions; browser preview is 2x rpx->px"
+      "detail": "64 TDesign-consumed variables; miniprogram-demo/theme.wxss matches; 10 documented preview extensions; browser preview is 2x rpx->px"
     },
     {
       "name": "Figma variables 1:1",

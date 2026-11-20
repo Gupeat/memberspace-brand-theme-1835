@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "MemberSpace 主题演示",
+    "navigationBarBackgroundColor": "#1F5EFF",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F8FAFC"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -246,6 +246,12 @@ def validate_theme() -> str:
     ):
         if bad in theme:
             raise AssertionError(f"theme.wxss contains non-TDesign variable {bad!r}")
+    mini_theme = read(ROOT / "miniprogram-demo" / "theme.wxss")
+    if mini_theme != theme:
+        raise AssertionError("miniprogram-demo/theme.wxss is stale; run python scripts/build.py")
+    app_wxss = read(ROOT / "miniprogram-demo" / "app.wxss")
+    if '@import "./theme.wxss"' not in app_wxss:
+        raise AssertionError("miniprogram-demo/app.wxss must import ./theme.wxss")
     demo = read(ROOT / "demo" / "theme.css")
     if demo != build.render_demo_theme(INDEX):
         raise AssertionError("demo/theme.css is stale; run python scripts/build.py")
@@ -255,7 +261,7 @@ def validate_theme() -> str:
     for css_var, _ in build.DEMO_EXTRA_MAP:
         if css_var not in demo_names:
             raise AssertionError(f"demo extension variable missing: {css_var}")
-    return f"64 TDesign-consumed variables; {len(build.DEMO_EXTRA_MAP)} documented preview extensions; browser preview is 2x rpx->px"
+    return f"64 TDesign-consumed variables; miniprogram-demo/theme.wxss matches; {len(build.DEMO_EXTRA_MAP)} documented preview extensions; browser preview is 2x rpx->px"
 
 
 

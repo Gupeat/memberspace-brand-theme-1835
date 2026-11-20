@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "TDesign 主题示例",
+  "usingComponents": {
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-tag": "tdesign-miniprogram/tag/tag"
+  }
+}

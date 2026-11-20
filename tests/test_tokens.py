@@ -91,6 +91,14 @@ def test_theme_has_64_tdesign_consumed_variables_and_is_fresh():
     assert "rpx" in theme
 
 
+def test_miniprogram_demo_uses_the_generated_theme():
+    theme = read(ROOT / "theme.wxss")
+    mini = read(ROOT / "miniprogram-demo" / "theme.wxss")
+    app = read(ROOT / "miniprogram-demo" / "app.wxss")
+    assert mini == theme
+    assert '@import "./theme.wxss"' in app
+
+
 def test_browser_preview_is_same_theme_at_2x():
     demo = read(ROOT / "demo" / "theme.css")
     assert demo == build.render_demo_theme(INDEX)

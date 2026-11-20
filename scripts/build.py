@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 TOKENS_PATH = ROOT / "tokens.json"
 THEME_PATH = ROOT / "theme.wxss"
+MINIPROGRAM_THEME_PATH = ROOT / "miniprogram-demo" / "theme.wxss"
 DEMO_CSS_PATH = ROOT / "demo" / "theme.css"
 FIGMA_JSON_PATH = ROOT / "figma" / "figma-variables.json"
 FIGMA_PLUGIN_PATH = ROOT / "figma" / "create-variables.js"
@@ -429,6 +430,8 @@ def main() -> None:
 
     theme = render_theme(index)
     THEME_PATH.write_text(theme, encoding="utf-8")
+    MINIPROGRAM_THEME_PATH.parent.mkdir(parents=True, exist_ok=True)
+    MINIPROGRAM_THEME_PATH.write_text(theme, encoding="utf-8")
     DEMO_CSS_PATH.write_text(render_demo_theme(index), encoding="utf-8")
 
     figma_vars = []

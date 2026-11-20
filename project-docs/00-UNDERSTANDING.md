@@ -1,7 +1,7 @@
 # #1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射 · 理解与范围
 
-更新时间：2026-11-19 21:36（Asia/Shanghai）
-状态：v1 已于 2026-11-19T10:46:33Z 提交（submitted，rework_count=0）；rework-v2 已完成实现、两轮验收、变异、安全修复与 GitHub 仓库/Release 交付，等平台 rework 或用户明确指示；未重复提交。
+更新时间：2026-11-19 23:30（Asia/Shanghai）
+状态：v1 已于 2026-11-19T10:46:33Z 提交（submitted，rework_count=0）；rework-v2 已完成实现、两轮验收、变异、安全修复、在线 Figma 变量交付与 GitHub 仓库/Release v2.1.0 交付，等平台 rework 或用户明确指示；未重复提交。
 
 ## 1. 平台事实
 
@@ -24,7 +24,7 @@
 
 1. tokens.json：W3C Design Tokens（DTCG）格式，覆盖色彩、字体字号/行高/字重、圆角、间距、阴影、动效。
 2. theme.wxss：把 token 映射为 TDesign 小程序组件的 CSS 变量。
-3. Figma 同名变量集合：交付可导入变量 JSON、Figma 开发插件（manifest + 脚本）与一一对照表；本机无 Figma 账号与 Token，无法直接生成 Figma 链接，文档明确限制。
+3. Figma 同名变量集合：交付在线 Figma 文件（collection Theme / mode Light / 74 变量、Anyone can edit）、可直接导入的 DTCG 文件、Figma 开发插件（manifest + 脚本）与一一对照表；匿名查看者不显示 Variables 编辑面板，属 Figma 权限设计。
 4. 对比度检查表：所有正文文字组合 ≥ 4.5:1；附计算口径与结果。
 5. TDesign 组件示例页截图：按钮、标签、单元格、输入框、提示等使用新品牌色。
 6. 使用说明：如何替换品牌色、如何新增 token、如何导入 Figma、如何验证。
@@ -36,7 +36,7 @@
 | AC1 | tokens.json 通过 W3C Design Tokens 格式校验 | `scripts/validate.py` 检查 1（74 token、类型/值/别名）；`tests/test_tokens.py::test_token_index_has_74_valid_tokens`；`artifacts/validation.log` |
 | AC2 | 对比度检查表中所有正文文字组合 ≥ 4.5:1 | `docs/CONTRAST.md` 57 组，最低 4.66:1；`scripts/validate.py` 检查 4；`tests/test_tokens.py::test_all_57_body_text_pairs_meet_wcag_aa` |
 | AC3 | theme.wxss 应用到 TDesign 组件示例页后的截图中按钮、标签使用新品牌色 | `artifacts/example-page.png`（750×2269）；`scripts/capture.mjs` 断言按钮背景/标签文字为 rgb(31,94,255)、标签浅底 rgb(241,244,255)；`tests/test_tokens.py::test_theme_has_64_tdesign_consumed_variables_and_is_fresh`、`test_browser_preview_is_same_theme_at_2x` |
-| AC4 | Figma 变量名与 tokens.json 中的名称一一对应（对照表） | `figma/figma-variables.json` 74 个；`figma/create-variables.js` + `figma/manifest.json`；`docs/FIGMA-VARIABLES.md` 74 行；`scripts/validate.py` 检查 6；`tests/test_tokens.py::test_figma_variables_are_exactly_1_to_1`、`test_figma_plugin_and_doc_cover_every_token` |
+| AC4 | Figma 变量名与 tokens.json 中的名称一一对应（对照表） | 在线 Figma 74 变量；`evidence/figma-online/verify.json` 74/74；`figma/figma-variables.json` 74 个；`figma/create-variables.js` + `figma/manifest.json`；`docs/FIGMA-VARIABLES.md` 74 行；`scripts/validate.py` 检查 6；`tests/test_tokens.py::test_figma_variables_are_exactly_1_to_1`、`test_figma_plugin_and_doc_cover_every_token`、`test_figma_import_file_is_nested_dtcg_and_matches_tokens` |
 
 ## 4. 设计边界与假设
 
@@ -52,7 +52,7 @@
 
 | 风险 | 影响 | 应对与实际结果 |
 | --- | --- | --- |
-| 无 Figma 账号/Token，无法生成 Figma 链接 | AC4 交付形态受限 | 交付可导入变量 JSON + Figma 插件（manifest + 脚本）+ 1:1 对照表；README/SUBMISSION 明确限制，不用虚假链接。已完成。 |
+| Figma 变量是否真的落到在线文件 | AC4 可信度 | 已用账号导入：collection Theme / mode Light / 74 变量 / Anyone can edit；导出快照 + `verify_figma_export.py` 74/74；匿名与共享截图留证。已完成。 |
 | 对比度只算主色，漏语义色/浅底组合 | AC2 不达标 | 脚本枚举 57 组正文组合并断言；最低 4.66:1。已完成。 |
 | theme.wxss 手写与 tokens 漂移 | AC3/维护性 | theme.wxss 由 build.py 生成；validate.py 比对新鲜度；两轮从零重建哈希一致。已完成。 |
 | Figma 变量名与 token 路径不一致 | AC4 不达标 | 生成器统一从 token 路径取名；校验 1:1 与数量；插件语法 `node --check` 通过。已完成。 |
@@ -74,5 +74,5 @@
 - [x] Figma 变量名与 token 路径 1:1，附对照表、插件与导入清单。
 - [x] build 幂等、两轮从零演练、变异演练（3/3 DETECTED）。
 - [x] README/USAGE 完整、可复现。
-- [x] v2 交付包已发布到 GitHub Releases 并回验（343,925 B；SHA-256 24e6348c…；https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.0.0）。
-- [x] 用户 2026-11-19 明确批准后提交；提交后绝不重复提交。
+- [x] v2.1.0 交付包已发布到 GitHub Releases 并回验（字节/SHA-256 见 03-EVIDENCE E12；https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.1.0）。
+- [x] v1 经用户 2026-11-19 明确批准后提交；v2.1.0 待平台 rework 或用户明确指示，不重复提交。

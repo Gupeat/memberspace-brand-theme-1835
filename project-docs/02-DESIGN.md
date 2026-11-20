@@ -1,6 +1,6 @@
 # #1835 设计说明
 
-更新时间：2026-11-19 18:26（Asia/Shanghai）
+更新时间：2026-11-19 23:30（Asia/Shanghai）
 
 ## 1. 方案选型
 
@@ -66,12 +66,14 @@ theme.wxss 输出 page 级 64 个 TDesign 1.18.0 实际消费的 CSS 变量（�
 
 ## 7. Figma 变量策略
 
-本机无 Figma 账号与 Personal Access Token，不能调用 Figma Variables REST API，也不能生成可分享链接。采用等价可交付：
+在线交付与可重建证据并行：
 
-1. `figma/figma-variables.json`：集合/模式/变量结构；name 与 token 路径完全一致；颜色为 #RRGGBB，尺寸按 2rpx=1px 换算。
-2. `figma/create-variables.js` + `figma/manifest.json`：Figma 开发插件；在桌面端 Import plugin from manifest 后运行，按同名创建变量集合（COLOR/FLOAT/STRING），不需要网络。
-3. `docs/FIGMA-VARIABLES.md`：token 路径 ↔ Figma 变量名 ↔ 值/类型 的完整 74 行对照表。
-4. README/USAGE 说明导入步骤与限制；不伪造 Figma 链接。
+1. 在线文件：MemberSpace Brand Theme 1835 - v2（https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1），collection Theme、mode Light、74 变量、Anyone can edit；匿名可看画布，匿名视图不显示 Variables 编辑面板。
+2. `figma/figma-import.tokens.json` + `figma/Light.tokens.json`：Figma Variables 可直接导入的嵌套 DTCG；文件名决定 mode 名 Light；颜色 sRGB，尺寸按 2rpx=1px 换算，别名保留 {path}。两份文件字节相同。
+3. `figma/figma-variables.json` + `figma/create-variables.js` + `figma/manifest.json`：机器可读定义与桌面插件备选路径；插件非破坏性，按同名创建/更新，不删除既有变量。
+4. `evidence/figma-online/`：导入后导出快照 Theme.zip、解包 Light.tokens.json、登录态/共享/匿名截图、README 与 verify.json。
+5. `scripts/verify_figma_export.py`：将导出快照与 tokens.json 的 74 个路径逐项比对名称、类型、别名、值与描述；`run_acceptance.py` 把它作为第 5 步；失败即验收失败。
+6. `docs/FIGMA-VARIABLES.md` 与 `docs/FIGMA-ONLINE.md`：74 行对照表 + 在线文件/导入/导出/校验说明。
 
 ## 8. 对比度方法
 
@@ -111,9 +113,9 @@ WCAG 2.1 相对亮度：sRGB 分量 <=0.04045 时 c/12.92，否则 ((c+0.055)/1.
 
 ## 12. 实际验证结果
 
-- 14 项 pytest 通过（0.2s）。
-- validate.py 8/8 PASS，exit 0；57 组对比度，最低 4.66:1。
-- 两轮从零验收：round1 2026-11-19T10:20:25Z、round2 2026-11-19T10:20:40Z，均 exit 0；两轮截图哈希一致（eccf7532…b23a，300,034 B）；关键生成物哈希一致。
+- 15 项 pytest 通过（0.19s）：新增导入 DTCG 与 tokens 1:1、Light 字节一致、无截断描述。
+- validate.py 8/8 PASS，exit 0；57 组对比度，最低 4.66:1；74 个 Figma 变量 + 74 个导入变量名称 1:1。
+- 两轮从零验收：round1 2026-11-19T15:27:10Z、round2 2026-11-19T15:27:15Z，均 exit 0；每轮 6 步（build/figma-syntax/validate/pytest/verify-figma/capture）；两轮截图哈希一致（eccf7532…，300,034 B）；关键生成物哈希一致。
+- 在线 Figma 导出快照：74/74 名称、类型、别名、值、描述一致（verify.json）；collection Theme、mode Light。
 - 变异演练 3/3 DETECTED：中性色改浅触发对比度失败、删除品牌映射触发 demo 未定义变量、改 Figma 名称触发 1:1 失败。
-- Figma 插件通过 `node --check`；manifest 可导入。
 - 交付包与证据见 03-EVIDENCE.md。

@@ -1,0 +1,114 @@
+{
+  "ok": true,
+  "checkedAt": "2026-11-20T03:40:18Z",
+  "tool": "微信开发者工具 2.02.2609250 Stable (Windows)",
+  "appid": "wx65dda5a642890a95",
+  "screenshots": {
+    "screenshot_simulator": {
+      "path": "evidence/devtools/miniprogram-simulator.png",
+      "bytes": 101264,
+      "sha256": "210ec05728a5e8d835189d0ac10dd7eb4e6b2032a54fac39f1f7f122722c0fde",
+      "width": 488,
+      "height": 941
+    },
+    "screenshot_devtools": {
+      "path": "evidence/devtools/miniprogram-devtools.png",
+      "bytes": 176635,
+      "sha256": "fce1d407dfb94168dadb2c07670f8fe65551c702a6b8a3044000be8d88dac2b6",
+      "width": 1564,
+      "height": 1250
+    }
+  },
+  "checks": [
+    {
+      "name": "screenshot_simulator exists",
+      "ok": true,
+      "detail": "evidence/devtools/miniprogram-simulator.png"
+    },
+    {
+      "name": "screenshot_simulator bytes",
+      "ok": true,
+      "detail": "101264 == 101264"
+    },
+    {
+      "name": "screenshot_simulator sha256",
+      "ok": true,
+      "detail": "210ec05728a5e8d835189d0ac10dd7eb4e6b2032a54fac39f1f7f122722c0fde"
+    },
+    {
+      "name": "screenshot_simulator dimensions",
+      "ok": true,
+      "detail": "488x941"
+    },
+    {
+      "name": "screenshot_devtools exists",
+      "ok": true,
+      "detail": "evidence/devtools/miniprogram-devtools.png"
+    },
+    {
+      "name": "screenshot_devtools bytes",
+      "ok": true,
+      "detail": "176635 == 176635"
+    },
+    {
+      "name": "screenshot_devtools sha256",
+      "ok": true,
+      "detail": "fce1d407dfb94168dadb2c07670f8fe65551c702a6b8a3044000be8d88dac2b6"
+    },
+    {
+      "name": "screenshot_devtools dimensions",
+      "ok": true,
+      "detail": "1564x1250"
+    },
+    {
+      "name": "appid",
+      "ok": true,
+      "detail": "wx65dda5a642890a95"
+    },
+    {
+      "name": "libVersion",
+      "ok": true,
+      "detail": "3.4.10"
+    },
+    {
+      "name": "miniprogram theme matches generated theme",
+      "ok": true,
+      "detail": "byte-identical"
+    },
+    {
+      "name": "app.wxss imports theme",
+      "ok": true,
+      "detail": "present"
+    },
+    {
+      "name": "uses t-button",
+      "ok": true,
+      "detail": "t-button present"
+    },
+    {
+      "name": "uses t-tag",
+      "ok": true,
+      "detail": "t-tag present"
+    },
+    {
+      "name": "primary button brand",
+      "ok": true,
+      "detail": "rgb(31, 94, 255)"
+    },
+    {
+      "name": "brand tag background",
+      "ok": true,
+      "detail": "rgb(241, 244, 255)"
+    },
+    {
+      "name": "brand tag text",
+      "ok": true,
+      "detail": "rgb(31, 94, 255)"
+    },
+    {
+      "name": "success tag",
+      "ok": true,
+      "detail": "rgb(14, 122, 95)"
+    }
+  ]
+}
