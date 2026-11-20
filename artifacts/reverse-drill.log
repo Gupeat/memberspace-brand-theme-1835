@@ -7,13 +7,13 @@ contrast failures: 正文弱化 / 白底: 1.40; 正文弱化 / 页面底: 1.34; 
 
 B: removed TDesign brand mapping: DETECTED=yes
 [FAIL] demo references and variables: AssertionError: demo.css uses undefined theme variables: ['--td-brand-color']
-[PASS] contrast documentation: 57 documented pairs, no FAIL
+[PASS] contrast documentation: 62 documented pairs, no FAIL
 
-RESULT: FAIL (6/8 checks)
+RESULT: FAIL (7/8 checks)
 
 C: stale/renamed Figma variable: DETECTED=yes
 [PASS] demo references and variables: 42 theme variables used by demo, all defined
-[PASS] contrast documentation: 57 documented pairs, no FAIL
+[PASS] contrast documentation: 62 documented pairs, no FAIL
 
 RESULT: FAIL (7/8 checks)
 

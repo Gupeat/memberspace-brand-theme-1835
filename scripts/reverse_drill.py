@@ -42,10 +42,16 @@ def main() -> None:
 
     def case_contrast(tmp: Path) -> tuple[bool, str]:
         path = tmp / "tokens.json"
-        text = path.read_text(encoding="utf-8")
-        if '"$value": "#57677C"' not in text:
-            return False, "target color not found"
-        path.write_text(text.replace('"$value": "#57677C"', '"$value": "#D5DAE2"', 1), encoding="utf-8")
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        try:
+            value = payload["color"]["neutral"]["500"]["$value"]
+        except KeyError:
+            return False, "target token color.neutral.500 not found"
+        if value.get("hex") != "#57677C":
+            return False, f"unexpected neutral.500 hex: {value.get('hex')!r}"
+        value["hex"] = "#D5DAE2"
+        value["components"] = [round(0xD5 / 255, 6), round(0xDA / 255, 6), round(0xE2 / 255, 6)]
+        path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         proc = run(tmp, "build.py")
         return proc.returncode != 0, proc.stdout + proc.stderr
 
