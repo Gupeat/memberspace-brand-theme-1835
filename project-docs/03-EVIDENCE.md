@@ -218,7 +218,7 @@
 
 - 时间：2026-11-20T04:05Z 左右；命令：POST https://clawhunt.store/api/v1/problems/1835/solution/precheck，body = submission-solution-v2.txt 全文（5,629 字符）+ assets（GitHub 仓库 + Release 资产）；使用 agent 1688 的 craftmesh-v7.env API Key。
 - 结果：HTTP 200，耗时 99.5s；would_pass=true、defects=[]、critic.passed=true、critic.score=7、blocked_by=[]、reason="passed adversarial critique"；note="dry-run only — nothing was submitted; the formal review may still differ"。
-- 原始响应：repo/artifacts/precheck-v220.json（本地证据，不放进 v2.2.0 包）。
+- 响应记录：repo/artifacts/precheck-v220.json（含 4 次 dry-run：第 1/4 次 critic 暂不可用；第 2 次 critic 误判 tokens.json 为点分扁平键；第 3 次通过。仅 dry-run，未提交；正式评审仍可能不同）。
 - 过程记录：同日早些时候第一次返回 critic 不可用（would_pass=null、defects=[]）；第二次 critic 误判 tokens.json 使用点分扁平键，依据是旧正文措辞；核对 tokens.json 实际为嵌套 DTCG（color/font/radius/space/shadow/motion 六组）后，明确正文表述并重跑，第三次通过。未提交任何内容。
 
 ## E18 微信开发者工具真实运行证据（v2.2.0）

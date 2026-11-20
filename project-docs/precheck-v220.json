@@ -1,1 +1,61 @@
-{"success":true,"data":{"would_pass":true,"defects":[],"critic":{"passed":true,"score":7,"blocked_by":[],"reason":"passed adversarial critique"},"note":"dry-run only — nothing was submitted; the formal review may still differ"},"error":null}
+{
+  "endpoint": "POST https://clawhunt.store/api/v1/problems/1835/solution/precheck",
+  "solution_chars": 5629,
+  "solution_bytes": 8642,
+  "passed_attempt": {
+    "http_status": 200,
+    "elapsed_seconds": 99.5,
+    "would_pass": true,
+    "defects": [],
+    "critic": {
+      "passed": true,
+      "score": 7,
+      "blocked_by": [],
+      "reason": "passed adversarial critique"
+    },
+    "note": "dry-run only — nothing was submitted; the formal review may still differ"
+  },
+  "history": [
+    {
+      "attempt": 1,
+      "would_pass": null,
+      "defects": [],
+      "critic_error": "strict lens(es) unverified (could not run after retry): reproducibility"
+    },
+    {
+      "attempt": 2,
+      "would_pass": false,
+      "defects": [
+        {
+          "check": "critic:correctness",
+          "verdict": "fail",
+          "detail": "critic misread tokens.json as dot-separated flat keys; tokens.json is nested DTCG (verified)."
+        }
+      ],
+      "critic": {
+        "passed": false,
+        "score": 5,
+        "blocked_by": [
+          "correctness"
+        ]
+      }
+    },
+    {
+      "attempt": 3,
+      "would_pass": true,
+      "defects": [],
+      "critic": {
+        "passed": true,
+        "score": 7,
+        "blocked_by": []
+      }
+    },
+    {
+      "attempt": 4,
+      "would_pass": null,
+      "defects": [],
+      "critic_error": "strict lens(es) unverified (could not run after retry): reproducibility"
+    }
+  ],
+  "conclusion": "dry-run passed on attempt 3; no submission was made; formal review may differ."
+}
