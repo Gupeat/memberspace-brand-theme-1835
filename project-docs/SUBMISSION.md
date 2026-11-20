@@ -82,7 +82,7 @@
 - [x] 两轮 7 步从零验收 exit 0
 - [x] 变异 3/3 DETECTED
 - [x] 包 MANIFEST/zip/隐私/下载回验通过
-- [ ] v2.3.0 solution precheck would_pass=true、defects=[]（2026-11-20T12:30Z/12:33Z/12:36Z/12:40Z/12:43Z/13:08Z/13:35Z 七次：deterministic 通过、defects=[]；critic outage、would_pass=null，待重试（限流窗口恢复后））
+- [ ] v2.3.0 solution precheck would_pass=true、defects=[]（2026-11-20T12:30Z/12:33Z/12:36Z/12:40Z/12:43Z/13:08Z/13:35Z/14:26Z 八次：deterministic 通过、defects=[]；critic outage、would_pass=null，待重试（限流窗口恢复后））
 - [ ] 用户审核并明确批准
 - [ ] 执行 submit 并记录 submitted_at/version
 

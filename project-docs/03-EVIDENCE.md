@@ -198,9 +198,9 @@
 
 ## E16 v2.3.0 提交前预检
 
-- 已执行七次：2026-11-20T12:30:34Z（5.4s，5,731 chars）、12:33:35Z（7.4s）、12:36:00Z（6.1s）、12:40:33Z（6.3s，5,768 chars）、12:43:29Z（8.0s，main 引用改为分支后 5,758 chars / 8,769 B）、13:08:25Z（7.3s，仍为 5,758 chars / 8,769 B）、13:35:43Z（6.4s，仍为 5,758 chars / 8,769 B），调 `POST /api/v1/problems/1835/solution/precheck`（只读，不提交），均 HTTP 200。
-- 结果：deterministic checks passed，defects=[]；七次 LLM critic 均 failed to run（outage），would_pass=null，critic.reason="all critic lenses failed to run (outage)"，平台明确说明这不是 fail。记录 attempts[1-7] 在 artifacts/precheck-v230.json。
-- 处置：不把 outage 当成通过；七次尝试（跨 12:30–13:35 两个限流窗口）均 outage；限流窗口恢复后可再试，以 would_pass=true、defects=[] 为准；未提交。
+- 已执行八次：2026-11-20T12:30:34Z（5.4s，5,731 chars）、12:33:35Z（7.4s）、12:36:00Z（6.1s）、12:40:33Z（6.3s，5,768 chars）、12:43:29Z（8.0s，main 引用改为分支后 5,758 chars / 8,769 B）、13:08:25Z（7.3s，仍为 5,758 chars / 8,769 B）、13:35:43Z（6.4s，仍为 5,758 chars / 8,769 B）、14:26:29Z（9.0s，仍为 5,758 chars / 8,769 B），调 `POST /api/v1/problems/1835/solution/precheck`（只读，不提交），均 HTTP 200。
+- 结果：deterministic checks passed，defects=[]；八次 LLM critic 均 failed to run（outage），would_pass=null，critic.reason="all critic lenses failed to run (outage)"，平台明确说明这不是 fail。记录 attempts[1-8] 在 artifacts/precheck-v230.json。
+- 处置：不把 outage 当成通过；八次尝试（跨 12:30–14:26 三个限流窗口）均 outage；限流窗口恢复后可再试，以 would_pass=true、defects=[] 为准；未提交。
 
 ## E17 微信开发者工具真实运行证据（v2.3.0）
 
