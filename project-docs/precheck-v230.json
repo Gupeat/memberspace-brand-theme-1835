@@ -1,8 +1,8 @@
 {
   "endpoint": "POST https://clawhunt.store/api/v1/problems/1835/solution/precheck",
   "solution_file": "submission-solution-v2.txt",
-  "solution_chars": 5731,
-  "solution_bytes": 8720,
+  "solution_chars": 5758,
+  "solution_bytes": 8769,
   "attempts": [
     {
       "endpoint": "POST https://clawhunt.store/api/v1/problems/1835/solution/precheck",
@@ -34,6 +34,90 @@
       "error": null,
       "solution_chars": 5731,
       "solution_bytes": 8720,
+      "response": {
+        "success": true,
+        "data": {
+          "would_pass": null,
+          "defects": [],
+          "critic": {
+            "error": true,
+            "reason": "all critic lenses failed to run (outage)"
+          },
+          "note": "deterministic checks passed; the LLM critic could not run — this is NOT a fail"
+        },
+        "error": null
+      }
+    },
+    {
+      "attempted_at": "2026-11-20T12:36:00.802144+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 6.1,
+      "error": null,
+      "solution_chars": 5731,
+      "solution_bytes": 8720,
+      "response": {
+        "success": true,
+        "data": {
+          "would_pass": null,
+          "defects": [],
+          "critic": {
+            "error": true,
+            "reason": "all critic lenses failed to run (outage)"
+          },
+          "note": "deterministic checks passed; the LLM critic could not run — this is NOT a fail"
+        },
+        "error": null
+      }
+    },
+    {
+      "attempted_at": "2026-11-20T12:40:33.136205+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 6.3,
+      "error": null,
+      "solution_chars": 5768,
+      "solution_bytes": 8771,
+      "response": {
+        "success": true,
+        "data": {
+          "would_pass": null,
+          "defects": [],
+          "critic": {
+            "error": true,
+            "reason": "all critic lenses failed to run (outage)"
+          },
+          "note": "deterministic checks passed; the LLM critic could not run — this is NOT a fail"
+        },
+        "error": null
+      }
+    },
+    {
+      "attempted_at": "2026-11-20T12:43:29.736984+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 8.0,
+      "error": null,
+      "solution_chars": 5758,
+      "solution_bytes": 8769,
+      "response": {
+        "success": true,
+        "data": {
+          "would_pass": null,
+          "defects": [],
+          "critic": {
+            "error": true,
+            "reason": "all critic lenses failed to run (outage)"
+          },
+          "note": "deterministic checks passed; the LLM critic could not run — this is NOT a fail"
+        },
+        "error": null
+      }
+    },
+    {
+      "attempted_at": "2026-11-20T13:08:25.243635+00:00",
+      "http_status": 200,
+      "elapsed_seconds": 7.3,
+      "error": null,
+      "solution_chars": 5758,
+      "solution_bytes": 8769,
       "response": {
         "success": true,
         "data": {
