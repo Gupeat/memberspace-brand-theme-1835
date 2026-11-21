@@ -9,7 +9,7 @@
 - 交付仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
 - 在线 Figma：https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1
 - 发布资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.4.0
-- 干净环境 CI：`.github/workflows/clean-room.yml`（Linux + Python 3.12）
+- 干净环境 CI 模板：`ci/clean-room.yml`（复制到 `.github/workflows/` 即可运行；Linux + Python 3.12）
 - 微信开发者工具证据：`evidence/devtools/`（真实模拟器截图、`run.json`、`verify.json`）
 
 ## 交付物
@@ -181,7 +181,7 @@ page, .td-theme {
 
 补充证据：两轮从零重建；3/3 变异演练（改中性色、删品牌映射、改 Figma 名称）均被闸门捕获，日志见 `artifacts/reverse-drill.log`；在线 Figma 导出快照由 `verify_figma_export.py` 校验 74/74，结果见 `evidence/figma-online/verify.json`；微信开发者工具证据由 `verify_devtools_evidence.py` 校验 23 项，结果见 `evidence/devtools/verify.json`。
 
-## 干净环境与 CI（v2.4.0）
+## 干净环境与 CI 模板（v2.4.0）
 
 客户在隔离沙箱对 v2.3.0 提交 `c658393` 运行 pytest 时，17 项里 `test_validation_script_reports_8_of_8_pass` 失败。根因不是测试断言，而是 `scripts/validate.py` 从 `miniprogram-demo/miniprogram_npm/tdesign-miniprogram` 读取 TDesign wxss；该目录由开发者工具生成、未提交，干净克隆不存在，导致 `only 0 mapped variables are directly consumed by TDesign`。
 
@@ -190,7 +190,7 @@ v2.4.0 修复：
 - `scripts/validate.py` 改为从已提交的 `vendor/tdesign-miniprogram-1.18.0.tgz` 直接读取 124 个 `.wxss`（988 个 `--td-` 变量），不再依赖生成的 `miniprogram_npm`。
 - `tests/test_tokens.py` 的 subprocess 环境改为继承 `os.environ` 再补 `PYTHONIOENCODING=utf-8`，不再替换整个环境变量表。
 - 新增 `test_clean_room_validation_without_generated_miniprogram_npm`：在临时目录复制仓库并排除 `miniprogram_npm`，再运行 `validate.py`，必须 8/8。
-- 新增 `.github/workflows/clean-room.yml`：`ubuntu-latest` + Python 3.12，依次执行 build、pytest、validate、Figma 导出校验、DevTools 证据校验。
+- 新增 `ci/clean-room.yml`：`ubuntu-latest` + Python 3.12，依次执行 build、pytest、validate、Figma 导出校验、DevTools 证据校验。复制到 `.github/workflows/clean-room.yml` 即可启用；本机已按同一组命令在干净副本运行，输出见 `artifacts/clean-room-v2.4.0.log`。
 
 干净克隆复现：
 

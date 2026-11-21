@@ -1,0 +1,32 @@
+name: clean-room
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    name: Linux clean checkout
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test dependency
+        run: python -m pip install --upgrade pip pytest
+      - name: Rebuild generated files
+        run: python scripts/build.py
+      - name: Pytest (18 tests)
+        run: python -m pytest -q tests
+      - name: Validate (8/8)
+        run: python scripts/validate.py
+      - name: Verify Figma export (74/74)
+        run: python scripts/verify_figma_export.py
+      - name: Verify DevTools evidence (23 checks)
+        run: python scripts/verify_devtools_evidence.py
