@@ -16,7 +16,7 @@
    ```
 
 6. 对比度不达标时，`validate.py` 会打印具体组合与比值；必须 ≥4.5:1。不要通过删检查项“修复”。
-7. 重新截取示例页：`node scripts/capture.mjs`（需要 Edge 与 playwright-core）。
+7. 重新截取示例页：`node scripts/capture.mjs`（需要 Node 与 Edge；playwright-core 可选，缺失时自动使用 Edge headless CLI）。
 8. 在线 Figma 变量在 `tokens.json` 变更后需重新导入 `figma/Light.tokens.json` 并重导出快照，再跑 `python scripts/verify_figma_export.py`；详见 `docs/FIGMA-ONLINE.md`。
 
 ### 加新令牌
@@ -113,7 +113,7 @@ python scripts/run_acceptance.py --label round1
 python scripts/run_acceptance.py --label round2
 ```
 
-`run_acceptance.py` 会删除生成物后重建，校验 8 项、17 项 pytest、在线 Figma 导出 74/74、截图尺寸/色彩，并写出：
+`run_acceptance.py` 会删除生成物后重建，校验 8 项、18 项 pytest、在线 Figma 导出 74/74、截图尺寸/色彩，并写出：
 
 - `artifacts/acceptance-<label>.log`（每条命令、stdout、stderr）
 - `artifacts/ACCEPTANCE-<label>.md`、`artifacts/ACCEPTANCE.md`
@@ -135,7 +135,7 @@ python scripts/reverse_drill.py
 | Figma 1:1 失败 | 检查 Tokens 路径是否被改名；重跑 build 生成变量与文档 |
 | Figma 导出校验失败 | 在线文件或 `evidence/figma-online` 快照过期；按 `docs/FIGMA-ONLINE.md` 重新导入/导出/校验 |
 | demo 变量未定义 | `demo.css` 用了 THEME_MAP 未映射的 `--td-*`；补映射或改用已有变量 |
-| 截图失败 | 确认 Edge 路径、`playwright-core` 已安装；可用 `EDGE` 环境变量 |
+| 截图失败 | 确认 Node 与 Edge 可执行；可用 `EDGE` 环境变量指定路径。playwright-core 不是必需依赖 |
 | GIF/截图字节不同 | 字体/渲染差异；以像素与计算样式断言为准，不要求字节稳定 |
 | Figma 插件无法导入 | 选择 `figma/manifest.json` 而不是 JS 文件；需要在桌面端开发插件菜单 |
 | 在线 Figma 看不到 Variables | 匿名查看者没有编辑面板属 Figma 权限设计；用有编辑权限的账号查看 |

@@ -8,7 +8,8 @@
 - 技术：Python 3.12 + Node.js（仅截图用 Playwright/Edge）；产物为纯静态文件
 - 交付仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
 - 在线 Figma：https://www.figma.com/design/U3n0qOCgViDDfdSnOWIw5n/MemberSpace-Brand-Theme-1835---v2?node-id=0-1
-- 发布资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.3.0
+- 发布资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.4.0
+- 干净环境 CI：`.github/workflows/clean-room.yml`（Linux + Python 3.12）
 - 微信开发者工具证据：`evidence/devtools/`（真实模拟器截图、`run.json`、`verify.json`）
 
 ## 交付物
@@ -28,7 +29,7 @@
 | `demo/index.html` + `demo/demo.css` | TDesign 风格示例页（按钮、标签、cell、输入、提示、变量卡） |
 | `artifacts/example-page.png` | 750×2261 示例页截图；由脚本生成并做像素/计算样式断言 |
 | `scripts/` | build / validate / capture / acceptance / reverse drill |
-| `tests/test_tokens.py` | 17 项 pytest，覆盖严格 DTCG、别名、对比度、主题映射、Figma（含导入文件）、小程序主题、文档、校验脚本 |
+| `tests/test_tokens.py` | 18 项 pytest，覆盖严格 DTCG、别名、对比度、主题映射、Figma（含导入文件）、小程序主题、文档、校验脚本 |
 
 ## 快速开始
 
@@ -41,7 +42,7 @@ python scripts/build.py
 # 2) 8 项产物校验（DTCG、scale、别名、WCAG、新鲜度、Figma 1:1、demo、文档）
 python scripts/validate.py
 
-# 3) 单元测试（17 passed）
+# 3) 单元测试（18 passed）
 python -m pytest -q tests
 
 # 4) 校验在线 Figma 的导出快照与 tokens.json 74/74 一致
@@ -50,8 +51,8 @@ python scripts/verify_figma_export.py
 # 5) 校验微信开发者工具证据（截图/哈希/AppID/计算样式）
 python scripts/verify_devtools_evidence.py
 
-# 6) Web 预览截图（需要 Node + playwright-core + Microsoft Edge）
-npm install playwright-core   # 首次
+# 6) Web 预览截图（需要 Node + Microsoft Edge；playwright-core 可选）
+# 若未安装 playwright-core，capture.mjs 自动改用 Edge headless CLI 截图。
 node scripts/capture.mjs
 
 # 7) 完整两轮验收（清空生成物后重建，7 步，含 DevTools 证据）
@@ -152,9 +153,9 @@ page, .td-theme {
 ## 交付与复现
 
 - 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835 （public，全部为虚构数据）
-- Release v2.3.0：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.3.0
-- 归档资产：`1835-s3-brand-001-rework-v2.3.0.zip`；资产页含字节数与 SHA-256，可与提交正文交叉核对。
-- 评审可直接在仓库根目录执行“快速开始”的 7 条命令复现 17 passed / 8/8 PASS / Figma 74/74 / DevTools 23 项 / 750×2261 截图。
+- Release v2.4.0：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.4.0
+- 归档资产：`1835-s3-brand-001-rework-v2.4.0.zip`；资产页含字节数与 SHA-256，可与提交正文交叉核对。
+- 评审可直接在仓库根目录执行“快速开始”的 7 条命令复现 18 passed / 8/8 PASS / Figma 74/74 / DevTools 23 项 / 750×2261 截图。
 
 ## 验收对照
 
@@ -179,6 +180,28 @@ page, .td-theme {
 8. 对比度文档行数与无 FAIL
 
 补充证据：两轮从零重建；3/3 变异演练（改中性色、删品牌映射、改 Figma 名称）均被闸门捕获，日志见 `artifacts/reverse-drill.log`；在线 Figma 导出快照由 `verify_figma_export.py` 校验 74/74，结果见 `evidence/figma-online/verify.json`；微信开发者工具证据由 `verify_devtools_evidence.py` 校验 23 项，结果见 `evidence/devtools/verify.json`。
+
+## 干净环境与 CI（v2.4.0）
+
+客户在隔离沙箱对 v2.3.0 提交 `c658393` 运行 pytest 时，17 项里 `test_validation_script_reports_8_of_8_pass` 失败。根因不是测试断言，而是 `scripts/validate.py` 从 `miniprogram-demo/miniprogram_npm/tdesign-miniprogram` 读取 TDesign wxss；该目录由开发者工具生成、未提交，干净克隆不存在，导致 `only 0 mapped variables are directly consumed by TDesign`。
+
+v2.4.0 修复：
+
+- `scripts/validate.py` 改为从已提交的 `vendor/tdesign-miniprogram-1.18.0.tgz` 直接读取 124 个 `.wxss`（988 个 `--td-` 变量），不再依赖生成的 `miniprogram_npm`。
+- `tests/test_tokens.py` 的 subprocess 环境改为继承 `os.environ` 再补 `PYTHONIOENCODING=utf-8`，不再替换整个环境变量表。
+- 新增 `test_clean_room_validation_without_generated_miniprogram_npm`：在临时目录复制仓库并排除 `miniprogram_npm`，再运行 `validate.py`，必须 8/8。
+- 新增 `.github/workflows/clean-room.yml`：`ubuntu-latest` + Python 3.12，依次执行 build、pytest、validate、Figma 导出校验、DevTools 证据校验。
+
+干净克隆复现：
+
+```bash
+git clone https://github.com/Gupeat/memberspace-brand-theme-1835.git
+cd memberspace-brand-theme-1835
+python -m pytest -q tests
+python scripts/validate.py
+```
+
+预期：`18 passed`；`RESULT: PASS (8/8 checks)`，其中第 5 项报告 `77 directly consumed by TDesign 1.18.0`。本机干净环境完整输出见 `artifacts/clean-room-v2.4.0.log`。
 
 ## 已知限制
 

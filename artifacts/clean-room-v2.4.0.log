@@ -1,0 +1,38 @@
+#1835 clean-room run (v2.4.0)
+source=clean copy excluding miniprogram_npm, __pycache__, .pytest_cache, *.pyc
+python=3.12.14
+platform=Windows-11-10.0.26200-SP0
+generatedAt=2026-11-21T12:23:25Z
+
+$ python scripts/build.py
+exit=0
+{"tokens": 74, "themeVariables": 84, "figmaVariables": 74, "figmaImportVariables": 74, "contrastPairs": 62, "minContrast": 4.66, "tokensHash": "4e5dc3b3c3e31a0ecebee9f4e030966233f4599984d7b204aaa3174a9f0b0b35"}
+
+$ python -m pytest -q tests
+exit=0
+..................                                                       [100%]
+18 passed in 0.88s
+
+$ python scripts/validate.py
+exit=0
+ClawHunt #1835 token package validation
+
+[PASS] DTCG structure and value types: 74 tokens; strict DTCG value types valid (color objects, px dimensions, composite shadows)
+[PASS] required token categories and scales: 33 required tokens; 6 sizes; 10 neutrals; 4 semantics
+[PASS] alias resolution: 7 aliases resolve without cycles
+[PASS] WCAG contrast >= 4.5:1: 62 pairs, minimum 品牌主色文字 / 品牌浅底 4.66:1
+[PASS] theme.wxss and browser preview freshness: 84 mapped variables; 77 directly consumed by TDesign 1.18.0; 7 compatibility-only; miniprogram-demo/theme.wxss matches; 10 preview extensions; browser preview is 2x rpx->px
+[PASS] Figma variables 1:1: 74 Figma variables with / display names; 74 DTCG import variables; canonical tokenPath values exactly equal tokens.json dot paths
+[PASS] demo references and variables: 42 theme variables used by demo, all defined
+[PASS] contrast documentation: 62 documented pairs, no FAIL
+
+RESULT: PASS (8/8 checks)
+
+$ python scripts/verify_figma_export.py
+exit=0
+{"ok": true, "checked": 74, "counts": {"color": 38, "number": 28, "string": 8}, "import_fresh": true, "light_identical": true, "missing": [], "extra": []}
+OK: 74/74 canonical paths and / display names, type counts, aliases, values and descriptions match; export snapshot is fresh.
+
+$ python scripts/verify_devtools_evidence.py
+exit=0
+{"ok": true, "checked": 23, "screenshots": {"screenshot_simulator": {"path": "evidence/devtools/miniprogram-simulator.png", "bytes": 101266, "sha256": "3df9ec5a364e7067953609beecac54bb65591607c02f733192a84900ebc2a187", "width": 488, "height": 941}, "screenshot_devtools": {"path": "evidence/devtools/miniprogram-devtools.png", "bytes": 179074, "sha256": "97d49831578538a6bab2e839a951c47c0c2faad995a91327be4b41e1f893e8fe", "width": 1564, "height": 1250}}, "verify": "evidence/devtools/verify.json"}

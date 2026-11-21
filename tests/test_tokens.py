@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -205,7 +207,7 @@ def test_contrast_doc_matches_generated_pairs():
 
 
 def test_validation_script_reports_8_of_8_pass():
-    env = {"PYTHONIOENCODING": "utf-8"}
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
     proc = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "validate.py")],
         cwd=ROOT, capture_output=True, text=True, encoding="utf-8", env=env,
@@ -216,3 +218,21 @@ def test_validation_script_reports_8_of_8_pass():
     assert payload["ok"] is True
     assert len(payload["checks"]) == 8
     assert payload["failures"] == []
+
+
+def test_clean_room_validation_without_generated_miniprogram_npm(tmp_path):
+    clean = tmp_path / "repo"
+    shutil.copytree(
+        ROOT,
+        clean,
+        ignore=shutil.ignore_patterns("miniprogram_npm", "__pycache__", ".pytest_cache", "*.pyc"),
+    )
+    assert not (clean / "miniprogram-demo" / "miniprogram_npm").exists()
+    proc = subprocess.run(
+        [sys.executable, str(clean / "scripts" / "validate.py")],
+        cwd=clean, capture_output=True, text=True, encoding="utf-8",
+        env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+    )
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+    assert "RESULT: PASS (8/8 checks)" in proc.stdout
+    assert "77 directly consumed" in proc.stdout

@@ -1,105 +1,105 @@
-# #1835 提交材料（rework v2.3.0）
+# #1835 提交材料（rework v2.4.0）
 
 - 任务：#1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射
 - 金额：7000 USD；agent 1688（craftmesh-v7.env）
-- 状态：**v2.3.0 已于 2026-11-20T15:04:45.916268Z 提交**（用户当轮明确批准）；平台 status=submitted、assigned_to_me=true、escrow funded、latest_delivery_status=submitted；instant_review=needs_review、review_pending=true；delivery_check=checked（AC1/AC3/AC4 matched、AC2 unclear）。
-- 更新时间：2026-11-20 23:06（Asia/Shanghai）
+- 状态：**v2.4.0 干净环境修复已完成，待推 GitHub、待用户当轮批准提交平台**；平台 rework_count=2、latest_delivery_status=rework_requested、submitted_at=null。
+- 更新时间：2026-11-21 20:35（Asia/Shanghai）
 
-## 1. rework v2.3.0 相对 v1 的修改
+## 1. 本轮 rework 的唯一问题
 
-1. **严格 W3C DTCG**：38 个 color 全部改为 `{colorSpace:"srgb",components:[r,g,b],hex:"#RRGGBB"}` 对象；21 个 dimension 改为 px；3 个 shadow 改为含 color 对象和四边 dimension 的复合对象；7 个 alias 全部可解析。validate.py 检查 1 与 tests/test_tokens.py 覆盖严格值类型。
-2. **TDesign 语义浅底与组合字体**：theme.wxss 从 64 个映射扩展到 84 个（77 个被 TDesign 1.18.0 直接消费，7 个兼容别名）。新增 `--td-tag-success-light-color` / `--td-tag-warning-light-color` / `--td-tag-danger-light-color`，修复 TDesign 标签只换文字色、浅底仍是默认色的问题；新增 mark/body/title/headline 的 `--td-font-size-*` 与 `--td-line-height-*`，修复组合字体不采用 24/28/32/36/40/48 阶梯的问题；删除会改变语义的 `--td-font-size-xxl`。
-3. **Figma 显示名统一**：在线文件 74 个变量、collection Theme / mode Light、Anyone can edit；Figma 显示名为 `color/brand/primary` 这类 `/` 分组，canonical tokenPath 为 `color.brand.primary` 点分路径，逐段 1:1。对照表、插件 JSON、插件脚本、导入 DTCG 全部统一；verify_figma_export.py 同时校验 74/74 tokenPath 与 74/74 显示名。
-4. **对比度表补齐**：62 组正文组合，最低 4.66:1；新增语义标签实际浅底组合：success #0E7A5F on #E7F7F0=4.78、warning #9A5B00 on #FFF4E5=4.99、error #B42318 on #FEE9E9=5.65、info #0B5C8A on #E6F3FB=6.38、accent #0F766E on #E6F4F1=4.84。
-5. **微信开发者工具真实截图**：DevTools 2.02.2609250 Stable、沙箱 AppID wx65dda5a642890a95、libVersion 3.4.10、页面 pages/index/index；t-button/t-tag 真实计算样式为品牌色、语义浅底与 16px/12px 字号；模拟器 488x941 与 IDE 1564x1250 两张截图；verify_devtools_evidence.py 23/23 PASS。
-6. **交付通道**：GitHub 公开仓库 + Release v2.3.0 资产（1,959,220 B / SHA-256 3544c2d0…），下载回验一致；不使用 filebin。包内不含 project-docs，避免包 SHA 与文档互相引用。
+客户在隔离沙箱对 v2.3.0 提交 `c658393953500cc8850affaebb8012f96714cf6a` 运行 pytest，17 项中 `test_validation_script_reports_8_of_8_pass` 失败：
 
-## 2. 交付清单
+    AssertionError: only 0 mapped variables are directly consumed by TDesign
+    RESULT: FAIL (7/8 checks)
 
-1. repo/tokens.json：74 个严格 DTCG token，7 个别名；覆盖色彩、字号/行高/字重、圆角、间距、阴影、动效。
-2. repo/theme.wxss：84 个 TDesign 小程序 CSS 变量映射；由 tokens.json 生成；与 miniprogram-demo/theme.wxss 字节相同。
-3. repo/figma/figma-variables.json：74 个变量定义（tokenPath 点分 + `/` 显示名）；create-variables.js + manifest.json 为桌面插件备选路径。
-4. repo/figma/figma-import.tokens.json 与 Light.tokens.json：Figma Variables 可直接导入的嵌套 DTCG；74 项，两份字节相同。
-5. repo/docs/CONTRAST.md：62 组正文对比度表，全部 >=4.5:1。
-6. repo/docs/FIGMA-VARIABLES.md：74 行对照表（tokenPath + 显示名）；docs/FIGMA-ONLINE.md：在线/导入/导出说明。
-7. repo/docs/WECHAT-DEVTOOLS.md：DevTools 打开、截图、复现与限制。
-8. repo/evidence/devtools/：两张截图、run.json、verify.json。
-9. repo/evidence/figma-online/：Theme.zip、Light.tokens.json、verify.json、登录/共享/匿名截图。
-10. repo/scripts/：build.py、validate.py、verify_figma_export.py、verify_devtools_evidence.py、capture.mjs、run_acceptance.py、reverse_drill.py。
-11. repo/tests/test_tokens.py：17 项测试；repo/README.md 与 docs/USAGE.md：使用、替换品牌色、Figma 导入、验证说明。
-12. 交付包：1835-s3-brand-001-rework-v2.3.0.zip；GitHub Release v2.3.0。
+客户要求干净克隆、干净环境复现并修到全绿，运行输出随交付附上。
 
-## 3. AC 对照与证据
+**根因**：`scripts/validate.py` 从 `miniprogram-demo/miniprogram_npm/tdesign-miniprogram/**/*.wxss` 读取 TDesign 组件源码。该目录由微信开发者工具生成、未提交；干净克隆不存在，导致直接消费变量为 0。不是测试断言过严，也不是 token/theme 内容错误。
 
-| AC | 原文 | 交付证据 |
+## 2. v2.4.0 修复
+
+1. **validate 不依赖生成目录**：新增 `tdesign_wxss_texts()`，从已提交的 `vendor/tdesign-miniprogram-1.18.0.tgz` 内 124 个 `.wxss` 读取 988 个 `--td-` 变量；阈值 >=75 不变，实际 77 directly consumed + 7 compatibility-only。
+2. **测试继承环境**：`tests/test_tokens.py` 的 subprocess 改为 `{**os.environ, "PYTHONIOENCODING": "utf-8"}`，不再替换整个环境变量表（客户点名的 PATH/HOME/TMPDIR 丢失问题）。
+3. **新增干净环境回归测试**：`test_clean_room_validation_without_generated_miniprogram_npm` 复制仓库到临时目录并排除 `miniprogram_npm`，运行 validate，断言 8/8 与 77 directly consumed。
+4. **截图不再依赖 npm**：`scripts/capture.mjs` 在 playwright-core 缺失时回退到 Edge headless CLI；干净环境不需要 `npm install`。
+5. **CI**：新增 `.github/workflows/clean-room.yml`，Ubuntu + Python 3.12 依次跑 build、pytest、validate、Figma 导出校验、DevTools 证据校验。
+
+## 3. 干净环境运行输出
+
+本机干净副本（排除 `miniprogram_npm`/`__pycache__`/`.pytest_cache`/`*.pyc`）：
+
+    $ python -m pytest -q tests
+    ..................                                                       [100%]
+    18 passed in 0.88s
+
+    $ python scripts/validate.py
+    [PASS] theme.wxss and browser preview freshness: 84 mapped variables; 77 directly consumed by TDesign 1.18.0; 7 compatibility-only; ...
+    RESULT: PASS (8/8 checks)
+
+    $ python scripts/verify_figma_export.py
+    OK: 74/74 canonical paths and / display names, ...
+
+    $ python scripts/verify_devtools_evidence.py
+    OK
+
+完整日志：`repo/artifacts/clean-room-v2.4.0.log`（2,495 B，SHA-256 `5a2cc469ac41c3270dacd8d7ddae05eba8779b28c1ec3af3108c83820d74df6a`）；CI 配置：`repo/.github/workflows/clean-room.yml`（832 B，SHA-256 `b62af5da53fe73fc12d9588c853be0a7e80527d139bd8cc8d5c7e760aeddeb26`）。
+
+## 4. 两轮 7 步验收
+
+- round1 2026-11-21T12:32:23Z、round2 12:33:24Z；两轮均 build、figma-syntax、validate、pytest、verify-figma、verify-devtools、capture 7 步 exit 0。
+- pytest 18 passed；validate 8/8；Figma 74/74；DevTools 23/23；截图 750x2261 / 311,263 B / SHA-256 `13a13e3badbafd5fa7455042f313297260e299a5bb088511ee8696ebafb5f43f`。
+- 关键生成物两轮逐字节一致：theme.wxss `127b876c…`、demo/theme.css `4e0bbfaf…`、figma-variables `215608ff…`、CONTRAST `15d1b5bf…`、FIGMA-VARIABLES `fb07babe…`。
+- 记录：`artifacts/ACCEPTANCE.md`（2,973 B，SHA-256 `47b3f37980640321f3459638f0774fc82c3c98b4435f156c6e1531dec28d3b01`）。
+
+## 5. AC 对照
+
+| AC | 原文 | v2.4.0 证据 |
 | --- | --- | --- |
-| AC1 | tokens.json 通过 W3C Design Tokens 格式校验 | 严格 DTCG：38 个 color 对象、21 个 px dimension、3 个复合 shadow；validate.py 8/8 检查 1 通过；tests/test_tokens.py 严格值类型测试；artifacts/validation.log |
-| AC2 | 对比度检查表中所有正文文字组合 >= 4.5:1 | docs/CONTRAST.md 62 组，最低 4.66:1；validate.py 检查 4/8；test_all_62_body_text_pairs_meet_wcag_aa |
-| AC3 | theme.wxss 应用到 TDesign 组件示例页后的截图中按钮、标签使用新品牌色 | artifacts/example-page.png 750x2261；DevTools 真实截图 + 23 项计算样式；button background rgb(31,94,255)、tag 浅底 #E7F7F0/#FFF4E5/#FEE9E9、字号 16px/12px |
-| AC4 | Figma 变量名与 tokens.json 中的名称一一对应（对照表） | 74 个 `/` 显示名 + 74 个点分 tokenPath；verify_figma_export.py 74/74+74/74；docs/FIGMA-VARIABLES.md；figma-variables.json；在线 Theme/Light |
+| AC1 | tokens.json 通过 W3C Design Tokens 格式校验 | 严格 DTCG 未改：38 color 对象、21 px dimension、3 复合 shadow；validate 8/8；tests/test_tokens.py |
+| AC2 | 对比度检查表所有正文文字组合 >=4.5:1 | docs/CONTRAST.md 62 组，min 4.66:1；validate 检查 4/8；本轮未改 |
+| AC3 | theme.wxss 应用到 TDesign 组件示例页后按钮、标签使用品牌色 | Web 截图 750x2261；DevTools 两张截图 + 23 项计算样式；本轮未改 theme/tokens |
+| AC4 | Figma 变量名与 tokens.json 名称一一对应 | 74 tokenPath + 74 显示名；verify 74/74+74/74；docs/FIGMA-VARIABLES.md；本轮未改 |
 
-## 4. 复现命令
+**本轮只修可移植性，不改 token/theme/Figma/对比度/DevTools 业务产物**，因此 AC1–AC4 的既有证据继续有效，同时新增 18 项 pytest、干净环境日志与 Linux CI。
 
-在 repo 根目录：
+## 6. 交付包与 GitHub
 
-    python scripts/build.py
-    python scripts/validate.py
-    python -m pytest -q tests
-    python scripts/verify_figma_export.py
-    python scripts/verify_devtools_evidence.py
-    node scripts/capture.mjs
-    python scripts/reverse_drill.py
-    python scripts/run_acceptance.py --label round1
+- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
+- main / PR / tag：`__COMMIT__` / `__PR__` / `__TAG__`
+- Release：`__RELEASE__`
+- 包：`1835-s3-brand-001-rework-v2.4.0.zip`，`__BYTES__` B，SHA-256 `__SHA__`；MANIFEST 逐文件校验、zip 无 missing/extra、隐私扫描 0 命中。
+- 远端干净克隆复跑：`__REMOTE_RUN__`。
 
-实测：build `{"tokens":74,"themeVariables":84,"figmaVariables":74,"figmaImportVariables":74,"contrastPairs":62,"minContrast":4.66,"tokensHash":"4e5dc3b3…"}`；validate 8/8 PASS；pytest 17 passed；Figma 74/74；DevTools 23/23；两轮 7 步均 exit 0；变异 3/3 DETECTED。
+## 7. 提交记录
 
-## 5. 交付包与 GitHub Release
+- 提交命令：`powershell -File clawhunt\clawhunt.ps1 submit -ProblemId 1835 -EnvFile craftmesh-v7.env -TextFile clawhunt\projects\1835\submission-solution-v3.txt`
+- 提交状态：**待用户当轮明确批准**；尚未提交。
+- 提交后记录：submitted_at `__SUBMITTED_AT__`、instant_review `__INSTANT__`、delivery_check `__DELIVERY__`。
 
-- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835（public；main 分支，源码 commit 2da1d8e…）
-- Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.3.0
-- 资产：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/download/v2.3.0/1835-s3-brand-001-rework-v2.3.0.zip
-- 字节：1,959,220 B；SHA-256：3544c2d089b74bfc91e993d2c6ec56bc04449d5d2e352478ba55e72d878a0c65；asset id 771731043。
-- zip 1,250 entries；MANIFEST 覆盖 1,249 个文件；逐文件 SHA-256/字节校验 0 错误；无 missing/extra；testzip 无错误；隐私扫描 0 命中。
-- 上传后 curl -L 下载 1,959,220 B，SHA-256 与上传一致。
+## 8. 沙箱/隐私
 
-## 5.1 提交记录
-
-- 提交时间：2026-11-20T15:04:45.916268Z；命令 clawhunt.ps1 submit -ProblemId 1835 -EnvFile craftmesh-v7.env -TextFile clawhunt/projects/1835/submission-solution-v2.txt；exit 0。
-- instant_review：status=needs_review、passed=null、review_pending=true、review_fee_charged=false、elapsed=254ms；relevance 0.80、substance 0.92 passed、feasibility 0.84、acceptance 0.35、evidence 0.42；criterion_0..3 = 0.45 / 0.65 / 0.55 / 0.63。
-- delivery_check：checked 2026-11-20T15:04:52.147580Z；read=text_and_files；仓库 github.com/Gupeat/memberspace-brand-theme-1835、commit 2da1d8e、68 files / 10 read；AC1 matched、AC2 unclear、AC3 matched、AC4 matched。
-- 平台订单：status=submitted、assigned_to_me=true、escrow_status=funded、rework_count=1、latest_delivery_status=submitted。
-- 提交文本未改写：submission-solution-v2.txt 5,758 chars / 8,769 B。
-
-## 6. 沙箱/隐私
-
-- 所有数据均为虚构：占位品牌名「会员空间平台」，无客户名、真实企业、手机号、邮箱、身份证。
-- Figma 账号凭证只在本机 .clawhunt/figma-account.txt，不进仓库/包/提交文本。
+- 所有数据均为虚构；占位品牌名「会员空间平台」；无客户名、真实企业、手机号、邮箱、身份证。
+- Figma 账号凭证只在本机 `.clawhunt/figma-account.txt`，不进仓库/包/提交文本。
 - 微信开发者工具使用个人沙箱测试号，不是客户 AppID；不上传、不预览、不连接后端。
-- 仓库和包不含 API Key、token、Cookie、授权头或 PII；验收日志已按 ROOT/HOME 三种写法脱敏，含 JSON 转义双反斜杠。
-- 包扫描 C:/Users、/Users/、xibei、craftmesh、ghp_/github_pat_/sk-、邮箱、手机号 0 命中。
+- 验收日志按 ROOT/HOME 三种写法脱敏；包扫描 `C:/Users`、`/Users/`、`xibei`、`craftmesh`、`ghp_`/`github_pat_`/`sk-`、邮箱、手机号 0 命中。
 
-## 7. 质量闸门
+## 9. 质量闸门
 
-- [x] build 幂等；theme.wxss 与 miniprogram-demo/theme.wxss 字节相同
-- [x] validate.py 8/8 PASS
-- [x] pytest 17 passed
-- [x] 严格 DTCG：38 color 对象、21 px dimension、3 复合 shadow
-- [x] 84 映射：77 直接消费 + 7 兼容；标签语义浅底与组合字体在真实 DevTools 生效
-- [x] Figma 74 tokenPath + 74 显示名；在线文件 74 变量
-- [x] 62 组对比度，最小 4.66:1
-- [x] 两轮 7 步从零验收 exit 0
-- [x] 变异 3/3 DETECTED
-- [x] 包 MANIFEST/zip/隐私/下载回验通过
-- [ ] v2.3.0 solution precheck would_pass=true、defects=[]（未取得：九次 deterministic 通过、defects=[]，但 LLM critic 均 outage、would_pass=null；已在提交正文与证据中如实披露，不把 outage 当通过）
-- [x] 用户审核并明确批准（2026-11-20 23:04）
-- [x] 执行 submit 并记录 submitted_at/version（2026-11-20T15:04:45.916268Z；status=submitted）
-- [x] 平台回执：assigned_to_me=true、escrow funded、latest_delivery_status=submitted；delivery_check=checked（AC1/AC3/AC4 matched、AC2 unclear）
+- [x] 根因已在干净副本复现（17 passed / 1 failed，validate 7/8）
+- [x] validate 从 vendor tgz 读取 TDesign wxss，不依赖 `miniprogram_npm`
+- [x] subprocess 环境继承 `os.environ`
+- [x] 新增干净环境回归测试；pytest 18 passed
+- [x] 两轮 7 步验收 exit 0；截图 750x2261
+- [x] 新增 Linux clean-room CI
+- [ ] 构建 v2.4.0 包并校验
+- [ ] 推 GitHub main/PR/tag/Release，并用远端干净克隆复跑
+- [ ] 用户当轮明确批准后提交平台
 
-## 8. 已知限制
+## 10. 已知限制
 
 - 微信开发者工具截图使用沙箱测试号与模拟器（iPhone 12/13 Pro），不是真机截图；不同 IDE 版本/设备模拟器可能导致 PNG 字节不同。
 - Figma 免费版；匿名查看者不显示 Variables 编辑面板，变量证据以登录态截图与导出快照为准。
-- miniprogram-demo 只演示 t-button/t-tag 的品牌色、语义浅底与字号，不代表全部 TDesign 组件；完整组件外观见 demo/index.html（Web 预览）。
+- miniprogram-demo 只演示 t-button/t-tag 的品牌色、语义浅底与字号，不代表全部 TDesign 组件。
 - 62 组对比度是颜色组合校验，不等同完整 UI 无障碍审计。
 - 本机无 git 客户端，GitHub 通过 REST API 提交，不是 git CLI 生成的 PR。
 - 项目文档不放入 zip；GitHub 仓库 project-docs 为文档快照。
