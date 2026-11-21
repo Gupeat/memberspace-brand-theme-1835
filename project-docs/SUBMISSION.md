@@ -2,8 +2,8 @@
 
 - 任务：#1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射
 - 金额：7000 USD；agent 1688（craftmesh-v7.env）
-- 状态：**v2.4.0 干净环境修复已完成，待推 GitHub、待用户当轮批准提交平台**；平台 rework_count=2、latest_delivery_status=rework_requested、submitted_at=null。
-- 更新时间：2026-11-21 20:35（Asia/Shanghai）
+- 状态：**v2.4.0 已推 GitHub（PR/tag/Release/包齐全）并从远端 tag 干净克隆复跑 18 passed；仅剩用户当轮批准后提交平台**；平台 rework_count=2、latest_delivery_status=rework_requested、submitted_at=null。
+- 更新时间：2026-11-21 20:55（Asia/Shanghai）
 
 ## 1. 本轮 rework 的唯一问题
 
@@ -22,7 +22,7 @@
 2. **测试继承环境**：`tests/test_tokens.py` 的 subprocess 改为 `{**os.environ, "PYTHONIOENCODING": "utf-8"}`，不再替换整个环境变量表（客户点名的 PATH/HOME/TMPDIR 丢失问题）。
 3. **新增干净环境回归测试**：`test_clean_room_validation_without_generated_miniprogram_npm` 复制仓库到临时目录并排除 `miniprogram_npm`，运行 validate，断言 8/8 与 77 directly consumed。
 4. **截图不再依赖 npm**：`scripts/capture.mjs` 在 playwright-core 缺失时回退到 Edge headless CLI；干净环境不需要 `npm install`。
-5. **CI**：新增 `.github/workflows/clean-room.yml`，Ubuntu + Python 3.12 依次跑 build、pytest、validate、Figma 导出校验、DevTools 证据校验。
+5. **CI 模板**：新增 `ci/clean-room.yml`（复制到 `.github/workflows/` 启用），Ubuntu + Python 3.12 依次跑 build、pytest、validate、Figma 导出校验、DevTools 证据校验。发布 token 无 workflow scope，未自动运行。
 
 ## 3. 干净环境运行输出
 
@@ -42,7 +42,9 @@
     $ python scripts/verify_devtools_evidence.py
     OK
 
-完整日志：`repo/artifacts/clean-room-v2.4.0.log`（2,495 B，SHA-256 `5a2cc469ac41c3270dacd8d7ddae05eba8779b28c1ec3af3108c83820d74df6a`）；CI 配置：`repo/.github/workflows/clean-room.yml`（832 B，SHA-256 `b62af5da53fe73fc12d9588c853be0a7e80527d139bd8cc8d5c7e760aeddeb26`）。
+完整日志：`repo/artifacts/clean-room-v2.4.0.log`（2,495 B，SHA-256 `5a2cc469ac41c3270dacd8d7ddae05eba8779b28c1ec3af3108c83820d74df6a`）；CI 模板：`repo/ci/clean-room.yml`（832 B，SHA-256 `b62af5da53fe73fc12d9588c853be0a7e80527d139bd8cc8d5c7e760aeddeb26`）。
+
+从 tag `v2.4.0` 下载 GitHub tarball 到空目录（确认无 `miniprogram_npm`）再跑一遍：**18 passed、8/8、74/74、23/23**；日志 `project-docs/artifacts/remote-clean-clone-v240.log`（2,049 B，SHA-256 `82dfb454c33dfd5b6867fbc0da4bdf5d98210e63882f516f29faba88bf33e0e6`）。
 
 ## 4. 两轮 7 步验收
 
@@ -60,15 +62,17 @@
 | AC3 | theme.wxss 应用到 TDesign 组件示例页后按钮、标签使用品牌色 | Web 截图 750x2261；DevTools 两张截图 + 23 项计算样式；本轮未改 theme/tokens |
 | AC4 | Figma 变量名与 tokens.json 名称一一对应 | 74 tokenPath + 74 显示名；verify 74/74+74/74；docs/FIGMA-VARIABLES.md；本轮未改 |
 
-**本轮只修可移植性，不改 token/theme/Figma/对比度/DevTools 业务产物**，因此 AC1–AC4 的既有证据继续有效，同时新增 18 项 pytest、干净环境日志与 Linux CI。
+**本轮只修可移植性，不改 token/theme/Figma/对比度/DevTools 业务产物**，因此 AC1–AC4 的既有证据继续有效，同时新增 18 项 pytest、干净环境日志、远端 tag 干净克隆复跑与 CI 模板。
 
 ## 6. 交付包与 GitHub
 
 - 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
-- main / PR / tag：`__COMMIT__` / `__PR__` / `__TAG__`
-- Release：`__RELEASE__`
-- 包：`1835-s3-brand-001-rework-v2.4.0.zip`，`__BYTES__` B，SHA-256 `__SHA__`；MANIFEST 逐文件校验、zip 无 missing/extra、隐私扫描 0 命中。
-- 远端干净克隆复跑：`__REMOTE_RUN__`。
+- 代码合并提交（tag v2.4.0）：`a7f8722f83f781e46df2432f73978d4e05d31da4`
+- PR：#1（干净环境修复，merged）、#2（CI 模板，merged）
+- tag：`v2.4.0` → `a7f8722f83f781e46df2432f73978d4e05d31da4`
+- Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.4.0
+- 包：`1835-s3-brand-001-rework-v2.4.0.zip`，1,976,416 B，SHA-256 `6af7be676b482764aafd3d6191f57e0e2c5033ae185f3fc77d27018b2ecc116d`；MANIFEST 1,251 文件逐文件校验、zip 无 missing/extra、隐私扫描 0 命中；Release 资产 state=uploaded。
+- 远端干净克隆复跑：18 passed、8/8、74/74、23/23；日志 `project-docs/artifacts/remote-clean-clone-v240.log`（2,049 B，SHA-256 `82dfb454c33dfd5b6867fbc0da4bdf5d98210e63882f516f29faba88bf33e0e6`）。
 
 ## 7. 提交记录
 
@@ -90,9 +94,9 @@
 - [x] subprocess 环境继承 `os.environ`
 - [x] 新增干净环境回归测试；pytest 18 passed
 - [x] 两轮 7 步验收 exit 0；截图 750x2261
-- [x] 新增 Linux clean-room CI
-- [ ] 构建 v2.4.0 包并校验
-- [ ] 推 GitHub main/PR/tag/Release，并用远端干净克隆复跑
+- [x] 新增 Linux clean-room CI 模板（未自动运行）
+- [x] 构建 v2.4.0 包并校验（1,976,416 B / 6af7be67…）
+- [x] 推 GitHub PR/tag/Release；从远端 tag 干净克隆复跑 18 passed
 - [ ] 用户当轮明确批准后提交平台
 
 ## 10. 已知限制
@@ -102,4 +106,5 @@
 - miniprogram-demo 只演示 t-button/t-tag 的品牌色、语义浅底与字号，不代表全部 TDesign 组件。
 - 62 组对比度是颜色组合校验，不等同完整 UI 无障碍审计。
 - 本机无 git 客户端，GitHub 通过 REST API 提交，不是 git CLI 生成的 PR。
+- GitHub Actions 模板未自动运行（发布 token 无 workflow scope）；干净环境证据来自 Windows 干净副本与远端 tarball 复跑，不是 Linux runner。
 - 项目文档不放入 zip；GitHub 仓库 project-docs 为文档快照。

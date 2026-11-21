@@ -41,7 +41,7 @@
 1. `scripts/validate.py`：新增 `tdesign_wxss_texts() -> list[str]`，从 `ROOT/vendor/tdesign-miniprogram-1.18.0.tgz` 读取所有 `.wxss` 成员并 UTF-8 解码；缺失或为空抛 AssertionError。检查 5 改为遍历该函数返回的 wxss 文本。tgz 内 124 个 `.wxss`、988 个 `--td-` 变量；直接消费 77 个，阈值 >=75 不变。
 2. `tests/test_tokens.py`：`env = {**os.environ, "PYTHONIOENCODING": "utf-8"}`；新增 `test_clean_room_validation_without_generated_miniprogram_npm(tmp_path)`：`shutil.copytree(ROOT, clean, ignore=ignore_patterns("miniprogram_npm","__pycache__",".pytest_cache","*.pyc"))`，断言不存在 `miniprogram-demo/miniprogram_npm`，subprocess 跑 `clean/scripts/validate.py`，断言 exit 0、`RESULT: PASS (8/8 checks)`、`77 directly consumed`。
 3. `scripts/capture.mjs`：playwright-core 缺失时回退到 Edge headless CLI（`--headless=new --window-size=750,2261`），干净环境不需要 `npm install`；有 playwright-core 时仍走原计算样式断言。
-4. `.github/workflows/clean-room.yml`：Ubuntu + Python 3.12；`actions/checkout@v4`、`actions/setup-python@v5`；依次执行 build、pytest、validate、verify_figma_export、verify_devtools_evidence。不含 capture/Edge，不含 `git diff --exit-code`（生成文件在 Windows 为 CRLF，Linux 构建为 LF，diff 会误红）。
+4. `ci/clean-room.yml`（GitHub Actions 模板，复制到 `.github/workflows/` 启用）：Ubuntu + Python 3.12；`actions/checkout@v4`、`actions/setup-python@v5`；依次执行 build、pytest、validate、verify_figma_export、verify_devtools_evidence。不含 capture/Edge，不含 `git diff --exit-code`（生成文件在 Windows 为 CRLF，Linux 构建为 LF，diff 会误红）。
 
 ## E4 干净副本运行输出
 
@@ -80,14 +80,28 @@
 - 两轮关键生成物逐字节一致：theme.wxss `127b876c07ec5ea75bc4441d20510169e517f75c7726507853a01f516c7d1f3f`、demo/theme.css `4e0bbfaff8a88c66282b9d3fdfa76f096e954e5248e6b4d803fd01fa3e29af36`、figma/figma-variables.json `215608ff444c16a66771ce950086b5bcb5bfcf6ebf38b488e7abd26ee9249e03`、docs/CONTRAST.md `15d1b5bfed826a80437974b51fce1016c441f10567cd7507b7c2e6fb098db7e6`、docs/FIGMA-VARIABLES.md `fb07babeb59e26d2787b064b5e1a1e59e61133b4aca0b9d4bf444a0e9de76f34`。
 - 记录：`artifacts/ACCEPTANCE.md`，2,973 B，SHA-256 `47b3f37980640321f3459638f0774fc82c3c98b4435f156c6e1531dec28d3b01`；round1 `c666322d56a383f3c8a57a22b49ac4ca21798aa56a48be0e2dad8fe5ca7b03f1`，round2 与 ACCEPTANCE 相同。
 
-## E7 CI
+## E7 CI 模板与远端干净克隆
 
-新增 `.github/workflows/clean-room.yml`，832 B，SHA-256 `b62af5da53fe73fc12d9588c853be0a7e80527d139bd8cc8d5c7e760aeddeb26`：
+新增 `ci/clean-room.yml`，832 B，SHA-256 `b62af5da53fe73fc12d9588c853be0a7e80527d139bd8cc8d5c7e760aeddeb26`：
 
 - `on: push: branches: [main]; pull_request; workflow_dispatch`
 - `runs-on: ubuntu-latest`，Python 3.12
 - 步骤：build → pytest → validate → verify_figma_export → verify_devtools_evidence
 - 设计取舍：不跑 capture（Linux runner 无 Edge/playwright），不加 `git diff --exit-code`（CRLF/LF 差异）。
+- 该文件是可直接启用的模板，复制到 `.github/workflows/clean-room.yml` 生效；GitHub 发布 token 无 workflow scope，因此没有自动在 Actions 运行。
+
+从 tag `v2.4.0` 下载 GitHub tarball 到空目录（无 `miniprogram_npm`）后实跑：
+
+    $ python -m pytest -q tests
+    18 passed in 0.97s
+    $ python scripts/validate.py
+    RESULT: PASS (8/8 checks)
+    $ python scripts/verify_figma_export.py
+    OK: 74/74 ...
+    $ python scripts/verify_devtools_evidence.py
+    OK
+
+日志：`project-docs/artifacts/remote-clean-clone-v240.log`，2,049 B，SHA-256 `82dfb454c33dfd5b6867fbc0da4bdf5d98210e63882f516f29faba88bf33e0e6`。
 
 ## E8 当前关键文件哈希
 
@@ -97,12 +111,12 @@
 | repo/scripts/validate.py | 18,608 | 170122746655a2b7dfb3aa66f9330cd7843fb7c27ce06a9b6478520000668530 |
 | repo/scripts/capture.mjs | 4,214 | 2634d9e7156d0c9a27103fe5d8bb5b8b86b4ca508022a412a78e7008372493f8 |
 | repo/scripts/run_acceptance.py | 8,726 | f2f75776e48cfaf9d55d6868c1662e581f0dcdb913d12cdf27e92a807c1b240d |
-| repo/.github/workflows/clean-room.yml | 832 | b62af5da53fe73fc12d9588c853be0a7e80527d139bd8cc8d5c7e760aeddeb26 |
+| repo/ci/clean-room.yml | 832 | b62af5da53fe73fc12d9588c853be0a7e80527d139bd8cc8d5c7e760aeddeb26 |
 | repo/artifacts/clean-room-v2.4.0.log | 2,495 | 5a2cc469ac41c3270dacd8d7ddae05eba8779b28c1ec3af3108c83820d74df6a |
 | repo/artifacts/example-page.png | 311,263 | 13a13e3badbafd5fa7455042f313297260e299a5bb088511ee8696ebafb5f43f |
 | repo/artifacts/ACCEPTANCE.md | 2,973 | 47b3f37980640321f3459638f0774fc82c3c98b4435f156c6e1531dec28d3b01 |
-| repo/README.md | 17,549 | 0f5fc59d94c7380f55f6063dc485d513fb470fda768c104b4738b34d5fd6861d |
-| repo/README-PACKAGE.txt | 1,357 | 4bddbb5ae47f767055d768aabc4878ccc3538d33f7f26dffa34cade1ffcc3dc2 |
+| repo/README.md | 17,736 | 00a481461bdb0c31c857e0261b27d9b1a348ee604abb4eb67988d810c6296a54 |
+| repo/README-PACKAGE.txt | 1,391 | c093f59de2e2a09f42aaa34fb40560c8c4667ca82fc8110f2ccd93608d8a08f0 |
 | repo/tokens.json | 16,690 | 4e5dc3b3c3e31a0ecebee9f4e030966233f4599984d7b204aaa3174a9f0b0b35 |
 | repo/theme.wxss | 3,442 | 127b876c07ec5ea75bc4441d20510169e517f75c7726507853a01f516c7d1f3f |
 
@@ -110,15 +124,15 @@
 
 ## E9 交付包与 GitHub
 
-- 包：`1835-s3-brand-001-rework-v2.4.0.zip`，1,976,381 B，SHA-256 `4911010ae9451d5ba6d319a286f71cf6b66feaf696abe4f7735c04b55475c9f8`。
+- 包：`1835-s3-brand-001-rework-v2.4.0.zip`，1,976,416 B，SHA-256 `6af7be676b482764aafd3d6191f57e0e2c5033ae185f3fc77d27018b2ecc116d`。
 - zip 1,252 entries；MANIFEST 1,251 个文件；逐文件 SHA-256/字节校验 0 错误；zip 无 missing/extra；testzip 无错误；隐私扫描 0 命中。
-- MANIFEST 含 `.github/workflows/clean-room.yml` 与 `artifacts/clean-room-v2.4.0.log`；包内 README-PACKAGE 为 v2.4.0。
+- MANIFEST 含 `ci/clean-room.yml` 与 `artifacts/clean-room-v2.4.0.log`；包内 README-PACKAGE 为 v2.4.0。
 - 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
-- main：`__COMMIT__`
-- PR：`__PR__`
-- tag：`__TAG__`
-- Release：`__RELEASE__`
-- 远端干净克隆复跑：`__REMOTE_RUN__`
+- 代码合并提交（v2.4.0 tag）：`a7f8722f83f781e46df2432f73978d4e05d31da4`
+- PR：#1（干净环境修复，merged）、#2（CI 模板，merged）
+- tag：`v2.4.0` → `a7f8722f83f781e46df2432f73978d4e05d31da4`
+- Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.4.0
+- 远端干净克隆复跑：tarball 无 `miniprogram_npm`；18 passed、8/8、74/74、23/23，日志 `project-docs/artifacts/remote-clean-clone-v240.log`（2,049 B，SHA-256 `82dfb454c33dfd5b6867fbc0da4bdf5d98210e63882f516f29faba88bf33e0e6`）。
 
 ## E10 平台提交记录
 
@@ -131,5 +145,5 @@
 - 微信开发者工具截图是模拟器（iPhone 12/13 Pro），不是真机；沙箱 AppID 不是客户 AppID。
 - Figma 免费版；匿名查看不显示 Variables 编辑面板，变量证据以登录态截图与导出快照为准。
 - 62 组对比度是颜色组合校验，不等同完整 UI 无障碍审计。
-- clean-room 日志来自 Windows 干净副本；Linux 证据由 GitHub Actions 在推送后生成，CI 结果链接将补在此节。
+- clean-room 日志来自 Windows 干净副本与从 tag 下载的 GitHub tarball；CI 模板未在 GitHub Actions 自动运行，因此没有 Linux runner 结果。
 - 本机无 git 客户端，GitHub 通过 REST API 提交；不是 git CLI 生成的 PR。
