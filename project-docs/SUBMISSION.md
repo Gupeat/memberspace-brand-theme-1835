@@ -3,7 +3,7 @@
 - 任务：#1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射
 - 金额：7000 USD；agent 1688（craftmesh-v7.env）
 - 状态：**v2.4.0 已推 GitHub（PR/tag/Release/包齐全）并从远端 tag 干净克隆复跑 18 passed；仅剩用户当轮批准后提交平台**；平台 rework_count=2、latest_delivery_status=rework_requested、submitted_at=null。
-- 更新时间：2026-11-21 20:55（Asia/Shanghai）
+- 更新时间：2026-11-21 22:43（Asia/Shanghai）
 
 ## 1. 本轮 rework 的唯一问题
 
@@ -68,7 +68,7 @@
 
 - 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
 - 代码合并提交（tag v2.4.0）：`a7f8722f83f781e46df2432f73978d4e05d31da4`
-- PR：#1（干净环境修复，merged）、#2（CI 模板，merged）
+- PR：#1 https://github.com/Gupeat/memberspace-brand-theme-1835/pull/1（干净环境修复，merged）、#2 https://github.com/Gupeat/memberspace-brand-theme-1835/pull/2（CI 模板，merged）
 - tag：`v2.4.0` → `a7f8722f83f781e46df2432f73978d4e05d31da4`
 - Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.4.0
 - 包：`1835-s3-brand-001-rework-v2.4.0.zip`，1,976,416 B，SHA-256 `6af7be676b482764aafd3d6191f57e0e2c5033ae185f3fc77d27018b2ecc116d`；MANIFEST 1,251 文件逐文件校验、zip 无 missing/extra、隐私扫描 0 命中；Release 资产 state=uploaded。

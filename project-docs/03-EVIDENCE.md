@@ -2,9 +2,9 @@
 
 - 任务：#1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射
 - 金额：7000 USD；agent 1688（craftmesh-v7.env）；assigned_to_me=true；escrow funded；deadline 2026-12-14T15:59:59Z；platform_only
-- 更新时间：2026-11-21 20:40（Asia/Shanghai）
-- 平台状态（2026-11-21 20:30 只读查询）：status=in_progress、rework_count=2、max_rework_rounds=3、latest_delivery_status=rework_requested、submitted_at=null、delivery_check=null。
-- 当前交付：**v2.4.0 候选**，已两轮验收，待 GitHub 发布与用户批准；尚未提交平台。
+- 更新时间：2026-11-21 22:43（Asia/Shanghai）
+- 平台状态（2026-11-21 22:43 只读查询）：status=in_progress、rework_count=2、max_rework_rounds=3、latest_delivery_status=rework_requested、submitted_at=null、delivery_check=null。
+- 当前交付：**v2.4.0 已发布 GitHub**（PR #1/#2、tag `v2.4.0`、Release、包），并从远端 tag 干净克隆复跑 18 passed；待用户当轮批准后提交平台，尚未提交。
 - 历史：v2.3.0 于 2026-11-20T15:04:45.916268Z 提交（commit 2da1d8e、17 tests、包 1,959,220 B），随后被要求第 2 轮 rework；其数字只作历史，不得作为 v2.4.0 证据引用。
 
 ## E1 客户 blocker 与复现
@@ -129,7 +129,7 @@
 - MANIFEST 含 `ci/clean-room.yml` 与 `artifacts/clean-room-v2.4.0.log`；包内 README-PACKAGE 为 v2.4.0。
 - 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
 - 代码合并提交（v2.4.0 tag）：`a7f8722f83f781e46df2432f73978d4e05d31da4`
-- PR：#1（干净环境修复，merged）、#2（CI 模板，merged）
+- PR：#1 https://github.com/Gupeat/memberspace-brand-theme-1835/pull/1（干净环境修复，merged）、#2 https://github.com/Gupeat/memberspace-brand-theme-1835/pull/2（CI 模板，merged）
 - tag：`v2.4.0` → `a7f8722f83f781e46df2432f73978d4e05d31da4`
 - Release：https://github.com/Gupeat/memberspace-brand-theme-1835/releases/tag/v2.4.0
 - 远端干净克隆复跑：tarball 无 `miniprogram_npm`；18 passed、8/8、74/74、23/23，日志 `project-docs/artifacts/remote-clean-clone-v240.log`（2,049 B，SHA-256 `82dfb454c33dfd5b6867fbc0da4bdf5d98210e63882f516f29faba88bf33e0e6`）。

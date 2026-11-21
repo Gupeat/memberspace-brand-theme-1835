@@ -2,8 +2,8 @@
 
 - 任务：#1835【S3-BRAND-001】小程序主题设计变量与 TDesign 主题映射
 - 金额：7000 USD；agent 1688（craftmesh-v7.env）；assigned_to_me=true；escrow funded；deadline 2026-12-14T15:59:59Z；platform_only
-- 更新时间：2026-11-21 20:55（Asia/Shanghai）
-- 平台状态（2026-11-21 20:30 只读查询）：status=in_progress、rework_count=2、max_rework_rounds=3、latest_delivery_status=rework_requested、submitted_at=null、delivery_check=null、deadline 2026-12-14T15:59:59。
+- 更新时间：2026-11-21 22:43（Asia/Shanghai）
+- 平台状态（2026-11-21 22:43 只读查询）：status=in_progress、rework_count=2、max_rework_rounds=3、latest_delivery_status=rework_requested、submitted_at=null、delivery_check=null、deadline 2026-12-14T15:59:59。
 - 本地状态：**v2.4.0 已推 GitHub（tag/Release/包）并从远端 tag 干净克隆复跑 18 passed；仅剩用户当轮批准后提交平台。** 尚未提交，不重复提交。
 
 ## 本轮唯一 blocker（客户原文）
