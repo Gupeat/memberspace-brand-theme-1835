@@ -8,12 +8,11 @@ import json
 import os
 import re
 import shutil
+import struct
 import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-
-from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / "artifacts"
@@ -49,6 +48,16 @@ GENERATED_FILES = [
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def png_info(path: Path) -> tuple[int, int, str]:
+    data = path.read_bytes()[:33]
+    if data[:8] != b"\x89PNG\r\n\x1a\n" or data[12:16] != b"IHDR":
+        raise SystemExit(f"not a PNG: {path}")
+    width, height = struct.unpack(">II", data[16:24])
+    color_type = data[25]
+    mode = {0: "L", 2: "RGB", 3: "P", 4: "LA", 6: "RGBA"}.get(color_type, f"type{color_type}")
+    return width, height, mode
 
 
 def run(label: str, cmd: list[str]) -> dict:
@@ -100,9 +109,7 @@ def main() -> None:
     screenshot = ARTIFACTS / "example-page.png"
     if not screenshot.exists() or screenshot.stat().st_size < 10000:
         raise SystemExit("missing or tiny screenshot")
-    with Image.open(screenshot) as image:
-        width, height = image.size
-        mode = image.mode
+    width, height, mode = png_info(screenshot)
     if width != 750 or height < 1500 or mode != "RGB":
         raise SystemExit(f"unexpected screenshot: {width}x{height} {mode}")
 
@@ -152,6 +159,10 @@ def main() -> None:
         f"- tokens.json SHA-256：`{hashes['tokens.json']}`",
         f"- theme.wxss SHA-256：`{hashes['theme.wxss']}`",
         f"- Figma 变量集 SHA-256：`{hashes['figma/figma-variables.json']}`",
+        f"- demo/theme.css SHA-256：`{hashes['demo/theme.css']}`",
+        f"- docs/CONTRAST.md SHA-256：`{hashes['docs/CONTRAST.md']}`",
+        f"- docs/FIGMA-VARIABLES.md SHA-256：`{hashes['docs/FIGMA-VARIABLES.md']}`",
+        f"- miniprogram-demo/theme.wxss SHA-256：`{hashes['miniprogram-demo/theme.wxss']}`",
         f"- 截图：`artifacts/example-page.png`，{width}x{height}，{screenshot.stat().st_size} B，SHA-256：`{hashes['artifacts/example-page.png']}`",
         f"- 单测：{tests_passed} passed",
         f"- 校验：{len(validation['checks'])}/8 PASS",

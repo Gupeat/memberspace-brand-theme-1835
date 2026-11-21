@@ -7,23 +7,55 @@ import { spawnSync } from 'node:child_process';
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const candidates = [
   path.join(REPO, 'node_modules', 'playwright-core', 'package.json'),
-  path.resolve(REPO, '..', '..', '2063', 'repo', 'package.json'),
+  path.join(REPO, 'node_modules', 'playwright', 'package.json'),
 ];
 let chromium;
 for (const manifest of candidates) {
   if (!fs.existsSync(manifest)) continue;
   try {
-    chromium = createRequire(pathToFileURL(manifest).href)('playwright-core').chromium;
+    chromium = createRequire(pathToFileURL(manifest).href)(
+      manifest.includes('playwright-core') ? 'playwright-core' : 'playwright'
+    ).chromium;
     break;
   } catch {}
 }
-const EDGE = process.env.EDGE || 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
+
+function findBrowser() {
+  const fromEnv = process.env.EDGE_PATH || process.env.CHROME_PATH;
+  if (fromEnv && fs.existsSync(fromEnv)) return fromEnv;
+  const local = process.env.LOCALAPPDATA || '';
+  const candidates = process.platform === 'win32'
+    ? [
+        path.join(process.env['ProgramFiles(x86)'] || 'C:/Program Files (x86)', 'Microsoft/Edge/Application/msedge.exe'),
+        path.join(process.env.ProgramFiles || 'C:/Program Files', 'Microsoft/Edge/Application/msedge.exe'),
+        path.join(process.env.ProgramFiles || 'C:/Program Files', 'Google/Chrome/Application/chrome.exe'),
+        path.join(local, 'Google/Chrome/Application/chrome.exe'),
+      ]
+    : process.platform === 'darwin'
+      ? [
+          '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
+          '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+        ]
+      : [
+          '/usr/bin/microsoft-edge',
+          '/usr/bin/google-chrome',
+          '/usr/bin/chromium',
+          '/usr/bin/chromium-browser',
+        ];
+  return candidates.find((candidate) => candidate && fs.existsSync(candidate)) || null;
+}
+
+const BROWSER = findBrowser();
 const OUT = path.join(REPO, 'artifacts', 'example-page.png');
 const DEMO = path.join(REPO, 'demo', 'index.html');
 
+if (!chromium && !BROWSER) {
+  throw new Error('No Chromium/Edge/Chrome found. Install Playwright, or set EDGE_PATH/CHROME_PATH.');
+}
+
 if (!chromium) {
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
-  const result = spawnSync(EDGE, [
+  const result = spawnSync(BROWSER, [
     '--headless=new', '--disable-gpu', '--hide-scrollbars',
     '--window-size=750,2261', `--screenshot=${OUT}`,
     pathToFileURL(DEMO).href,
@@ -43,7 +75,7 @@ if (!chromium) {
 
 function assert(cond, message) { if (!cond) throw new Error(message); }
 
-const browser = await chromium.launch({ executablePath: EDGE, headless: true });
+const browser = await chromium.launch(BROWSER ? { executablePath: BROWSER, headless: true } : { headless: true });
 try {
   const page = await browser.newPage({ viewport: { width: 750, height: 1400 }, deviceScaleFactor: 1 });
   await page.goto(pathToFileURL(DEMO).href, { waitUntil: 'load' });
