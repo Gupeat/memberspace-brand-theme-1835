@@ -1,0 +1,18 @@
+{
+  "source": "https://codeload.github.com/Gupeat/memberspace-brand-theme-1835/tar.gz/09b420a45884dfc606ffffca8066ced86c5d2508",
+  "repo": "Gupeat/memberspace-brand-theme-1835",
+  "tag": "v2.4.1",
+  "commit": "09b420a45884dfc606ffffca8066ced86c5d2508",
+  "python": "3.12.14",
+  "log_sha256": "f86280d05d18eca7484792752b1c63a7b6e10149a8afa66d7341c67cd8f716a1",
+  "log_bytes": 3091,
+  "commands": [
+    "python -c \"import os; print('miniprogram_npm=%s' % os.path.exists('miniprogram_npm')); print('build=%s' % os.path.exists('build')); print('pycache=%s' % any(p.name=='__pycache__' for p in __import__('pathlib').Path('.').rglob('__pycache__')))\"",
+    "python --version",
+    "python -m pytest -q tests",
+    "python scripts/build.py",
+    "python scripts/validate.py",
+    "python scripts/verify_figma_export.py",
+    "python scripts/verify_devtools_evidence.py"
+  ]
+}
