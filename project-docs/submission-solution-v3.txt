@@ -1,0 +1,66 @@
+【S3-BRAND-001】会员空间平台 · 小程序主题设计变量与 TDesign 主题映射（rework v2.4.0）
+
+一、本轮 rework 的唯一问题与修复
+客户在隔离沙箱对 v2.3.0 提交 c658393953500cc8850affaebb8012f96714cf6a 运行 python -m pytest -q tests，17 项中 test_validation_script_reports_8_of_8_pass 失败，而 README/交付说明写 17 项全部通过。失败输出：
+  AssertionError: only 0 mapped variables are directly consumed by TDesign
+  RESULT: FAIL (7/8 checks)
+根因：scripts/validate.py 从 miniprogram-demo/miniprogram_npm/tdesign-miniprogram/**/*.wxss 读取 TDesign 组件源码；该目录由微信开发者工具生成、未提交，干净克隆不存在，所以直接消费变量为 0。不是 token/theme 内容错误，也不是测试断言过严。
+v2.4.0 修复：
+1. validate.py 新增 tdesign_wxss_texts()，从已提交的 vendor/tdesign-miniprogram-1.18.0.tgz 内 124 个 .wxss 读取 988 个 --td- 变量；不再依赖生成的 miniprogram_npm。阈值 >=75 不变，实际 77 directly consumed + 7 compatibility-only。
+2. tests/test_tokens.py 的 subprocess 环境改为 {**os.environ, "PYTHONIOENCODING": "utf-8"}，不再替换整个环境变量表（客户点名的 PATH/HOME/TMPDIR 丢失问题）。
+3. 新增 test_clean_room_validation_without_generated_miniprogram_npm：复制仓库到临时目录并排除 miniprogram_npm，运行 validate，断言 8/8 与 77 directly consumed。
+4. scripts/capture.mjs 在 playwright-core 缺失时回退到 Edge headless CLI，干净环境不需要 npm install。
+5. 新增 .github/workflows/clean-room.yml：Ubuntu + Python 3.12，依次跑 build、pytest、validate、Figma 导出校验、DevTools 证据校验。
+
+二、干净环境运行输出
+本机干净副本（排除 miniprogram_npm/__pycache__/.pytest_cache/*.pyc）实跑：
+  $ python -m pytest -q tests
+  ..................                                                       [100%]
+  18 passed in 0.88s
+  $ python scripts/validate.py
+  [PASS] theme.wxss and browser preview freshness: 84 mapped variables; 77 directly consumed by TDesign 1.18.0; 7 compatibility-only; miniprogram-demo/theme.wxss matches; ...
+  RESULT: PASS (8/8 checks)
+  $ python scripts/verify_figma_export.py
+  OK: 74/74 canonical paths and / display names, type counts, aliases, values and descriptions match.
+  $ python scripts/verify_devtools_evidence.py
+  OK
+完整日志随包/仓库提供：artifacts/clean-room-v2.4.0.log（2,495 B，SHA-256 5a2cc469ac41c3270dacd8d7ddae05eba8779b28c1ec3af3108c83820d74df6a）。CI 配置：.github/workflows/clean-room.yml（832 B，SHA-256 b62af5da53fe73fc12d9588c853be0a7e80527d139bd8cc8d5c7e760aeddeb26）。
+
+三、两轮从零验收
+round1 2026-11-21T12:32:23Z、round2 12:33:24Z，均 build、figma-syntax、validate、pytest、verify-figma、verify-devtools、capture 7 步 exit 0。pytest 18 passed、validate 8/8、Figma 74/74、DevTools 23/23；截图 750x2261、311,263 B、SHA-256 13a13e3badbafd5fa7455042f313297260e299a5bb088511ee8696ebafb5f43f。关键生成物两轮逐字节一致：theme.wxss 127b876c…、demo/theme.css 4e0bbfaf…、figma-variables 215608ff…、CONTRAST 15d1b5bf…、FIGMA-VARIABLES fb07babe…。记录：artifacts/ACCEPTANCE.md（2,973 B，SHA-256 47b3f37980640321f3459638f0774fc82c3c98b4435f156c6e1531dec28d3b01）。
+
+四、AC1–AC4 对照
+AC1 tokens.json 通过 W3C Design Tokens 格式校验：严格 DTCG 未改，38 color 对象、21 px dimension、3 复合 shadow；validate 8/8；tests/test_tokens.py 覆盖。
+AC2 对比度检查表所有正文文字组合 >=4.5:1：docs/CONTRAST.md 62 组，最低 4.66:1；validate 检查 4/8；本轮未改。
+AC3 theme.wxss 应用到 TDesign 组件示例页后按钮、标签使用品牌色：Web 截图 750x2261；DevTools 两张截图 + 23 项计算样式；本轮未改 theme/tokens。
+AC4 Figma 变量名与 tokens.json 名称一一对应：74 tokenPath + 74 显示名；verify 74/74+74/74；docs/FIGMA-VARIABLES.md；本轮未改。
+本轮只修可移植性，不改 token/theme/Figma/对比度/DevTools 业务产物，因此 AC1–AC4 既有证据继续有效，同时新增 18 项 pytest、干净环境日志与 Linux CI。
+
+五、交付位置与包
+- 仓库：https://github.com/Gupeat/memberspace-brand-theme-1835
+- main：__COMMIT__
+- PR：__PR__
+- tag：__TAG__
+- Release：__RELEASE__
+- 包：1835-s3-brand-001-rework-v2.4.0.zip，__BYTES__ B，SHA-256 __SHA__；MANIFEST 逐文件 SHA-256/字节校验、zip 无 missing/extra、隐私扫描 0 命中。
+- 远端干净克隆复跑：__REMOTE_RUN__
+
+六、复现
+在 repo 根目录：
+  python scripts/build.py
+  python -m pytest -q tests
+  python scripts/validate.py
+  python scripts/verify_figma_export.py
+  python scripts/verify_devtools_evidence.py
+  node scripts/capture.mjs
+  python scripts/run_acceptance.py --label round1
+干净克隆只跑前 5 条也应得到 18 passed 与 8/8 PASS；不需要 npm install，不依赖 miniprogram_npm。
+
+七、隐私与安全
+所有数据均为虚构；占位品牌名「会员空间平台」；不含客户名、真实企业、手机号、邮箱、身份证。Figma 账号凭证只在本机 .clawhunt/figma-account.txt；仓库、包与本文不含 API Key、token、Cookie、授权头或 PII。微信开发者工具使用个人沙箱测试号，不是客户 AppID；不上传、不预览、不连接后端。验收日志按 ROOT/HOME 三种写法脱敏；包扫描 C:/Users、/Users/、xibei、craftmesh、ghp_/github_pat_/sk-、邮箱、手机号 0 命中。
+
+八、已知限制
+微信开发者工具截图使用沙箱测试号与模拟器（iPhone 12/13 Pro），不是真机截图；不同 IDE 版本/设备模拟器可能导致 PNG 字节不同。Figma 免费版匿名查看不显示 Variables 编辑面板，变量证据以登录态截图与导出快照为准。miniprogram-demo 只演示 t-button/t-tag，不代表全部 TDesign 组件。62 组对比度是颜色组合校验，不等同完整 UI 无障碍审计。本机无 git 客户端，GitHub 通过 REST API 提交；项目文档不放入 zip，放在仓库 project-docs/。
+
+九、结论
+客户点名的唯一 blocker 已定位到 validate.py 读取未提交的 miniprogram_npm；v2.4.0 改为从 vendor tgz 读取，并修复 subprocess 环境继承、新增干净环境回归测试与 Linux CI。干净副本实跑 18 passed、8/8 PASS、Figma 74/74、DevTools 23/23；两轮 7 步验收均 exit 0；运行日志随交付附上。待用户明确批准后提交平台。

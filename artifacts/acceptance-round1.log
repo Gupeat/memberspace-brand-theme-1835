@@ -1,15 +1,15 @@
 #1835 acceptance round1
-generatedAt=2026-11-20T12:08:00Z
+generatedAt=2026-11-21T12:33:18Z
 
 ## build (exit 0, 0.14s)
 $ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <repo>\scripts\build.py
 {"tokens": 74, "themeVariables": 84, "figmaVariables": 74, "figmaImportVariables": 74, "contrastPairs": 62, "minContrast": 4.66, "tokensHash": "4e5dc3b3c3e31a0ecebee9f4e030966233f4599984d7b204aaa3174a9f0b0b35"}
 
-## figma-syntax (exit 0, 0.15s)
+## figma-syntax (exit 0, 0.13s)
 $ <home>/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node.exe --check <repo>\figma\create-variables.js
 
 
-## validate (exit 0, 0.26s)
+## validate (exit 0, 0.25s)
 $ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <repo>\scripts\validate.py
 ClawHunt #1835 token package validation
 
@@ -24,33 +24,27 @@ ClawHunt #1835 token package validation
 
 RESULT: PASS (8/8 checks)
 
-## pytest (exit 0, 1.18s)
+## pytest (exit 0, 1.58s)
 $ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe -m pytest -q tests
-.................                                                        [100%]
-17 passed in 0.37s
+..................                                                       [100%]
+18 passed in 0.97s
 
-## verify-figma (exit 0, 0.12s)
+## verify-figma (exit 0, 0.13s)
 $ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <repo>\scripts\verify_figma_export.py
 {"ok": true, "checked": 74, "counts": {"color": 38, "number": 28, "string": 8}, "import_fresh": true, "light_identical": true, "missing": [], "extra": []}
 OK: 74/74 canonical paths and / display names, type counts, aliases, values and descriptions match; export snapshot is fresh.
 
-## verify-devtools (exit 0, 0.14s)
+## verify-devtools (exit 0, 0.12s)
 $ <home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <repo>\scripts\verify_devtools_evidence.py
 {"ok": true, "checked": 23, "screenshots": {"screenshot_simulator": {"path": "evidence/devtools/miniprogram-simulator.png", "bytes": 101266, "sha256": "3df9ec5a364e7067953609beecac54bb65591607c02f733192a84900ebc2a187", "width": 488, "height": 941}, "screenshot_devtools": {"path": "evidence/devtools/miniprogram-devtools.png", "bytes": 179074, "sha256": "97d49831578538a6bab2e839a951c47c0c2faad995a91327be4b41e1f893e8fe", "width": 1564, "height": 1250}}, "verify": "evidence/devtools/verify.json"}
 
-## capture (exit 0, 3.05s)
+## capture (exit 0, 2.51s)
 $ <home>/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node.exe <repo>\scripts\capture.mjs
 {
   "ok": true,
+  "mode": "edge-cli",
   "screenshot": "artifacts/example-page.png",
-  "bytes": 296124,
-  "height": 2261,
-  "button": "rgb(31, 94, 255)",
-  "tag": {
-    "background": "rgb(241, 244, 255)",
-    "color": "rgb(31, 94, 255)",
-    "font": "\"PingFang SC\", \"Helvetica Neue\", \"Microsoft YaHei\", sans-serif",
-    "radius": "9999px"
-  },
-  "appWidth": 750
+  "bytes": 311263,
+  "width": 750,
+  "height": 2261
 }

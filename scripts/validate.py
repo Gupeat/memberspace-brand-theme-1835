@@ -6,6 +6,7 @@ import hashlib
 import json
 import re
 import sys
+import tarfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,6 +30,23 @@ def read(path: Path) -> str:
     if not path.exists():
         raise AssertionError(f"missing file: {path.relative_to(ROOT)}")
     return path.read_text(encoding="utf-8")
+
+
+def tdesign_wxss_texts() -> list[str]:
+    """Read TDesign 1.18.0 wxss from the vendored tarball, not a generated node_modules tree."""
+    archive = ROOT / "vendor" / "tdesign-miniprogram-1.18.0.tgz"
+    if not archive.exists():
+        raise AssertionError(f"missing vendored TDesign package: {archive.relative_to(ROOT)}")
+    texts: list[str] = []
+    with tarfile.open(archive, "r:gz") as bundle:
+        for member in bundle.getmembers():
+            if member.isfile() and member.name.endswith(".wxss"):
+                handle = bundle.extractfile(member)
+                if handle is not None:
+                    texts.append(handle.read().decode("utf-8"))
+    if not texts:
+        raise AssertionError("vendored TDesign package contains no wxss files")
+    return texts
 
 
 TOKENS = build.load_tokens()
@@ -227,10 +245,9 @@ def validate_theme() -> str:
         if bad in theme:
             raise AssertionError(f"theme.wxss contains non-TDesign variable {bad!r}")
 
-    tdesign_root = ROOT / "miniprogram-demo" / "miniprogram_npm" / "tdesign-miniprogram"
     consumed = set()
-    for wxss in tdesign_root.rglob("*.wxss"):
-        consumed.update(re.findall(r"var\((--td-[A-Za-z0-9-]+)", wxss.read_text(encoding="utf-8")))
+    for wxss in tdesign_wxss_texts():
+        consumed.update(re.findall(r"var\((--td-[A-Za-z0-9-]+)", wxss))
     directly_consumed = sorted(set(mapped) & consumed)
     compatibility_only = sorted(set(mapped) - consumed)
     if len(directly_consumed) < 75:

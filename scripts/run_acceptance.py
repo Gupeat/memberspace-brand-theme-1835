@@ -88,8 +88,8 @@ def main() -> None:
     pytest_step = run("pytest", [sys.executable, "-m", "pytest", "-q", "tests"])
     steps.append(pytest_step)
     match = re.search(r"(\d+) passed", pytest_step["stdout"])
-    if not match or int(match.group(1)) < 17:
-        raise SystemExit("pytest did not report at least 17 passed")
+    if not match or int(match.group(1)) < 18:
+        raise SystemExit("pytest did not report at least 18 passed")
     tests_passed = int(match.group(1))
 
     steps.append(run("verify-figma", [sys.executable, str(ROOT / "scripts" / "verify_figma_export.py")]))

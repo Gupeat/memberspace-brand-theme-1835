@@ -1,11 +1,11 @@
 # #1835 验收记录（round1）
 
-- 生成时间：2026-11-20T12:08:00Z
+- 生成时间：2026-11-21T12:33:18Z
 - tokens.json SHA-256：`4e5dc3b3c3e31a0ecebee9f4e030966233f4599984d7b204aaa3174a9f0b0b35`
 - theme.wxss SHA-256：`127b876c07ec5ea75bc4441d20510169e517f75c7726507853a01f516c7d1f3f`
 - Figma 变量集 SHA-256：`215608ff444c16a66771ce950086b5bcb5bfcf6ebf38b488e7abd26ee9249e03`
-- 截图：`artifacts/example-page.png`，750x2261，296124 B，SHA-256：`8d7b49c30b61938d8e64156efde62d9ecb39f5aa2fc1fc76ae398040b0ddc4c4`
-- 单测：17 passed
+- 截图：`artifacts/example-page.png`，750x2261，311263 B，SHA-256：`13a13e3badbafd5fa7455042f313297260e299a5bb088511ee8696ebafb5f43f`
+- 单测：18 passed
 - 校验：8/8 PASS
 - token / TDesign 变量 / 对比度组合：74 / 84 / 62（最小 4.66:1）
 - Figma 在线导出：74/74 名称 1:1，collection Theme / mode Light
@@ -14,12 +14,12 @@
 | 步骤 | 命令 | exit | 秒 |
 | --- | --- | ---: | ---: |
 | build | `<home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <repo>\scripts\build.py` | 0 | 0.14 |
-| figma-syntax | `<home>/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node.exe --check <repo>\figma\create-variables.js` | 0 | 0.15 |
-| validate | `<home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <repo>\scripts\validate.py` | 0 | 0.26 |
-| pytest | `<home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe -m pytest -q tests` | 0 | 1.18 |
-| verify-figma | `<home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <repo>\scripts\verify_figma_export.py` | 0 | 0.12 |
-| verify-devtools | `<home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <repo>\scripts\verify_devtools_evidence.py` | 0 | 0.14 |
-| capture | `<home>/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node.exe <repo>\scripts\capture.mjs` | 0 | 3.05 |
+| figma-syntax | `<home>/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node.exe --check <repo>\figma\create-variables.js` | 0 | 0.13 |
+| validate | `<home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <repo>\scripts\validate.py` | 0 | 0.25 |
+| pytest | `<home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe -m pytest -q tests` | 0 | 1.58 |
+| verify-figma | `<home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <repo>\scripts\verify_figma_export.py` | 0 | 0.13 |
+| verify-devtools | `<home>\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe <repo>\scripts\verify_devtools_evidence.py` | 0 | 0.12 |
+| capture | `<home>/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node.exe <repo>\scripts\capture.mjs` | 0 | 2.51 |
 
 ## 校验明细
 
@@ -34,4 +34,4 @@
 
 ## 结论
 
-全部 7 步命令 exit 0；8/8 校验通过；17 项 pytest 通过；Figma 在线导出 74/74 校验通过；微信开发者工具证据 23 项通过；Web 截图为 750px 宽。
+全部 7 步命令 exit 0；8/8 校验通过；18 项 pytest 通过；Figma 在线导出 74/74 校验通过；微信开发者工具证据 23 项通过；Web 截图为 750px 宽。
