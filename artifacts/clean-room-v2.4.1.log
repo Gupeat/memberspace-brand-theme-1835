@@ -1,11 +1,22 @@
-$ -m pytest -q tests
-exit 0  1.6s
+#1835 clean-room v2.4.1
+generatedAt=2026-11-21T15:28:13Z
+source=local copy of repo, excluding miniprogram_npm, __pycache__, .pytest_cache, *.pyc
+has_miniprogram_npm=False
+python=3.12.14
+
+## python --version
+exit 0
+Python 3.12.14
+
+
+## python -m pytest -q tests
+exit 0
 ..................                                                       [100%]
-18 passed in 0.97s
+18 passed in 0.92s
 
 
-$ scripts/validate.py
-exit 0  0.2s
+## python scripts/validate.py
+exit 0
 ClawHunt #1835 token package validation
 
 [PASS] DTCG structure and value types: 74 tokens; strict DTCG value types valid (color objects, px dimensions, composite shadows)
@@ -19,13 +30,3 @@ ClawHunt #1835 token package validation
 
 RESULT: PASS (8/8 checks)
 
-
-$ scripts/verify_figma_export.py
-exit 0  0.1s
-{"ok": true, "checked": 74, "counts": {"color": 38, "number": 28, "string": 8}, "import_fresh": true, "light_identical": true, "missing": [], "extra": []}
-OK: 74/74 canonical paths and / display names, type counts, aliases, values and descriptions match; export snapshot is fresh.
-
-
-$ scripts/verify_devtools_evidence.py
-exit 0  0.1s
-{"ok": true, "checked": 23, "screenshots": {"screenshot_simulator": {"path": "evidence/devtools/miniprogram-simulator.png", "bytes": 101266, "sha256": "3df9ec5a364e7067953609beecac54bb65591607c02f733192a84900ebc2a187", "width": 488, "height": 941}, "screenshot_devtools": {"path": "evidence/devtools/miniprogram-devtools.png", "bytes": 179074, "sha256": "97d49831578538a6bab2e839a951c47c0c2faad995a91327be4b41e1f893e8fe", "width": 1564, "height": 1250}}, "verify": "evidence/devtools/verify.json"}
